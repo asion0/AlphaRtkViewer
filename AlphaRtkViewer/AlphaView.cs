@@ -772,23 +772,12 @@ namespace RtkViewer
             {
                 cyckeSlipLbl.Text = ps.GetFormatRtkCycleSlip();
             }
-                
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            ListBoxUtil.AddStringToListBoxAndScrollToBottom(messageLsb, args.showString);
+            if (args.showString.Length > 0)
+            {
+                ListBoxUtil.AddStringToListBoxAndScrollToBottom(messageLsb, args.showString);
+            }
         }
 
         private void UpdateLicenseStatus()
@@ -809,9 +798,12 @@ namespace RtkViewer
                 rtkActLbl.ForeColor = Color.Blue;
                 licPeriodLbl.ForeColor = Color.Blue;
             }
-            else if (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.Monthly)
+            else if (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.Monthly ||
+                deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.OneYear)
             {
-                rtkActLbl.Text = "Monthly License";
+                rtkActLbl.Text = (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.OneYear)
+                    ? "One Year License"
+                    : "Monthly License";
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormat("{0}/{1}/{2} ", deviceInfo.GetMiscStartY(), deviceInfo.GetMiscStartM(), deviceInfo.GetMiscStartD());
                 sb.AppendFormat(" ~ {0}/{1}/{2}", deviceInfo.GetMiscEndY(), deviceInfo.GetMiscEndM(), deviceInfo.GetMiscEndD());
@@ -1267,11 +1259,12 @@ namespace RtkViewer
         //Demo codes for position fix status change
         private void UpdateFixStatus(ParsingStatus.FixedMode m)
         {
-            string[] fixString = { "No Fix", "Pos. Fix 2D", "Pos. Fix 3D.", "DGPS", "DR Estimated", "Float RTK", "Fix RTK",};
+            string[] fixString = { "No Fix", "Pos. Fix 2D", "Pos. Fix 3D.", "DGPS", "DR Estimated", "Float RTK", "Fix RTK", "RTCM Mode", "Unknown"};
             fixStatusLbl.Text = fixString[(int)m];
             switch (m)
             {
                 case ParsingStatus.FixedMode.None:
+                case ParsingStatus.FixedMode.Unknown:
                     fixStatusLbl.ForeColor = Color.Red;
                     break;
                 case ParsingStatus.FixedMode.PositionFix2d:
@@ -1280,6 +1273,7 @@ namespace RtkViewer
                     fixStatusLbl.ForeColor = Color.Blue;
                     break;
                 case ParsingStatus.FixedMode.EstimatedMode:
+                case ParsingStatus.FixedMode.RtcmMode:
                     fixStatusLbl.ForeColor = Color.Purple;
                     break;
                 case ParsingStatus.FixedMode.FixRTK:
@@ -1486,8 +1480,75 @@ namespace RtkViewer
                     deviceInfo.EnableParserSaveDeviceOutput(true);
                 }
             }
+        }
 
-            
+        private string tsFile = "";
+        private int timeStampCount = 0;
+        private void TimestampParsingResultHandler(object sender, MessageParser.ParsingResultArgs args)
+        {
+            if (args.deviceOutput[4] == 0xE5 && 
+                args.deviceOutput[0] == 0xA0 && 
+                args.deviceOutput[1] == 0xA1 && 
+                (args.deviceOutput[15] & 0x01) != 0x00)
+            {
+                //Console.WriteLine(args.deviceOutput);
+                MiscUtil.Conversion.BigEndianBitConverter c = new MiscUtil.Conversion.BigEndianBitConverter();
+
+                UInt16 wn = c.ToUInt16(args.deviceOutput, 7);
+                UInt32 tow = c.ToUInt32(args.deviceOutput, 9);
+                int year = 0, month = 0, day = 0, hour = 0, minute = 0;
+                double sec = 0;
+
+                MessageParser.GetTimeFromWnTow(wn, tow / 1000.0, true, ref year, ref month, ref day, ref hour, ref minute, ref sec);
+
+                string s = String.Format("{0:D4}/{1:D2}/{2:D2} {3:D2}:{4:D2}:{5:00.000}", year, month, day, hour, minute, sec);
+                //Console.WriteLine(s);
+                using (StreamWriter w = File.AppendText(tsFile))
+                {
+                    w.WriteLine(s);
+                    ++timeStampCount;
+                }
+            }
+        }
+
+        private void sDTimestampAcquisitionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Log files|*.dat|All files|*.*";
+            ofd.Title = "Open Log File";
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            timeStampCount = 0;
+            tsFile = Path.GetFullPath(ofd.FileName) + ".txt";
+            MessageParser parser = new MessageParser();
+
+            parser.parsingResultHandler += TimestampParsingResultHandler;
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-TW");
+
+            using (Stream source = File.OpenRead(ofd.FileName))
+            {
+                byte[] buffer = new byte[2048];
+                int bytesRead;
+                while ((bytesRead = source.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    parser.Parsing(buffer);
+                }
+            }
+
+            if (timeStampCount > 0)
+            {
+                System.Diagnostics.ProcessStartInfo StartInformation = new System.Diagnostics.ProcessStartInfo();
+                StartInformation.FileName = tsFile;
+                System.Diagnostics.Process process = System.Diagnostics.Process.Start(StartInformation);
+                process.EnableRaisingEvents = true;
+                MessageBox.Show("Found " + timeStampCount + " timestamps. \r\nConversion completed.");
+            }
+            else
+            {
+                MessageBox.Show("No timestamp can be converted!");
+            }
         }
 
         private void clearResponseLsbMenuItem_Click(object sender, EventArgs e)

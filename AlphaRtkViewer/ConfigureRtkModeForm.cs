@@ -61,6 +61,16 @@ namespace RtkViewer
                 lon = MessageParser.GetParsingStatus().GetLongitudeDegree();
                 epdH = MessageParser.GetParsingStatus().GetEllipsoidalHeight();
             }
+
+            latNs1Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
+            latNs2Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
+            latNs3Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
+            lonEw1Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
+            lonEw2Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
+            lonEw3Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
+            lat = Math.Abs(lat);
+            lon = Math.Abs(lon);
+
             int lat2D = 0, lat3M = 0, lon2D = 0, lon3M = 0;
             double lat2M = 0, lat3S = 0, lon2M = 0, lon3S = 0;
 
@@ -84,12 +94,7 @@ namespace RtkViewer
             latSec3Txt.Text = lat3S.ToString("F5");
             lonSec3Txt.Text = lon3S.ToString("F5");
 
-            latNs1Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
-            latNs2Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
-            latNs3Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
-            lonEw1Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
-            lonEw2Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
-            lonEw3Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
+
 
             eplHTxt.Text = epdH.ToString("F2");
 
@@ -213,20 +218,33 @@ namespace RtkViewer
         public float GetStaticEllipsoidalH() { return staticEllipsoidalH; }
         private void rtkBase1_2AcceptBtn_Click(object sender, EventArgs e)
         {
+
+            //latNs1Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
+            //latNs2Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
+            //latNs3Cmb.SelectedIndex = (lat < 0) ? 1 : 0;
+            //lonEw1Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
+            //lonEw2Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
+            //lonEw3Cmb.SelectedIndex = (lon < 0) ? 1 : 0;
             if (coorFmt1Rdo.Checked)
             {
                 staticLatitude = Convert.ToDouble(latDeg1Txt.Text);
+                staticLatitude *= (latNs1Cmb.SelectedIndex == 1) ? -1 : 1;
                 staticLongitude = Convert.ToDouble(lonDeg1Txt.Text);
+                staticLongitude *= (lonEw1Cmb.SelectedIndex == 1) ? -1 : 1;
             }
             else if (coorFmt2Rdo.Checked)
             {
                 staticLatitude = MiscConverter.ConvertDegMinToDeg(Convert.ToInt32(latDeg2Txt.Text), Convert.ToDouble(latMin2Txt.Text));
+                staticLatitude *= (latNs2Cmb.SelectedIndex == 1) ? -1 : 1;
                 staticLongitude = MiscConverter.ConvertDegMinToDeg(Convert.ToInt32(lonDeg2Txt.Text), Convert.ToDouble(lonMin2Txt.Text));
+                staticLongitude *= (lonEw2Cmb.SelectedIndex == 1) ? -1 : 1;
             }
             else if (coorFmt3Rdo.Checked)
             {
                 staticLatitude = MiscConverter.ConvertDegMinSecToDeg(Convert.ToInt32(latDeg3Txt.Text), Convert.ToInt32(latMin3Txt.Text), Convert.ToDouble(latSec3Txt.Text));
+                staticLatitude *= (latNs3Cmb.SelectedIndex == 1) ? -1 : 1;
                 staticLongitude = MiscConverter.ConvertDegMinSecToDeg(Convert.ToInt32(lonDeg3Txt.Text), Convert.ToInt32(lonMin3Txt.Text), Convert.ToDouble(lonSec3Txt.Text));
+                staticLongitude *= (lonEw3Cmb.SelectedIndex == 1) ? -1 : 1;
             }
             staticEllipsoidalH = (float)Convert.ToDouble(eplHTxt.Text);
             DialogResult = DialogResult.OK;
@@ -437,8 +455,8 @@ namespace RtkViewer
         {
             NoData = 0,
             NMEA = 1,
-            Binary = 3,
-            UAV = 4,
+            Binary = 2,
+            UAV = 3,
             RAW,
             RTCM,
         }

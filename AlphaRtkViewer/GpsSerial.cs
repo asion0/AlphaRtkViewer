@@ -682,7 +682,7 @@ namespace RtkViewer
             return retval;
         }
 
-         public GPS_RESPONSE QuerySerialNumber(int timeout, ref byte[] serialNo)
+        public GPS_RESPONSE QuerySerialNumber(int timeout, ref byte[] serialNo)
         {
             GPS_RESPONSE retval = GPS_RESPONSE.NONE;
             byte[] cmdData = new byte[2];

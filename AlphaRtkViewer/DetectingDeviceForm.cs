@@ -411,6 +411,13 @@ namespace RtkViewer
                             sb.AppendFormat(" ~ {0}/{1}/{2}", deviceInfo.GetMiscEndY(), deviceInfo.GetMiscEndM(), deviceInfo.GetMiscEndD());
                             licenseLbl.Text = sb.ToString();
                         }
+                        else if (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.OneYear)
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendFormat("{0}/{1}/{2} ", deviceInfo.GetMiscStartY(), deviceInfo.GetMiscStartM(), deviceInfo.GetMiscStartD());
+                            sb.AppendFormat(" ~ {0}/{1}/{2}", deviceInfo.GetMiscEndY(), deviceInfo.GetMiscEndM(), deviceInfo.GetMiscEndD());
+                            licenseLbl.Text = sb.ToString();
+                        }
                         else
                         {
                             licenseLbl.Text = "License Required";

@@ -1424,6 +1424,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1337, 910);
+            this.Controls.Add(this.rtkBase1_2Panel);
             this.Controls.Add(this.rtkBase1_0Panel);
             this.Controls.Add(this.rtkBase1_5Panel);
             this.Controls.Add(this.rtkBase1_3Panel);
@@ -1431,7 +1432,6 @@
             this.Controls.Add(this.rtkBase1_4Panel);
             this.Controls.Add(this.rtkModePanel);
             this.Controls.Add(this.rtkRover1_0Panel);
-            this.Controls.Add(this.rtkBase1_2Panel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfigureRtkModeForm";

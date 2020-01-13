@@ -32,9 +32,18 @@ using System.Runtime.InteropServices;
 // 您可以指定所有的值，也可以依照以下的方式，使用 '*' 將組建和修訂編號
 // 指定為預設值: 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.9")]
-[assembly: AssemblyFileVersion("1.0.0.9")]
+[assembly: AssemblyVersion("1.0.0.18")]
+[assembly: AssemblyFileVersion("1.0.0.18")]
 
+//1.0.0.18 - 20190911, Modify fix mode in RTCM output, request by Jim Lin
+//1.0.0.17 - 20190411, no leap seconds in parsing time stamp for PPK application, report by Jim Lin
+//1.0.0.16 - 20190329, fixed parsing time stamp issue, report by Jim Lin
+//1.0.0.15 - 20190318, Add RTCM parser and Tool for parsing time stamp raw, request from Jim Lin
+//1.0.0.14 - 20190215, Add an exception handler for COM port string conversion, report from Giorgios https://forum.polaris-gnss.com/t/rtkview-issue/217
+//1.0.0.13 - 20190117, Allow multiple instances, request from Oliver
+//1.0.0.12 - 20190111, Fix UBLOX message index error, report by Ming-Jen.
+//1.0.0.11 - 20181217, Fix issue in Get COM Port List, report by Oliver's mail.
+//1.0.0.10 - 20181207, Fix issue in Configure RTK Mode, report by user mhmagnuson.
 //1.0.0.9 - 20181105, Modify earth view ele draw scale, request from Oliver.
 //1.0.0.9 - 20181105, Support [Save Device Output], request from Oliver.
 //1.0.0.9 - 20181030, Fixed issues in ming-jen's NB, add log for DebugView.

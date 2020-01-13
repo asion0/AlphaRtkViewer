@@ -84,6 +84,7 @@
             this.viewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkSoftwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableRTKFunctionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveDeviceOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -168,7 +169,7 @@
             this.snr2Pbox = new System.Windows.Forms.PictureBox();
             this.snr3Pbox = new System.Windows.Forms.PictureBox();
             this.snr1Pbox = new System.Windows.Forms.PictureBox();
-            this.saveDeviceOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sDTimestampAcquisitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.viewerPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -781,6 +782,13 @@
             this.enableRTKFunctionToolStripMenuItem.Text = "Configure RTK License";
             this.enableRTKFunctionToolStripMenuItem.Click += new System.EventHandler(this.enableRTKFunctionToolStripMenuItem_Click);
             // 
+            // saveDeviceOutputToolStripMenuItem
+            // 
+            this.saveDeviceOutputToolStripMenuItem.Name = "saveDeviceOutputToolStripMenuItem";
+            this.saveDeviceOutputToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.saveDeviceOutputToolStripMenuItem.Text = "Save Device Output";
+            this.saveDeviceOutputToolStripMenuItem.Click += new System.EventHandler(this.saveDeviceOutputToolStripMenuItem_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -907,6 +915,7 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sDTimestampAcquisitionToolStripMenuItem,
             this.convertRawDataToRINEXToolStripMenuItem,
             this.rTKPostProcessingToolStripMenuItem,
             this.generateFlightPlanToolStripMenuItem,
@@ -914,31 +923,34 @@
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
-            this.toolsToolStripMenuItem.Visible = false;
             // 
             // convertRawDataToRINEXToolStripMenuItem
             // 
             this.convertRawDataToRINEXToolStripMenuItem.Name = "convertRawDataToRINEXToolStripMenuItem";
             this.convertRawDataToRINEXToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.convertRawDataToRINEXToolStripMenuItem.Text = "Convert Raw Data to RINEX";
+            this.convertRawDataToRINEXToolStripMenuItem.Visible = false;
             // 
             // rTKPostProcessingToolStripMenuItem
             // 
             this.rTKPostProcessingToolStripMenuItem.Name = "rTKPostProcessingToolStripMenuItem";
             this.rTKPostProcessingToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.rTKPostProcessingToolStripMenuItem.Text = "RTK Post Processing";
+            this.rTKPostProcessingToolStripMenuItem.Visible = false;
             // 
             // generateFlightPlanToolStripMenuItem
             // 
             this.generateFlightPlanToolStripMenuItem.Name = "generateFlightPlanToolStripMenuItem";
             this.generateFlightPlanToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.generateFlightPlanToolStripMenuItem.Text = "Generate Flight Plan";
+            this.generateFlightPlanToolStripMenuItem.Visible = false;
             // 
             // sDCardLogBackupToolStripMenuItem1
             // 
             this.sDCardLogBackupToolStripMenuItem1.Name = "sDCardLogBackupToolStripMenuItem1";
             this.sDCardLogBackupToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
             this.sDCardLogBackupToolStripMenuItem1.Text = "SD Card Log Backup";
+            this.sDCardLogBackupToolStripMenuItem1.Visible = false;
             this.sDCardLogBackupToolStripMenuItem1.Click += new System.EventHandler(this.sDCardLogBackupToolStripMenuItem1_Click);
             // 
             // helpToolStripMenuItem
@@ -1666,12 +1678,12 @@
             this.snr1Pbox.TabStop = false;
             this.snr1Pbox.Paint += new System.Windows.Forms.PaintEventHandler(this.snr1Pbox_Paint);
             // 
-            // saveDeviceOutputToolStripMenuItem
+            // sDTimestampAcquisitionToolStripMenuItem
             // 
-            this.saveDeviceOutputToolStripMenuItem.Name = "saveDeviceOutputToolStripMenuItem";
-            this.saveDeviceOutputToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
-            this.saveDeviceOutputToolStripMenuItem.Text = "Save Device Output";
-            this.saveDeviceOutputToolStripMenuItem.Click += new System.EventHandler(this.saveDeviceOutputToolStripMenuItem_Click);
+            this.sDTimestampAcquisitionToolStripMenuItem.Name = "sDTimestampAcquisitionToolStripMenuItem";
+            this.sDTimestampAcquisitionToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.sDTimestampAcquisitionToolStripMenuItem.Text = "SD Timestamp Acquisition";
+            this.sDTimestampAcquisitionToolStripMenuItem.Click += new System.EventHandler(this.sDTimestampAcquisitionToolStripMenuItem_Click);
             // 
             // AlphaView
             // 
@@ -1871,6 +1883,7 @@
         private System.Windows.Forms.Label sVerSLbl;
         private System.Windows.Forms.Label kVerSLbl;
         private System.Windows.Forms.ToolStripMenuItem saveDeviceOutputToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sDTimestampAcquisitionToolStripMenuItem;
     }
 }
 

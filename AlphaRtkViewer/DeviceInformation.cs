@@ -194,19 +194,31 @@ namespace RtkViewer
         {
             None,
             Monthly,
+            OneYear,
             Perpetual,
         }
 
         public LicenseType GetLicenseType()
         {
-            if (miscInfo[5] == 0 && miscInfo[6] == 0 & miscInfo[7] == 0)
+            if (miscInfo[5] == 0 && miscInfo[6] == 0 && miscInfo[7] == 0)
             {
                 return LicenseType.Perpetual;
             }
-            else if (miscInfo[2] > 0 && miscInfo[3] <= 12 & miscInfo[4] <= 31 &&
-                miscInfo[5] > 0 && miscInfo[6] <= 12 & miscInfo[7] <= 31)
+            else if (miscInfo[2] > 0 && miscInfo[3] <= 12 && miscInfo[4] <= 31 &&
+                miscInfo[5] > 0 && miscInfo[6] <= 12 && miscInfo[7] <= 31)
             {
-                return LicenseType.Monthly;
+                DateTime start = new DateTime(miscInfo[2] + 2000, miscInfo[3], miscInfo[4]);
+                DateTime end = new DateTime(miscInfo[5] + 2000, miscInfo[6], miscInfo[7]);
+                TimeSpan ts = end - start;
+
+                if (ts.Days < 45)
+                {
+                    return LicenseType.Monthly;
+                }
+                else
+                {
+                    return LicenseType.OneYear;
+                }
             }
             return LicenseType.None;
         }
@@ -265,15 +277,12 @@ namespace RtkViewer
                         continue;
                     }
 
-                    //if (_dataInQueue.Count > 0)
-                    //{
-                        byte[] data = null;
-                        lock (_dataInQueueLock)
-                        {
-                            data = _dataInQueue.Dequeue();
-                        }
-                        parser.Parsing(data);
-                    //}
+                    byte[] data = null;
+                    lock (_dataInQueueLock)
+                    {
+                        data = _dataInQueue.Dequeue();
+                    }
+                    parser.Parsing(data);
                 }
             }
 
@@ -319,13 +328,5 @@ namespace RtkViewer
                 parserThread = null;
             }
         }
-
-
-
-
-
-
-
-
     }
 }

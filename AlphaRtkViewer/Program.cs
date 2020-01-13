@@ -35,18 +35,19 @@ namespace RtkViewer
                 LaunchLocal();
                 return;
             }
-            
-            if (AppTools.CreateMutex(AppTools.RtkViewerMutexName))
-            {
-                MessageBox.Show("Application" + " " + Application.ProductName.ToString() + " " + "already running");
-                return;
-            }
+
+            // 20190117 Do not block multiple executions, request from Oliver
+            //if (AppTools.CreateMutex(AppTools.RtkViewerMutexName))
+            //{
+            //    MessageBox.Show("Application" + " " + Application.ProductName.ToString() + " " + "already running");
+            //    return;
+            //}
 
             AppTools.ShowDebug("RTK Viewer starts");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new AlphaView());
-            AppTools.ReleaseMutex();
+            //AppTools.ReleaseMutex();
         }
 
         public static bool localRun = false;

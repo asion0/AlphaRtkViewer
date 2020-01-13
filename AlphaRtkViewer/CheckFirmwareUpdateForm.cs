@@ -471,6 +471,7 @@ namespace RtkViewer
         {
             status = Status.ConfigureFinished;
             return;
+            /*
             GpsSerial.GPS_RESPONSE rep = GpsSerial.GPS_RESPONSE.NONE;
 
             rep = gps.ConfigureRtkMode(2000, deviceInfo.GetRtkInfo(), GpsSerial.Attributes.SramAndFlash);
@@ -498,8 +499,8 @@ namespace RtkViewer
             {
             }
 
-
             status = Status.ConfigureFinished;
+            */
         }
 
         private void BwConfigureRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

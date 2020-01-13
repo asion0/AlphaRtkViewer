@@ -481,57 +481,13 @@ namespace StqMessageParser
             return SetDate(yy, mm, dd);
         }
 
+
         public ParsingResult SetStqTimeWnTow(UInt16 wn, double tow)
         {
-            const int DefaultLeapSeconds = 18;
-            // GPS Time start at 1980 Jan. 5/6 mid-night
-           
-            const Int16 DAYS_PER_YEAR = 365;
-            const Int16 DAYS_PER_4_YEARS = (DAYS_PER_YEAR * 4 + 1);  // plus one day for leap year
-            Int16[] day_of_year_month_table =
-                { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365 };
-            Int16[] day_of_leap_year_month_table =
-                { 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366 };
-            Int16[] month_tbl_p = day_of_year_month_table;
+            int year = 0, month = 0, day = 0, hour = 0, minute = 0;
+            double sec = 0;
 
-            Int32 tow_int = (Int32)Math.Floor(tow);
-            double tow_frac = tow - (double)tow_int;
-            Int32 total_utc_sec = 604800 * wn + tow_int - DefaultLeapSeconds;
-            Int32 total_utc_day = total_utc_sec / 86400;
-            Int32 sec_of_day = total_utc_sec - 86400 * total_utc_day;
-            Int32 passed_leap_days = (total_utc_day + DAYS_PER_4_YEARS
-                    - day_of_leap_year_month_table[2] + 5) / DAYS_PER_4_YEARS;
-            Int32 passed_utc_years = (total_utc_day + 5 - passed_leap_days) / 365;
-            Int32 leap_days_of_prev_years = (passed_utc_years + 3) / 4;
-            Int32 day_of_utc_year = total_utc_day + 5 - passed_utc_years * DAYS_PER_YEAR
-                - leap_days_of_prev_years;
-
-            int year = 1980 + passed_utc_years;
-            int day_of_year = day_of_utc_year + 1;
-            if ((year & 0x3) == 0)  // utc->year % 4
-                month_tbl_p = day_of_leap_year_month_table;  // this year is leap year
-
-            int i = 1;
-            for (i = 1; i < 13; ++i)
-                if (day_of_utc_year < month_tbl_p[i])
-                    break;
-
-            int month = i;
-            int day = day_of_utc_year - month_tbl_p[i - 1] + 1;
-
-            int hour = sec_of_day / 3600;
-            if (hour > 23)
-            {
-                hour = 23;
-            }
-
-            int minute = (sec_of_day - hour * 3600) / 60;
-            if (minute > 59)
-            {
-                minute = 59;
-            }
-
-            double sec = (sec_of_day - hour * 3600 - minute * 60) + tow_frac;
+            MessageParser.GetTimeFromWnTow(wn, tow, false, ref year, ref month, ref day, ref hour, ref minute, ref sec);
             ParsingResult pr = SetDate(year, month, day);
             return pr | SetTime(hour, minute, (float)sec);
         }
@@ -730,6 +686,7 @@ namespace StqMessageParser
         private char ggaGpsQualityInd = ' ';
         private char rmcNavStatus = ' ';
         private char gsaFixedMode = ' ';
+        private bool rtcmFixedMode = false;
 
         //public interface for fix modes
         public enum FixedMode
@@ -741,13 +698,21 @@ namespace StqMessageParser
             EstimatedMode,
             FloatRTK,
             FixRTK,
+            RtcmMode,
+            Unknown,
         }
 
         public bool IsBetterThanPositionFix3D() { return GetFixedMode() >= FixedMode.PositionFix3d; }
 
         public FixedMode GetFixedMode()
         {
-            if(rmcNavStatus != ' ')
+
+            if (rtcmFixedMode)
+            {
+                return FixedMode.RtcmMode;
+            }
+
+            if (rmcNavStatus != ' ')
             {
                 // GNS & RMC Mode indicator
                 // A(1) - Autonomous.Satellites system used in non - differential mode in position fix.
@@ -807,12 +772,27 @@ namespace StqMessageParser
                         return FixedMode.PositionFix2d;
                 }
             }
+
             return FixedMode.None;
+        }
+
+        public ParsingResult SetRtcmFixedMode(bool b)
+        {
+            if(rtcmFixedMode == b)
+            {
+                return ParsingResult.None;
+            }
+            else
+            {
+                rtcmFixedMode = b;
+                return ParsingResult.UpdateFixMode;
+            }
         }
 
         public ParsingResult SetGgaGpsQualityInd(char c)
         {
-            if(ggaGpsQualityInd != c)
+            rtcmFixedMode = false;
+            if (ggaGpsQualityInd != c)
             {
                 ggaGpsQualityInd = c;
                 return ParsingResult.UpdateFixMode;
@@ -822,6 +802,7 @@ namespace StqMessageParser
 
         public ParsingResult SetRmcNavStatus(char c)
         {
+            rtcmFixedMode = false;
             if (rmcNavStatus != c)
             {
                 rmcNavStatus = c;
@@ -832,6 +813,7 @@ namespace StqMessageParser
 
         public ParsingResult SetGsaFixedMode(char c)
         {
+            rtcmFixedMode = false;
             if (gsaFixedMode != c)
             {
                 gsaFixedMode = c;
@@ -842,6 +824,7 @@ namespace StqMessageParser
 
         public ParsingResult SetStqDfNavStatus(byte b)
         {
+            rtcmFixedMode = false;
             ParsingResult pr = ParsingResult.None;
             switch (b)
             {
@@ -1233,9 +1216,10 @@ namespace StqMessageParser
             public string showString;
             public ParsingResult parsingResult;
             public byte[] deviceOutput;
-            public ParsingResultArgs(string s, ParsingResult p)
+            public ParsingResultArgs(string s, byte[] b, ParsingResult p)
             {
                 showString = s;
+                deviceOutput = b;
                 parsingResult = p;
             }
 
@@ -1264,7 +1248,7 @@ namespace StqMessageParser
                     parsingBuffer[bi++] = c;
                     parsingBuffer[bi] = 0;
                     PrasingMessage(parsingBuffer, bi);
-                    parsingResultHandler?.Invoke(null, new ParsingResultArgs(showString, parsingResult));
+                    parsingResultHandler?.Invoke(null, new ParsingResultArgs(showString, parsingBuffer, parsingResult));
                     bi = 0;
                 }
                 else if (ps != ParsingState.NoComing)
@@ -1276,6 +1260,59 @@ namespace StqMessageParser
                     bi = 0;
                 }
             }
+        }
+
+        public static void GetTimeFromWnTow(UInt16 wn, double tow, bool noLeapSeconds,
+            ref int year, ref int month, ref int day, ref int hour, ref int minute, ref double sec)
+        {
+            const int DefaultLeapSeconds = 18;
+            // GPS Time start at 1980 Jan. 5/6 mid-night
+            const Int16 DAYS_PER_YEAR = 365;
+            const Int16 DAYS_PER_4_YEARS = (DAYS_PER_YEAR * 4 + 1);  // plus one day for leap year
+            Int16[] day_of_year_month_table =
+                { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365 };
+            Int16[] day_of_leap_year_month_table =
+                { 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366 };
+            Int16[] month_tbl_p = day_of_year_month_table;
+
+            Int32 tow_int = (Int32)Math.Floor(tow);
+            double tow_frac = tow - (double)tow_int;
+            Int32 total_utc_sec = 604800 * wn + tow_int - ((noLeapSeconds) ? 0 : DefaultLeapSeconds);
+            Int32 total_utc_day = total_utc_sec / 86400;
+            Int32 sec_of_day = total_utc_sec - 86400 * total_utc_day;
+            Int32 passed_leap_days = (total_utc_day + DAYS_PER_4_YEARS
+                    - day_of_leap_year_month_table[2] + 5) / DAYS_PER_4_YEARS;
+            Int32 passed_utc_years = (total_utc_day + 5 - passed_leap_days) / 365;
+            Int32 leap_days_of_prev_years = (passed_utc_years + 3) / 4;
+            Int32 day_of_utc_year = total_utc_day + 5 - passed_utc_years * DAYS_PER_YEAR
+                - leap_days_of_prev_years;
+
+            year = 1980 + passed_utc_years;
+            int day_of_year = day_of_utc_year + 1;
+            if ((year & 0x3) == 0)  // utc->year % 4
+                month_tbl_p = day_of_leap_year_month_table;  // this year is leap year
+
+            int i = 1;
+            for (i = 1; i < 13; ++i)
+                if (day_of_utc_year < month_tbl_p[i])
+                    break;
+
+            month = i;
+            day = day_of_utc_year - month_tbl_p[i - 1] + 1;
+
+            hour = sec_of_day / 3600;
+            if (hour > 23)
+            {
+                hour = 23;
+            }
+
+            minute = (sec_of_day - hour * 3600) / 60;
+            if (minute > 59)
+            {
+                minute = 59;
+            }
+
+            sec = (sec_of_day - hour * 3600 - minute * 60) + tow_frac;
         }
 
         private enum ParsingState
@@ -1503,10 +1540,8 @@ namespace StqMessageParser
                     return ParsingState.RtcmHeaderD3;
                 case (byte)'$':
                     return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
+                case 0x62:
+                    return ParsingState.UbloxHeader62;
                 default:
                     return ParsingState.NoComing;
             }
@@ -1516,16 +1551,28 @@ namespace StqMessageParser
         {
             switch (c)
             {
+                case 0x01:
+                case 0x02:
+                case 0x04:
+                case 0x05:
+                case 0x06:
+                case 0x09:
+                case 0x0A:
+                case 0x0B:
+                case 0x0D:
+                case 0x10:
+                case 0x13:
+                case 0x21:
+                case 0x27:
+                    return ParsingState.UbloxClass;
                 case 0xA0:
                     return ParsingState.StqHeaderA0;
                 case 0xD3:
                     return ParsingState.RtcmHeaderD3;
                 case (byte)'$':
                     return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
+                case 0x62:
+                    return ParsingState.UbloxHeader62;
                 default:
                     return ParsingState.NoComing;
             }
@@ -1533,135 +1580,47 @@ namespace StqMessageParser
 
         private static ParsingState UbloxClassM(byte c)
         {
-            switch (c)
-            {
-                case 0xA0:
-                    return ParsingState.StqHeaderA0;
-                case 0xD3:
-                    return ParsingState.RtcmHeaderD3;
-                case (byte)'$':
-                    return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
-                default:
-                    return ParsingState.NoComing;
-            }
+            return ParsingState.UbloxId;
         }
 
+        private static int ubloxMessageSize = 0;
         private static ParsingState UbloxIdM(byte c)
         {
-            switch (c)
-            {
-                case 0xA0:
-                    return ParsingState.StqHeaderA0;
-                case 0xD3:
-                    return ParsingState.RtcmHeaderD3;
-                case (byte)'$':
-                    return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
-                default:
-                    return ParsingState.NoComing;
-            }
+            ubloxMessageSize = c;
+            return ParsingState.UbloxSize1;
         }
 
         private static ParsingState UbloxSize1M(byte c)
         {
-            switch (c)
-            {
-                case 0xA0:
-                    return ParsingState.StqHeaderA0;
-                case 0xD3:
-                    return ParsingState.RtcmHeaderD3;
-                case (byte)'$':
-                    return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
-                default:
-                    return ParsingState.NoComing;
-            }
+            ubloxMessageSize |= c << 8;
+            messageLength = 1;
+            return ParsingState.UbloxSize2;
         }
 
         private static ParsingState UbloxSize2M(byte c)
         {
-            switch (c)
-            {
-                case 0xA0:
-                    return ParsingState.StqHeaderA0;
-                case 0xD3:
-                    return ParsingState.RtcmHeaderD3;
-                case (byte)'$':
-                    return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
-                default:
-                    return ParsingState.NoComing;
-            }
+            return ParsingState.UbloxBody;
         }
 
         private static ParsingState UbloxBodyM(byte c)
         {
-            switch (c)
+            ++messageLength;
+            if (ubloxMessageSize == messageLength)
             {
-                case 0xA0:
-                    return ParsingState.StqHeaderA0;
-                case 0xD3:
-                    return ParsingState.RtcmHeaderD3;
-                case (byte)'$':
-                    return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
-                default:
-                    return ParsingState.NoComing;
+                return ParsingState.UbloxChecksumA;
             }
+            return ParsingState.UbloxBody;
         }
 
         private static ParsingState UbloxChecksumAM(byte c)
         {
-            switch (c)
-            {
-                case 0xA0:
-                    return ParsingState.StqHeaderA0;
-                case 0xD3:
-                    return ParsingState.RtcmHeaderD3;
-                case (byte)'$':
-                    return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
-                default:
-                    return ParsingState.NoComing;
-            }
+            return ParsingState.UbloxChecksumB;
         }
 
         private static ParsingState UbloxChecksumBM(byte c)
         {
-            switch (c)
-            {
-                case 0xA0:
-                    return ParsingState.StqHeaderA0;
-                case 0xD3:
-                    return ParsingState.RtcmHeaderD3;
-                case (byte)'$':
-                    return ParsingState.NmeaHeaderDoller;
-                case 0xB5:
-                    return ParsingState.UbloxHeaderB5;
-                case 0x0D:
-                    return ParsingState.UnknownMessage0D;
-                default:
-                    return ParsingState.NoComing;
-            }
+            messageType = MessageType.UbloxMessage;
+            return ParsingState.ParsingDone;
         }
 
         private static ParsingState UnknownMessage0DM(byte c)
@@ -1782,12 +1741,13 @@ namespace StqMessageParser
         private NmeaParser nmeaParser = new NmeaParser();
         private RtcmParser rtcmParser = new RtcmParser();
         private StqBinaryParser stqBinParser = new StqBinaryParser();
-        //private UbloxBinaryParser ubloxBinParser = new UbloxBinaryParser();
+        private UbloxParser ubloxParser = new UbloxParser();
         private void PrasingMessage(byte[] buffer, int length)
         {
             NmeaParser.NmeaType nmeaType = NmeaParser.NmeaType.NMEA_Unknown;
             StqBinaryParser.StqBinaryType stqBinaryType = StqBinaryParser.StqBinaryType.STQ_Unknown;
             RtcmParser.RtcmType rtcmType = RtcmParser.RtcmType.RTCM_Unknown;
+            UbloxParser.UbloxType ubloxType = UbloxParser.UbloxType.UBX_Unknown;
             showString = "";
             switch (messageType)
             {
@@ -1801,6 +1761,7 @@ namespace StqMessageParser
                     parsingResult = rtcmParser.Process(buffer, length, ref rtcmType, ref showString);
                     return;// String.Format("{0}({1})", rtcmType.ToString(), length);
                 case MessageType.UbloxMessage:
+                    parsingResult = ubloxParser.Process(buffer, length, ref ubloxType, ref showString);
                     break;
                 default:
                     break;
@@ -2801,6 +2762,7 @@ namespace StqMessageParser
             //    pr |= MessageParser.GetParsingStatus().SetGsaFixedMode('3');
             //    pr |= MessageParser.GetParsingStatus().SetRmcNavStatus('A');
             //}
+            pr |= MessageParser.GetParsingStatus().SetRtcmFixedMode(true);
 
             pr |= MessageParser.GetParsingStatus().SetRtcmLatLonAlt(ecefx, ecefy, ecefz);
             return pr;
@@ -2873,7 +2835,7 @@ namespace StqMessageParser
 
         private struct RTCM_MSM_HEADER
         {
-            public byte valid;
+            //public byte valid;
             public UInt16 sta_id;
             public UInt32 gnss_epoch_time;
 
@@ -2889,7 +2851,7 @@ namespace StqMessageParser
 
         private struct RTCM_MSM_5_7_SAT_DATA
         {
-            public byte rough_range_in_ms;
+            //public byte rough_range_in_ms;
             public byte ext_sat_info;   //knum + 7 in glonass, 0 in gps
             public UInt16 rough_range_mudulo_1_ms;
             public Int16 rough_phase_range_rate;
@@ -3031,6 +2993,142 @@ namespace StqMessageParser
                 bitIndex += 15;
             }
             return nSat;
+        }
+    }
+
+    public class UbloxParser
+    {
+        public enum UbloxType
+        {
+            UBX_Unknown = 0,
+            UBX_TimTp,
+            UBX_NavSol,
+            UBX_NavPvt,
+            UBX_NavSvInfo,
+            UBX_NavSvStatus,
+            UBX_NavPosllh,
+            UBX_NavDop,
+            UBX_NavVelend,
+        }
+
+        public ParsingResult Process(byte[] buffer, int length, ref UbloxType ubloxType, ref string showText)
+        {
+            ubloxType = GetMessageType(buffer, length);
+            ParsingResult pr = ParsingResult.None;
+
+            switch (ubloxType)
+            {
+                case UbloxType.UBX_TimTp:
+                    pr |= ParsingUbxTimTp(buffer, length, ref showText);
+                    break;
+                case UbloxType.UBX_NavSol:
+                    pr |= ParsingUbxNavSol(buffer, length, ref showText);
+                    break;
+                case UbloxType.UBX_NavPvt:
+                    pr |= ParsingUbxNavPvt(buffer, length, ref showText);
+                    break;
+                case UbloxType.UBX_NavSvInfo:
+                    pr |= ParsingUbxNavSvInfo(buffer, length, ref showText);
+                    break;
+                case UbloxType.UBX_NavSvStatus:
+                    pr |= ParsingUbxNavSvStatus(buffer, length, ref showText);
+                    break;
+                case UbloxType.UBX_NavPosllh:
+                    pr |= ParsingUbxNavPosllh(buffer, length, ref showText);
+                    break;
+                case UbloxType.UBX_NavDop:
+                    pr |= ParsingUbxNavDop(buffer, length, ref showText);
+                    break;
+                case UbloxType.UBX_NavVelend:
+                    pr |= ParsingUbxNavVelend(buffer, length, ref showText);
+                    break;
+                default:
+                    return pr;
+            }
+            return pr;
+        }
+
+        private UbloxType GetMessageType(byte[] pt, int len)
+        {
+            UInt16 msgType = (UInt16)((pt[2] << 8) | pt[3]);
+            switch (msgType)
+            {
+                case 0x0D01:
+                    return UbloxType.UBX_TimTp;
+                case 0x0106:
+                    return UbloxType.UBX_NavSol;
+                case 0x0107:
+                    return UbloxType.UBX_NavPvt;
+                case 0x0130:
+                    return UbloxType.UBX_NavSvInfo;
+                case 0x0103:
+                    return UbloxType.UBX_NavSvStatus;
+                case 0x0102:
+                    return UbloxType.UBX_NavPosllh;
+                case 0x0104:
+                    return UbloxType.UBX_NavDop;
+                case 0x0112:
+                    return UbloxType.UBX_NavVelend;
+                default:
+                    return UbloxType.UBX_Unknown;
+            }
+        }
+
+
+        private ParsingResult ParsingUbxTimTp(byte[] buf, int len, ref string txt)
+        {
+            ParsingResult pr = ParsingResult.None;
+            txt = string.Format("$UBX-TIM-TP");
+            return pr;
+        }
+
+        private ParsingResult ParsingUbxNavSol(byte[] buf, int len, ref string txt)
+        {
+            ParsingResult pr = ParsingResult.None;
+            txt = string.Format("$UBX-NAV-SOL");
+            return pr;
+        }
+
+        private ParsingResult ParsingUbxNavPvt(byte[] buf, int len, ref string txt)
+        {
+            ParsingResult pr = ParsingResult.None;
+            txt = string.Format("$UBX-NAV-PVT");
+            return pr;
+        }
+
+        private ParsingResult ParsingUbxNavSvInfo(byte[] buf, int len, ref string txt)
+        {
+            ParsingResult pr = ParsingResult.None;
+            txt = string.Format("$UBX-NAV_SVINFO");
+            return pr;
+        }
+
+        private ParsingResult ParsingUbxNavSvStatus(byte[] buf, int len, ref string txt)
+        {
+            ParsingResult pr = ParsingResult.None;
+            txt = string.Format("$UBX-NAV_SVSTATUS");
+            return pr;
+        }
+
+        private ParsingResult ParsingUbxNavPosllh(byte[] buf, int len, ref string txt)
+        {
+            ParsingResult pr = ParsingResult.None;
+            txt = string.Format("$UBX-NAV-POSLLH");
+            return pr;
+        }
+
+        private ParsingResult ParsingUbxNavDop(byte[] buf, int len, ref string txt)
+        {
+            ParsingResult pr = ParsingResult.None;
+            txt = string.Format("$UBX-NAV-DOP");
+            return pr;
+        }
+
+        private ParsingResult ParsingUbxNavVelend(byte[] buf, int len, ref string txt)
+        {
+            ParsingResult pr = ParsingResult.None;
+            txt = string.Format("$UBX-NAV-VELEND");
+            return pr;
         }
     }
 }

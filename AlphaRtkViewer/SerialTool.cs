@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Management;
-using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace RtkViewer
 {
@@ -77,21 +78,18 @@ namespace RtkViewer
         {
             try
             {
-                //ManagementObjectSearcher searcher =
-                //    new ManagementObjectSearcher("root\\CIMV2",
-                //    "SELECT * FROM Win32_PnPEntity");
-                //foreach (ManagementObject queryObj in searcher.Get())
-                //{
-                //    if (queryObj != null && queryObj["Caption"] != null &&
-                //        queryObj["Caption"].ToString().Contains("(COM"))
-                //    {
-                //        l.Add(GenerateComPortInfo(queryObj["Caption"].ToString()));
-                //    }
-                //}
                 string[] comArray = SerialPort.GetPortNames();
-                foreach(string p in comArray)
+                foreach (string p in comArray)
                 {
-                    l.Add(GenerateComPortInfo(p));
+                    ComPortInfo cpi = GenerateComPortInfo(p);
+                    if (cpi != null)
+                    {
+                        l.Add(GenerateComPortInfo(p));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Conversion of serial port name failed - " + p);
+                    }
                 }
                 l.Sort(CmpUserInfo);
             }
@@ -103,13 +101,50 @@ namespace RtkViewer
 
         private static ComPortInfo GenerateComPortInfo(string comDesc)
         {
-            //char[] delimiterChars = { '(', ')' };
-            //string[] param = comDesc.Split(delimiterChars);
-            //string comName = param[param.Length - 2];
-            //string noString = comName.Substring(3);
-            //return new ComPortInfo(param[0], param[param.Length - 2], Convert.ToInt32(noString));
-            string noString = comDesc.Substring(3);
-            return new ComPortInfo(comDesc, comDesc, Convert.ToInt32(noString));
+            //try
+            //{
+            //    string noString = Regex.Replace(comDesc, "[^0-9.]", "");
+            //    return new ComPortInfo(comDesc, comDesc, Convert.ToInt32(noString));
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    //return null;
+            //}
+            try
+            {
+                string com = "COM";
+                string noString = "";
+                if(comDesc.Contains(com))
+                {
+                    int idx = comDesc.IndexOf(com) + com.Length;
+                    for(int i = idx; i < comDesc.Length; ++i)
+                    {
+                        char c = comDesc[i];
+                        if (c >= '0' && c <= '9')
+                        {
+                            noString += c;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                if (noString.Length > 0)
+                {
+                    return new ComPortInfo(comDesc, comDesc, Convert.ToInt32(noString));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
         }
 
         private static int CmpUserInfo(ComPortInfo a, ComPortInfo b)
