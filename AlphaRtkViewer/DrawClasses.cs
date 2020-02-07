@@ -9,11 +9,12 @@ namespace RtkViewer
     class DrawSnrBar
     {
         private Brush bgBrush = null;
-        private Pen bgLinePen = new Pen(Color.FromArgb(255, (byte)150, (byte)150, (byte)150));
+        private Pen bgLinePen = new Pen(Color.FromArgb(255, 150, 150, 150));
         private Image inUseImage = null;
         private Image nonUseImage = null;
         private Image titleImage = null;
-        private SolidBrush inUseTxtDrawBrush = new SolidBrush(Color.FromArgb(255, 250, 250, 250));
+        //private SolidBrush inUseTxtDrawBrush = new SolidBrush(Color.FromArgb(255, 250, 250, 250));
+        private SolidBrush inUseTxtDrawBrush = new SolidBrush(Color.FromArgb(255, 10, 10, 11));
         private SolidBrush nonUseTxtDrawBrush = null;
         private const float titleBgWidth = 182;
         private const float titleBgHeight = 22;
@@ -29,11 +30,13 @@ namespace RtkViewer
         private const float prnNumBgWidth = 20;
         private const float prnNumBgHeight = 20;
         private const float prnNumTxXOffset = -5;
-        private const float prnNumTxYOffset = 1;
+        private const float prnNumTxYOffset = 2;
         private const float prnNumTxXRightOffset = 8;
-        private Font prnNumTxtFont = new Font("Impact", 10);
+        //private Font prnNumTxtFont = new Font("Impact", 10);
+        private Font prnNumTxtFont = new Font("Arial", 10);
         private StringFormat drawFormat = new StringFormat();
         private SolidBrush inUseSnrBarBrush = null;
+        private SolidBrush inUseSnrBarBrush2 = null;
         private SolidBrush nonUseSnrBarBrush = new SolidBrush(Color.FromArgb(255, 250, 250, 250));
         private const float prnSnrBarXOffset = 0;
         private const float prnSnrBarYOffset = 1;
@@ -45,12 +48,12 @@ namespace RtkViewer
         private SolidBrush inUseSnrBarTextBrush = new SolidBrush(Color.FromArgb(255, 250, 250, 250));
         private SolidBrush nonUseSnrBarTextBrush = new SolidBrush(Color.FromArgb(255, 128, 128, 128));
         private SolidBrush lowSnrBarTextBrush = new SolidBrush(Color.FromArgb(255, 5, 5, 5));
-        private Font snrBarTxtFont = new Font("Arial", 9);
+        private Font snrBarTxtFont = new Font("Tahoma", 7);
         private const int lowSnrBoundary = 12;
         private const int snrBarTxtYOffset = 62;
         private const int snrBarTxtHeight = 15;
-        public DrawSnrBar(Color bgColor, string inUseImageName, string nonUseImageName, string titleImageName, 
-            Color nonUseTxtColor, Color inUseSnrBarColor)
+        public DrawSnrBar(Color bgColor, string inUseImageName, string nonUseImageName, string titleImageName,
+            Color nonUseTxtColor, Color inUseSnrBarColor, Color inUseSnrBarColor2)
         {
             bgBrush = new SolidBrush(bgColor);
             inUseImage = (Image)Resources.ResourceManager.GetObject(inUseImageName);
@@ -59,6 +62,7 @@ namespace RtkViewer
             drawFormat.Alignment = StringAlignment.Center;
             nonUseTxtDrawBrush = new SolidBrush(nonUseTxtColor);
             inUseSnrBarBrush = new SolidBrush(inUseSnrBarColor);
+            inUseSnrBarBrush2 = new SolidBrush(inUseSnrBarColor2);
             nonUseSnrBarOuterPen = new Pen(inUseSnrBarColor);
         }
 
@@ -80,10 +84,22 @@ namespace RtkViewer
             }
         }
 
-        public void Draw(Graphics g, List<ParsingStatus.SateInfo> s, int w, int h)
+        public void Draw(Graphics g, List<ParsingStatus.SateInfo> s, List<int> sigList, int w, int h)
         {
             DrawBg(g, w, h);
             //return;
+            if (sigList.Count == 1)
+            {
+                DrawSingle(g, s, w, h);
+            }
+            else
+            {
+                DrawDual(g, s, sigList, w, h);
+            }
+        }
+
+        public void DrawSingle(Graphics g, List<ParsingStatus.SateInfo> s, int w, int h)
+        {
             for (int i = 0; i < s.Count; i++)
             {
                 if (s[i].prn == ParsingStatus.NullValue)
@@ -93,31 +109,29 @@ namespace RtkViewer
 
                 //Draw PRN image and number string
                 Image img = (s[i].inUse) ? inUseImage : nonUseImage;
-                Brush br = (s[i].inUse) ? inUseTxtDrawBrush : nonUseTxtDrawBrush;
+                Brush br = inUseTxtDrawBrush;
                 g.DrawImage(img, prnNumBgXStart + i * prnNumBgXGap, prnNumBgYStart, prnNumBgWidth, prnNumBgHeight);
                 g.DrawString(s[i].prn.ToString(), prnNumTxtFont, br,
-                    new RectangleF(prnNumBgXStart + i * prnNumBgXGap + prnNumTxXOffset, prnNumBgYStart + prnNumTxYOffset,
-                    prnNumBgWidth + prnNumTxXRightOffset, prnNumBgHeight), drawFormat);
-                //img.Dispose();
-                //br.Dispose();                
-                if (s[i].snr == 0 || s[i].snr == ParsingStatus.NullValue)
+                    new RectangleF(
+                        prnNumBgXStart + i * prnNumBgXGap + prnNumTxXOffset,
+                        prnNumBgYStart + prnNumTxYOffset,
+                        prnNumBgWidth + prnNumTxXRightOffset,
+                        prnNumBgHeight), drawFormat);
+
+                if (s[i].GetSnr() == 0 || s[i].GetSnr() == ParsingStatus.NullValue)
                 {
                     continue;
                 }
 
-                //int[] snrTable = { 0, 1, 2, 9, 10, 11, 12, 13, 40, 49, 50, 51, 55 };
-                //int snr = snrTable[i % snrTable.Length];
-                //float barHeight = prnSnrBarMaxHeight * ((snr > prnSnrMaxValue) ? prnSnrMaxValue : snr) / prnSnrMaxValue;
                 br = (s[i].inUse) ? inUseSnrBarBrush : nonUseSnrBarBrush;
-                int snr = s[i].snr;
-                float barHeight = prnSnrBarMaxHeight * ((s[i].snr > prnSnrMaxValue) ? prnSnrMaxValue : s[i].snr) / prnSnrMaxValue;
+                int snr = s[i].GetSnr();
+                float barHeight = prnSnrBarMaxHeight * ((s[i].GetSnr() > prnSnrMaxValue) ? prnSnrMaxValue : s[i].GetSnr()) / prnSnrMaxValue;
 
                 //Draw SNR color bar
-                g.FillRectangle(br, 
-                    prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset, 
+                g.FillRectangle(br,
+                    prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset,
                     chartBgTop + prnSnrBarYOffset + prnSnrBarMaxHeight - barHeight,
                     prnSnrBarWidth, barHeight);
-                //br.Dispose();
 
                 //Draw SNR bar frame
                 Pen pen = (s[i].inUse) ? inUseSnrBarOuterPen : nonUseSnrBarOuterPen;
@@ -125,14 +139,98 @@ namespace RtkViewer
                     prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset,
                     chartBgTop + prnSnrBarYOffset + prnSnrBarMaxHeight - barHeight,
                     prnSnrBarWidth, barHeight);
-                //pen.Dispose();
 
                 //Draw SNR text
                 br = (snr > lowSnrBoundary) ? ((s[i].inUse) ? inUseSnrBarTextBrush : nonUseSnrBarTextBrush) : (lowSnrBarTextBrush);
                 g.DrawString(snr.ToString(), snrBarTxtFont, br,
                     new RectangleF(prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset, snrBarTxtYOffset,
                     prnSnrBarWidth, snrBarTxtHeight), drawFormat);
-                //br.Dispose();
+            }
+        }
+
+        public void DrawDual(Graphics g, List<ParsingStatus.SateInfo> s, List<int> sigList, int w, int h)
+        {
+            for (int i = 0; i < s.Count; i++)
+            {
+                if (s[i].prn == ParsingStatus.NullValue)
+                {
+                    break;
+                }
+
+                //Draw PRN image and number string
+                Image img = (s[i].inUse) ? inUseImage : nonUseImage;
+                Brush br = inUseTxtDrawBrush;
+                g.DrawImage(img, prnNumBgXStart + i * prnNumBgXGap, prnNumBgYStart, prnNumBgWidth, prnNumBgHeight);
+                g.DrawString(s[i].prn.ToString(), prnNumTxtFont, br,
+                    new RectangleF(
+                        prnNumBgXStart + i * prnNumBgXGap + prnNumTxXOffset,
+                        prnNumBgYStart + prnNumTxYOffset,
+                        prnNumBgWidth + prnNumTxXRightOffset,
+                        prnNumBgHeight), drawFormat);
+
+                //Draw first SNR bar
+                int snr1 = s[i].GetSnr(sigList[0]);
+                if (snr1 != 0 && snr1 != ParsingStatus.NullValue)
+                {
+                    br = (s[i].inUse) ? inUseSnrBarBrush : nonUseSnrBarBrush;
+                    float barHeight = prnSnrBarMaxHeight * ((snr1 > prnSnrMaxValue) ? prnSnrMaxValue : snr1) / prnSnrMaxValue;
+
+                    //Draw SNR color bar
+                    g.FillRectangle(br,
+                        prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset,
+                        chartBgTop + prnSnrBarYOffset + prnSnrBarMaxHeight - barHeight,
+                        prnSnrBarWidth / 2,
+                        barHeight);
+
+                    //Draw SNR bar frame
+                    Pen pen = (s[i].inUse) ? inUseSnrBarOuterPen : nonUseSnrBarOuterPen;
+                    g.DrawRectangle(pen,
+                        prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset,
+                        chartBgTop + prnSnrBarYOffset + prnSnrBarMaxHeight - barHeight,
+                        prnSnrBarWidth / 2,
+                        barHeight);
+
+                    //Draw SNR text
+                    br = (snr1 > lowSnrBoundary) ? ((s[i].inUse) ? inUseSnrBarTextBrush : nonUseSnrBarTextBrush) : (lowSnrBarTextBrush);
+                    g.DrawString(snr1.ToString(), snrBarTxtFont, br,
+                        new RectangleF(
+                            prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset - 2,
+                            snrBarTxtYOffset,
+                            prnSnrBarWidth / 2 + 4,
+                            snrBarTxtHeight), drawFormat);
+                }
+
+                //Draw second SNR bar
+                int snr2 = s[i].GetSnr(sigList[1]);
+                if (snr2 != 0 && snr2 != ParsingStatus.NullValue)
+                {
+                    br = (s[i].inUse) ? inUseSnrBarBrush2 : nonUseSnrBarBrush;
+                    float barHeight = prnSnrBarMaxHeight * ((snr2 > prnSnrMaxValue) ? prnSnrMaxValue : snr2) / prnSnrMaxValue;
+
+                    //Draw SNR color bar
+                    g.FillRectangle(br,
+                        prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset + prnSnrBarWidth / 2,
+                        chartBgTop + prnSnrBarYOffset + prnSnrBarMaxHeight - barHeight,
+                        prnSnrBarWidth / 2 - 1,
+                        barHeight);
+
+                    //Draw SNR bar frame
+                    Pen pen = (s[i].inUse) ? inUseSnrBarOuterPen : nonUseSnrBarOuterPen;
+                    g.DrawRectangle(pen,
+                        prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset + prnSnrBarWidth / 2,
+                        chartBgTop + prnSnrBarYOffset + prnSnrBarMaxHeight - barHeight,
+                        prnSnrBarWidth / 2 - 1,
+                        barHeight);
+
+                    //Draw SNR text
+                    br = (snr2 > lowSnrBoundary) ? ((s[i].inUse) ? inUseSnrBarTextBrush : nonUseSnrBarTextBrush) : (lowSnrBarTextBrush);
+                    g.DrawString(snr2.ToString(), snrBarTxtFont, br,
+                        new RectangleF(
+                            prnNumBgXStart + i * prnNumBgXGap + prnSnrBarXOffset + prnSnrBarWidth / 2 - 2,
+                            snrBarTxtYOffset,
+                            prnSnrBarWidth / 2 + 4,
+                            snrBarTxtHeight), drawFormat);
+                }
             }
         }
     }

@@ -48,6 +48,10 @@ namespace StqMessageParser
         UpdateRtkCycleSlip = 1UL << 25,
         UpdateElliposidalH = 1UL << 26,
         SaveDeviceOutput = 1UL << 27,
+        UpdateGpSateInfoNow = 1UL << 28,
+        UpdateGlSateInfoNow = 1UL << 29,
+        UpdateBdSateInfoNow = 1UL << 30,
+        UpdateGiSateInfoNow = 1UL << 31,
         Reboot,
     }
 
@@ -72,6 +76,8 @@ namespace StqMessageParser
 
         public class SateInfo
         {
+            const int MaxSignals = 12;
+            const int MaxDisplay = 2;
             public SateInfo()
             {
                 Clear();
@@ -80,7 +86,8 @@ namespace StqMessageParser
             public SateInfo(SateInfo s)
             {
                 prn = s.prn;
-                snr = s.snr;
+                //snr = s.snr;
+                Array.Copy(s.snr, snr, MaxSignals);
                 ele = s.ele;
                 azi = s.azi;
                 inUse = s.inUse;
@@ -90,7 +97,7 @@ namespace StqMessageParser
             public SateInfo(int p, bool iu)
             {
                 prn = p;
-                snr = NullValue;
+                snr[0] = NullValue;
                 ele = 0;
                 azi = 0;
                 inUse = iu;
@@ -100,7 +107,7 @@ namespace StqMessageParser
             public SateInfo(int p, int e, int a, int s, bool iu)
             {
                 prn = p;
-                snr = s;
+                snr[0] = s;
                 ele = e;
                 azi = a;
                 inUse = iu;
@@ -108,17 +115,50 @@ namespace StqMessageParser
 
             public void Clear()
             {
+                for (int i = 0; i < MaxSignals; ++i)
+                {
+                    snr[i] = NullValue;
+                }
                 prn = NullValue;
-                snr = NullValue;
                 ele = 0;
                 azi = 0;
                 inUse = false;
             }
+
+            public void ClearSnr(int sigId)
+            {
+                snr[sigId] = NullValue;
+            }
+            public int GetSnr()
+            {
+                foreach(int s in snr)
+                {
+                    if (s != NullValue)
+                        return s;
+                }
+                return 0;
+            }
+
             public int prn { get; set; }
-            public int snr { get; set; }
             public int ele { get; set; }
             public int azi { get; set; }
             public bool inUse { get; set; }
+
+            private int[] snr = new int[MaxSignals];
+            public int GetSnr(int id) { return snr[id]; }
+            public void SetSnr(int s) { snr[0] = s; AddSnrId(0); }
+            public void SetSnr(int s, int id) { snr[id] = s; AddSnrId(id); }
+
+            private int[] snrId = new int[MaxDisplay];
+            private void AddSnrId(int id)
+            {
+                if (Array.IndexOf(snrId, id) != -1)
+                {
+                    snrId[Array.IndexOf(snrId, NullValue)] = id;
+                }
+            }
+            public int GetFirstSnrId() { return snrId[0]; }
+            public int GetSecondSnrId() { return snrId[1]; }
         }
 
         public ParsingStatus()
@@ -161,6 +201,12 @@ namespace StqMessageParser
                     ClearInUseList(SateType.Galileo);
                     break;
                 case 4:
+                    ClearInUseList(SateType.Beidou);
+                    break;
+                case 5: //For QZSS
+                    ClearInUseList(SateType.Navic);
+                    break;
+                case 6:
                     ClearInUseList(SateType.Navic);
                     break;
                 default:
@@ -169,12 +215,11 @@ namespace StqMessageParser
             }
         }
 
-        public void ClearInUseGpsList() { ClearInUseList(SateType.Gps); }
-        public void ClearInUseGlonassList() { ClearInUseList(SateType.Glonass); }
-        public void ClearInUseBeidouList() { ClearInUseList(SateType.Beidou); }
-        public void ClearInUseNavicList() { ClearInUseList(SateType.Navic); }
-
-        private void ClearInUseList(SateType type)
+        //public void ClearInUseGpsList() { ClearInUseList(SateType.Gps); }
+        //public void ClearInUseGlonassList() { ClearInUseList(SateType.Glonass); }
+        //public void ClearInUseBeidouList() { ClearInUseList(SateType.Beidou); }
+        //public void ClearInUseNavicList() { ClearInUseList(SateType.Navic); }
+        public void ClearInUseList(SateType type)
         {
             List<int> inUseList = null;
             switch (type)
@@ -220,7 +265,7 @@ namespace StqMessageParser
                     AddInUsePrn(prn, SateType.Galileo);
                     break;
                 case 4:
-                    AddInUsePrn(prn, SateType.Navic);
+                    AddInUsePrn(prn, SateType.Beidou);
                     break;
                 default:
                     AppTools.ShowDebug(string.Format("Unknown system id:{0}", systemId));
@@ -228,12 +273,12 @@ namespace StqMessageParser
             }
         }
 
-        public void AddInUseGpsPrn(int prn) { AddInUsePrn(prn, SateType.Gps); }
-        public void AddInUseGlonassPrn(int prn) { AddInUsePrn(prn, SateType.Glonass); }
-        public void AddInUseBeidouPrn(int prn){ AddInUsePrn(prn, SateType.Beidou); }
-        public void AddInUseNavicPrn(int prn) { AddInUsePrn(prn, SateType.Navic); }
+        //public void AddInUseGpsPrn(int prn) { AddInUsePrn(prn, SateType.Gps); }
+        //public void AddInUseGlonassPrn(int prn) { AddInUsePrn(prn, SateType.Glonass); }
+        //public void AddInUseBeidouPrn(int prn){ AddInUsePrn(prn, SateType.Beidou); }
+        //public void AddInUseNavicPrn(int prn) { AddInUsePrn(prn, SateType.Navic); }
 
-        private void AddInUsePrn(int prn, SateType type)
+        public void AddInUsePrn(int prn, SateType type)
         {
             List<int> inUseList = null;
             switch (type)
@@ -305,6 +350,11 @@ namespace StqMessageParser
         private List<SateInfo> bdSate = new List<SateInfo>();
         private List<SateInfo> giSate = new List<SateInfo>();
 
+        private List<int> gpSignal = new List<int>();
+        private List<int> glSignal = new List<int>();
+        private List<int> bdSignal = new List<int>();
+        private List<int> giSignal = new List<int>();
+
         private List<SateInfo> tmpGpSate = new List<SateInfo>();
         private List<SateInfo> tmpGlSate = new List<SateInfo>();
         private List<SateInfo> tmpBdSate = new List<SateInfo>();
@@ -314,40 +364,65 @@ namespace StqMessageParser
 
         public void AddGnSateInfo(int prn, int ele, int azi, int snr)
         {
-            AddSateInfo(prn, ele, azi, snr, GetTypeByPrn(prn));
+            AddSateInfo(prn, ele, azi, snr, GetTypeByPrn(prn), 0);
+        }
+
+        public void AddGpsSateInfo(int prn, int ele, int azi, int snr, int sigId)
+        {
+            AddSateInfo(prn, ele, azi, snr, SateType.Gps, sigId);
         }
 
         public void AddGpsSateInfo(int prn, int ele, int azi, int snr)
         {
-            AddSateInfo(prn, ele, azi, snr, SateType.Gps);
+            AddSateInfo(prn, ele, azi, snr, SateType.Gps, 0);
+        }
+
+        public void AddSbasSateInfo(int prn, int ele, int azi, int snr, int sigId)
+        {
+            AddSateInfo(prn, ele, azi, snr, SateType.Sbas, sigId);
         }
 
         public void AddSbasSateInfo(int prn, int ele, int azi, int snr)
         {
-            AddSateInfo(prn, ele, azi, snr, SateType.Sbas);
+            AddSateInfo(prn, ele, azi, snr, SateType.Sbas, 0);
+        }
+
+        public void AddQzssSateInfo(int prn, int ele, int azi, int snr, int sigId)
+        {
+            AddSateInfo(prn, ele, azi, snr, SateType.Qzss, sigId);
         }
 
         public void AddQzssSateInfo(int prn, int ele, int azi, int snr)
         {
-            AddSateInfo(prn, ele, azi, snr, SateType.Qzss);
+            AddSateInfo(prn, ele, azi, snr, SateType.Qzss, 0);
+        }
+
+        public void AddGlonassSateInfo(int prn, int ele, int azi, int snr, int sigId)
+        {
+            AddSateInfo(prn, ele, azi, snr, SateType.Glonass, sigId);
         }
 
         public void AddGlonassSateInfo(int prn, int ele, int azi, int snr)
         {
-            AddSateInfo(prn, ele, azi, snr, SateType.Glonass);
+            AddSateInfo(prn, ele, azi, snr, SateType.Glonass, 0);
+        }
+
+        public void AddBeidouSateInfo(int prn, int ele, int azi, int snr, int sigId)
+        {
+            AddSateInfo(prn, ele, azi, snr, SateType.Beidou, sigId);
         }
 
         public void AddBeidouSateInfo(int prn, int ele, int azi, int snr)
         {
-            AddSateInfo(prn, ele, azi, snr, SateType.Beidou);
+            AddSateInfo(prn, ele, azi, snr, SateType.Beidou, 0);
         }
 
-        public void AddNavicSateInfo(int prn, int ele, int azi, int snr)
+        public void AddNavicSateInfo(int prn, int ele, int azi, int snr, int sigId)
         {
-            AddSateInfo(prn, ele, azi, snr, SateType.Navic);
+            AddSateInfo(prn, ele, azi, snr, SateType.Navic, sigId);
         }
 
-        private void AddSateInfo(int prn, int ele, int azi, int snr, SateType type)
+        private void AddSateInfo(int prn, int ele, int azi, int snr, SateType type, int sigId)
         {
             switch (type)
             {
@@ -372,6 +447,91 @@ namespace StqMessageParser
                     tmpQzSate.Add(new SateInfo(prn, ele, azi, snr, false));
                     break;
             }
+        }
+
+        public ParsingResult MergeSateList(NmeaParser.NmeaType t, int sigId, List<ParsingStatus.SateInfo> tmpList)
+        {
+            ParsingResult pr = ParsingResult.None;
+            List<int>[] inUseTable = { gpInUse, glInUse, bdInUse, giInUse, gpInUse, gpInUse };
+            bool[] needEraseTable = { true, true, true, true, false, false };
+            List<int>[] signalTable = { gpSignal, glSignal, bdSignal, giSignal, gpSignal, gpSignal };
+            List<SateInfo>[] sateInfoTable = { gpSate, glSate, bdSate, giSate, gpSate, gpSate };
+            UInt64[] prTable = { (UInt64)ParsingResult.UpdateGpSateInfo, (UInt64)ParsingResult.UpdateGlSateInfo,
+                                (UInt64)ParsingResult.UpdateBdSateInfo, (UInt64)ParsingResult.UpdateGiSateInfo,
+                                (UInt64)ParsingResult.UpdateGpSateInfo, (UInt64)ParsingResult.UpdateGpSateInfo };
+
+            int typeIndex = -1;
+            switch(t)
+            {
+                case NmeaParser.NmeaType.NMEA_GPGSV:
+                    typeIndex = 0;
+                    break;
+                case NmeaParser.NmeaType.NMEA_GLGSV:
+                    typeIndex = 1;
+                    break;
+                case NmeaParser.NmeaType.NMEA_BDGSV:
+                    typeIndex = 2;
+                    break;
+                case NmeaParser.NmeaType.NMEA_GIGSV:
+                    typeIndex = 3;
+                    break;
+                case NmeaParser.NmeaType.NMEA_GAGSV:
+                    typeIndex = -1;
+                    break;
+            }
+            if(typeIndex == -1)
+            {
+                return ParsingResult.None;
+            }
+
+            if (sigId == 0)  //V8 NMEA 4.0
+            {
+                sateInfoTable[typeIndex].Clear();
+            }
+            else if(signalTable[typeIndex].Count > 0 && signalTable[typeIndex][0] == sigId)
+            {
+                sateInfoTable[typeIndex].Clear();
+                signalTable[typeIndex].Clear();
+            }
+            else if (signalTable[typeIndex].Count > 0 && signalTable[typeIndex][0] != sigId)
+            {
+                foreach(SateInfo s in sateInfoTable[typeIndex])
+                {
+                    s.ClearSnr(sigId);
+                }
+            }
+            else if (signalTable[typeIndex].Count == 0)
+            {
+                sateInfoTable[typeIndex].Clear();
+            }
+            signalTable[typeIndex].Add(sigId);
+
+            if (sateInfoTable[typeIndex].Count == 0)
+            {
+                foreach (SateInfo s in tmpList)
+                {
+                    int index = inUseTable[typeIndex].FindIndex(w => w == s.prn);
+                    s.inUse = (index < 0) ? false : true;
+                    sateInfoTable[typeIndex].Add(new SateInfo(s));
+                }
+                //tmpSateTable[i].Clear();
+                sateInfoTable[typeIndex].Sort((s1, s2) => { return s1.prn.CompareTo(s2.prn); });
+            }
+            else
+            {
+                foreach (SateInfo s in tmpList)
+                {
+                    int index = inUseTable[typeIndex].FindIndex(w => w == s.prn);
+                    s.inUse = (index < 0) ? false : true;
+                    SateInfo tg = sateInfoTable[typeIndex].Find(x => x.prn == s.prn);
+                    tg.SetSnr(s.GetSnr(sigId), sigId);
+                    tg.ele = s.ele;
+                    tg.azi = s.azi;
+                 }
+            }
+            pr |= (ParsingResult)prTable[typeIndex];
+
+            return pr;
         }
 
         public ParsingResult MergeSateList()
@@ -436,6 +596,29 @@ namespace StqMessageParser
             }
         }
 
+        public List<int> GetGpsSignalListClone() { return new List<int>(GetSignalList(SateType.Gps)); }
+        public List<int> GetGlonassSignalListClone() { return new List<int>(GetSignalList(SateType.Glonass)); }
+        public List<int> GetBeidouSignalListClone() { return new List<int>(GetSignalList(SateType.Beidou)); }
+        public List<int> GetNavicSignalListClone() { return new List<int>(GetSignalList(SateType.Navic)); }
+
+        private List<int> GetSignalList(SateType t)
+        {
+            switch (t)
+            {
+                case SateType.Gps:
+                    return gpSignal;
+                case SateType.Glonass:
+                    return glSignal;
+                case SateType.Beidou:
+                    return bdSignal;
+                case SateType.Navic:
+                    return giSignal;
+                case SateType.Galileo:
+                    return null;
+                default:
+                    return null;
+            }
+        }
         //private data for date / time
         private int dateY = 1980;   //GPS start date
         private int dateM = 1;      //GPS start date
@@ -2024,6 +2207,7 @@ namespace StqMessageParser
         private static ParsingResult ParsingNmeaGsa(String s, NmeaType t)
         {
             ParsingResult pr = ParsingResult.None;
+            ParsingStatus.SateType type = ParsingStatus.SateType.Unknown;
             try
             {
                 String[] param = s.Split(',');
@@ -2047,23 +2231,50 @@ namespace StqMessageParser
                     systemId = Convert.ToInt32(param[18]);
                 }
 
-                switch (t)
-                {
-                    case NmeaType.NMEA_GPGSA:
-                        MessageParser.GetParsingStatus().ClearInUseGpsList();
-                        break;
-                    case NmeaType.NMEA_GLGSA:
-                        MessageParser.GetParsingStatus().ClearInUseGlonassList();
-                        break;
-                    case NmeaType.NMEA_BDGSA:
-                        MessageParser.GetParsingStatus().ClearInUseBeidouList();
-                        break;
-                    case NmeaType.NMEA_GIGSA:
-                        MessageParser.GetParsingStatus().ClearInUseNavicList();
-                        break;
-                    case NmeaType.NMEA_GNGSA:
-                        MessageParser.GetParsingStatus().ClearInUseGNList(Convert.ToInt32(param[3]), systemId);
-                        break;
+                if (systemId > 0)
+                {   //NMEA 0183 V4.11 Pheonix
+                    switch (systemId)
+                    {
+                        case 1: //GP
+                            type = ParsingStatus.SateType.Gps;
+                            break;
+                        case 2: //GL
+                            type = ParsingStatus.SateType.Glonass;
+                            break;
+                        case 3: //GA
+                            break;
+                        case 4: //GB
+                            type = ParsingStatus.SateType.Beidou;
+                            break;
+                        case 5: //GQ
+                            break;
+                        case 6: //GI
+                            type = ParsingStatus.SateType.Navic;
+                            break;
+                    }
+                    MessageParser.GetParsingStatus().ClearInUseList(type);
+                }
+                else
+                {   //NMEA 0183 V4.0, Venus 8
+                    switch (t)
+                    {
+                        case NmeaType.NMEA_GPGSA:
+                            type = ParsingStatus.SateType.Gps;
+                            break;
+                        case NmeaType.NMEA_GLGSA:
+                            type = ParsingStatus.SateType.Glonass;
+                            break;
+                        case NmeaType.NMEA_BDGSA:
+                            type = ParsingStatus.SateType.Beidou;
+                            break;
+                        case NmeaType.NMEA_GIGSA:
+                            type = ParsingStatus.SateType.Navic;
+                            break;
+                        //case NmeaType.NMEA_GNGSA:
+                        //    MessageParser.GetParsingStatus().ClearInUseGNList(Convert.ToInt32(param[3]), systemId);
+                        //    break;
+                    }
+                    MessageParser.GetParsingStatus().ClearInUseList(type);
                 }
 
                 //Parameter 3 ~ 14 :In use PRN
@@ -2075,26 +2286,27 @@ namespace StqMessageParser
                         break;
                     }
                     int prn = Convert.ToInt32(param[i]);
-                    switch (t)
-                    {
-                        case NmeaType.NMEA_GPGSA:
-                            MessageParser.GetParsingStatus().AddInUseGpsPrn(prn);
-                            break;
-                        case NmeaType.NMEA_GLGSA:
-                            MessageParser.GetParsingStatus().AddInUseGlonassPrn(prn);
-                            break;
-                        case NmeaType.NMEA_BDGSA:
-                            MessageParser.GetParsingStatus().AddInUseBeidouPrn(prn);
-                            break;
-                        case NmeaType.NMEA_GIGSA:
-                            MessageParser.GetParsingStatus().AddInUseNavicPrn(prn);
-                            break;
-                        case NmeaType.NMEA_GNGSA:
-                            MessageParser.GetParsingStatus().AddInUseGNPrn(prn, systemId);
-                            break;
-                    }
+                    MessageParser.GetParsingStatus().AddInUsePrn(prn, type);
+                    //switch (t)
+                    //{
+                    //    case NmeaType.NMEA_GPGSA:
+                    //        MessageParser.GetParsingStatus().AddInUseGpsPrn(prn);
+                    //        break;
+                    //    case NmeaType.NMEA_GLGSA:
+                    //        MessageParser.GetParsingStatus().AddInUseGlonassPrn(prn);
+                    //        break;
+                    //    case NmeaType.NMEA_BDGSA:
+                    //        MessageParser.GetParsingStatus().AddInUseBeidouPrn(prn);
+                    //        break;
+                    //    case NmeaType.NMEA_GIGSA:
+                    //        MessageParser.GetParsingStatus().AddInUseNavicPrn(prn);
+                    //        break;
+                    //    case NmeaType.NMEA_GNGSA:
+                    //        MessageParser.GetParsingStatus().AddInUseGNPrn(prn, systemId);
+                    //        break;
+                    //}
                 }
-                pr |= MessageParser.GetParsingStatus().MergeInUsePrn();
+                //pr |= MessageParser.GetParsingStatus().MergeInUsePrn();
                 //Parameter 15 : PDOP
                 if (param[15].Length > 0)
                 {
@@ -2123,6 +2335,22 @@ namespace StqMessageParser
 
         private static int totalGsv = -1;
         private static int lastGsv = -1;
+        private static DateTime lastGsvTime = new DateTime(0);
+        private static int gsvTimeout = 0;
+        private static List<ParsingStatus.SateInfo> tmpGsvSate = new List<ParsingStatus.SateInfo>();
+
+        public static int SetGsvTime(DateTime d)
+        {
+            if (lastGsvTime.Ticks == 0)
+            {
+                lastGsvTime = d;
+                return -1;
+            }
+            int diff = (int)(d - lastGsvTime).TotalMilliseconds;
+            lastGsvTime = d;
+            return diff;
+        }
+
         private static ParsingResult ParsingNmeaGsv(String s, NmeaType t)
         {
             String[] param = s.Split(',');
@@ -2131,7 +2359,16 @@ namespace StqMessageParser
             {
                 return ParsingResult.None;
             }
+            DateTime now = DateTime.Now;
+            int diff = SetGsvTime(now);
 
+
+            int sigId = 0;
+            if (param.Length == 9 || param.Length == 13 || param.Length == 17 || param.Length == 21)     //Signal ID
+            {
+                char c = param[param.Length - 1][0];
+                sigId = (c >= 'A') ? (10 + c - 'A') : (c - '0');
+            }
             int total = Convert.ToInt32(param[1]);
             int current = Convert.ToInt32(param[2]);
             int totalSate = Convert.ToInt32(param[3]);
@@ -2174,7 +2411,7 @@ namespace StqMessageParser
                     MaxParam = 0;
                     break;
             }
-
+            ParsingStatus.SateInfo si = new ParsingStatus.SateInfo();
             for (int i = 4; i < MaxParam; i += 4)
             {
                 if (param[i].Length <= 0)
@@ -2182,36 +2419,42 @@ namespace StqMessageParser
                     break;
                 }
                 //String pi3 = param[i + 3];
-                int prn = Convert.ToInt32(param[i]);
-                int ele = (param[i + 1].Length <= 0) ? 0 : Convert.ToInt32(param[i + 1]);
-                int azi = (param[i + 2].Length <= 0) ? 0 : Convert.ToInt32(param[i + 2]);
-                int snr = (param[i + 3].Length <= 0) ? 0 : Convert.ToInt32(param[i + 3]);
-
-                switch (t)
-                {
-                    case NmeaType.NMEA_GPGSV:
-                        MessageParser.GetParsingStatus().AddGnSateInfo(prn, ele, azi, snr);
-                        break;
-                    case NmeaType.NMEA_GLGSV:
-                        MessageParser.GetParsingStatus().AddGlonassSateInfo(prn, ele, azi, snr);
-                        break;
-                    case NmeaType.NMEA_BDGSV:
-                        MessageParser.GetParsingStatus().AddBeidouSateInfo(prn, ele, azi, snr);
-                        break;
-                    case NmeaType.NMEA_GIGSV:
-                        MessageParser.GetParsingStatus().AddNavicSateInfo(prn, ele, azi, snr);
-                        break;
-                    case NmeaType.NMEA_GNGSV:
-                        MessageParser.GetParsingStatus().AddGnSateInfo(prn, ele, azi, snr);
-                        break;
-                }
+                si.prn = Convert.ToInt32(param[i]);
+                si.ele = (param[i + 1].Length <= 0) ? 0 : Convert.ToInt32(param[i + 1]);
+                si.azi = (param[i + 2].Length <= 0) ? 0 : Convert.ToInt32(param[i + 2]);
+                si.SetSnr((param[i + 3].Length <= 0) ? 0 : Convert.ToInt32(param[i + 3]), sigId);
+                
+                tmpGsvSate.Add(new ParsingStatus.SateInfo(si));
+                //switch (t)
+                //{
+                //    case NmeaType.NMEA_GPGSV:
+                //        if(sigId > 0)
+                //            MessageParser.GetParsingStatus().AddGpsSateInfo(prn, ele, azi, snr, sigId);
+                //        else
+                //            MessageParser.GetParsingStatus().AddGnSateInfo(prn, ele, azi, snr);
+                //        break;
+                //    case NmeaType.NMEA_GLGSV:
+                //        MessageParser.GetParsingStatus().AddGlonassSateInfo(prn, ele, azi, snr, sigId);
+                //        break;
+                //    case NmeaType.NMEA_BDGSV:
+                //        MessageParser.GetParsingStatus().AddBeidouSateInfo(prn, ele, azi, snr, sigId);
+                //        break;
+                //    case NmeaType.NMEA_GIGSV:
+                //        MessageParser.GetParsingStatus().AddNavicSateInfo(prn, ele, azi, snr, sigId);
+                //        break;
+                //    case NmeaType.NMEA_GNGSV:   //Nonstandard NMEA
+                //        MessageParser.GetParsingStatus().AddGnSateInfo(prn, ele, azi, snr);
+                //        break;
+                //}            
             }
 
             if (total == current)
             {
                 totalGsv = -1;
                 lastGsv = -1;
-                return MessageParser.GetParsingStatus().MergeSateList();
+                ParsingResult pr = MessageParser.GetParsingStatus().MergeSateList(t, sigId, tmpGsvSate);
+                tmpGsvSate.Clear();
+                return pr;
             }
             return ParsingResult.None;
         }
@@ -2345,6 +2588,7 @@ namespace StqMessageParser
             new NmeaTypeEntry("$GPGSA,", NmeaType.NMEA_GPGSA),
             new NmeaTypeEntry("$GLGSA,", NmeaType.NMEA_GLGSA),
             new NmeaTypeEntry("$BDGSA,", NmeaType.NMEA_BDGSA),
+            new NmeaTypeEntry("$GBGSA,", NmeaType.NMEA_BDGSA),
             new NmeaTypeEntry("$GAGSA,", NmeaType.NMEA_GAGSA),
             new NmeaTypeEntry("$GNGSA,", NmeaType.NMEA_GNGSA),
             new NmeaTypeEntry("$GIGSA,", NmeaType.NMEA_GIGSA),
@@ -2353,6 +2597,7 @@ namespace StqMessageParser
             //new NmeaTypeEntry("$GPGSV2,", NmeaType.NMEA_GPGSV2),
             new NmeaTypeEntry("$GLGSV,", NmeaType.NMEA_GLGSV),
             new NmeaTypeEntry("$BDGSV,", NmeaType.NMEA_BDGSV),
+            new NmeaTypeEntry("$GBGSV,", NmeaType.NMEA_BDGSV),
             new NmeaTypeEntry("$GAGSV,", NmeaType.NMEA_GAGSV),
             new NmeaTypeEntry("$GNGSV,", NmeaType.NMEA_GNGSV),
             new NmeaTypeEntry("$GIGSV,", NmeaType.NMEA_GIGSV),
@@ -2532,10 +2777,15 @@ namespace StqMessageParser
                 return ParsingResult.None;
             }
 
-            MessageParser.GetParsingStatus().ClearInUseGpsList();
-            MessageParser.GetParsingStatus().ClearInUseGlonassList();
-            MessageParser.GetParsingStatus().ClearInUseBeidouList();
-            MessageParser.GetParsingStatus().ClearInUseNavicList();
+            //MessageParser.GetParsingStatus().ClearInUseGpsList();
+            //MessageParser.GetParsingStatus().ClearInUseGlonassList();
+            //MessageParser.GetParsingStatus().ClearInUseBeidouList();
+            //MessageParser.GetParsingStatus().ClearInUseNavicList();
+            MessageParser.GetParsingStatus().ClearInUseList(ParsingStatus.SateType.Gps);
+            MessageParser.GetParsingStatus().ClearInUseList(ParsingStatus.SateType.Glonass);
+            MessageParser.GetParsingStatus().ClearInUseList(ParsingStatus.SateType.Beidou);
+            MessageParser.GetParsingStatus().ClearInUseList(ParsingStatus.SateType.Navic);
+
             int idx = 7;
             for (int i = 0; i < nsvs; ++i)
             {

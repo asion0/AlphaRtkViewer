@@ -40,19 +40,32 @@ namespace RtkViewer
             UpdateFixStatus(ParsingStatus.FixedMode.None);
             BackupSnrPanelPosition();
 
-            gpDrawSnrBar = new DrawSnrBar(Color.FromArgb(255, (byte)255, (byte)255, (byte)204),
-                    "gpActImg", "gpDisImg", "gpSnrTitle",
-                    Color.FromArgb(255, (byte)61, (byte)179, (byte)255),
-                    Color.FromArgb(255, 26, 144, 255));
-            bdDrawSnrBar = new DrawSnrBar(Color.FromArgb(255, (byte)204, (byte)255, (byte)255),
-                    "bdActImg", "bdDisImg", "bdSnrTitle",
-                    Color.FromArgb(255, (byte)255, (byte)153, (byte)1),
-                    Color.FromArgb(255, 255, 153, 1));
-            glDrawSnrBar = new DrawSnrBar(Color.FromArgb(255, (byte)204, (byte)255, (byte)204),
-                    "glActImg", "glDisImg", "glSnrTitle",
-                    Color.FromArgb(255, (byte)195, (byte)128, (byte)255),
-                    Color.FromArgb(255, 156, 102, 204));
-            drawEarth = new DrawEarth("gpActImg", "gpDisImg", "glActImg", "glDisImg", "bdActImg", "bdDisImg", "giActImg", "giDisImg");
+            gpDrawSnrBar = new DrawSnrBar(
+                Color.FromArgb(255, 255, 255, 204),
+                "gpActImg", "gpDisImg", "gpSnrTitle",
+                Color.FromArgb(255, 61, 179, 255),
+                Color.FromArgb(255, 47, 123, 203),
+                Color.FromArgb(255, 98, 162, 246));
+            //bdDrawSnrBar = new DrawSnrBar(Color.FromArgb(255, (byte)204, (byte)255, (byte)255),
+            //        "bdActImg", "bdDisImg", "bdSnrTitle",
+            //        Color.FromArgb(255, (byte)255, (byte)153, (byte)1),
+            //        Color.FromArgb(255, 255, 153, 1));
+            bdDrawSnrBar = new DrawSnrBar(
+                Color.FromArgb(255, 204, 255, 255),
+                "bdActImg", "bdDisImg", "bdSnrTitle",
+                Color.FromArgb(255, 255, 153, 1),
+                Color.FromArgb(255, 209, 70, 0),
+                Color.FromArgb(255, 255, 111, 45));
+
+            glDrawSnrBar = new DrawSnrBar(
+                Color.FromArgb(255, 204, 255, 204),
+                "glActImg", "glDisImg", "glSnrTitle",
+                Color.FromArgb(255, 195, 128, 255),
+                Color.FromArgb(255, 156, 102, 204),
+                Color.FromArgb(255, 191, 147, 99));
+
+            //drawEarth = new DrawEarth("gpActImg", "gpDisImg", "glActImg", "glDisImg", "bdActImg", "bdDisImg", "giActImg", "giDisImg");
+            drawEarth = new DrawEarth("GpErtAct", "GpErtDis", "glActImg", "glDisImg", "BdErtAct", "BdErtDis", "giActImg", "giDisImg");
             drawScatter = new DrawScatter();
             InitScatterScaleCmb();
             
@@ -645,15 +658,27 @@ namespace RtkViewer
             ParsingStatus ps = MessageParser.GetParsingStatus();
             if ((args.parsingResult & ParsingResult.UpdateGpSateInfo) != 0)
             {
-                snr1Pbox.Invalidate();
+                satePr |= ParsingResult.UpdateGpSateInfo;
+                if (!sateTimer.Enabled)
+                {
+                    sateTimer.Start();
+                }
             }
             if ((args.parsingResult & ParsingResult.UpdateGlSateInfo) != 0)
             {
-                snr2Pbox.Invalidate();
+                satePr |= ParsingResult.UpdateGlSateInfo;
+                if (!sateTimer.Enabled)
+                {
+                    sateTimer.Start();
+                }
             }
             if ((args.parsingResult & ParsingResult.UpdateBdSateInfo) != 0)
             {
-                snr3Pbox.Invalidate();
+                satePr |= ParsingResult.UpdateBdSateInfo;
+                if (!sateTimer.Enabled)
+                {
+                    sateTimer.Start();
+                }
             }
             if((args.parsingResult & ParsingResult.UpdateGpSateInfo) != 0 ||
                 (args.parsingResult & ParsingResult.UpdateGlSateInfo) != 0 ||
@@ -1358,7 +1383,12 @@ namespace RtkViewer
                 gpDrawSnrBar.DrawBg(e.Graphics, (sender as PictureBox).Width, (sender as PictureBox).Height);
                 return;
             }
-            gpDrawSnrBar.Draw(e.Graphics, MessageParser.GetParsingStatus().GetGpsSateListClone(), (sender as PictureBox).Width, (sender as PictureBox).Height);
+            gpDrawSnrBar.Draw(
+                e.Graphics, 
+                MessageParser.GetParsingStatus().GetGpsSateListClone(),
+                MessageParser.GetParsingStatus().GetGpsSignalListClone(),
+                (sender as PictureBox).Width, 
+                (sender as PictureBox).Height);
         }
 
         private void snr2Pbox_Paint(object sender, PaintEventArgs e)
@@ -1368,7 +1398,12 @@ namespace RtkViewer
                 glDrawSnrBar.DrawBg(e.Graphics, (sender as PictureBox).Width, (sender as PictureBox).Height);
                 return;
             }
-            glDrawSnrBar.Draw(e.Graphics, MessageParser.GetParsingStatus().GetGlonassSateListClone(), (sender as PictureBox).Width, (sender as PictureBox).Height);
+            glDrawSnrBar.Draw(
+                e.Graphics,
+                MessageParser.GetParsingStatus().GetGlonassSateListClone(),
+                MessageParser.GetParsingStatus().GetGlonassSignalListClone(),
+                (sender as PictureBox).Width, 
+                (sender as PictureBox).Height);
         }
 
         private void snr3Pbox_Paint(object sender, PaintEventArgs e)
@@ -1378,7 +1413,12 @@ namespace RtkViewer
                 bdDrawSnrBar.DrawBg(e.Graphics, (sender as PictureBox).Width, (sender as PictureBox).Height);
                 return;
             }
-            bdDrawSnrBar.Draw(e.Graphics, MessageParser.GetParsingStatus().GetBeidouSateListClone(), (sender as PictureBox).Width, (sender as PictureBox).Height);
+            bdDrawSnrBar.Draw(
+                e.Graphics,
+                MessageParser.GetParsingStatus().GetBeidouSateListClone(),
+                MessageParser.GetParsingStatus().GetBeidouSignalListClone(),
+                (sender as PictureBox).Width, 
+                (sender as PictureBox).Height);
         }
 
         private void queryUpdateRateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1548,6 +1588,27 @@ namespace RtkViewer
             else
             {
                 MessageBox.Show("No timestamp can be converted!");
+            }
+        }
+
+        private ParsingResult satePr = ParsingResult.None;
+        private void sateTimer_Tick(object sender, EventArgs e)
+        {
+            sateTimer.Stop();
+            if ((satePr & ParsingResult.UpdateGpSateInfo) != 0)
+            {
+                snr1Pbox.Invalidate();
+                satePr &= ~ParsingResult.UpdateGpSateInfo;
+            }
+            if ((satePr & ParsingResult.UpdateGlSateInfo) != 0)
+            {
+                snr2Pbox.Invalidate();
+                satePr &= ~ParsingResult.UpdateGlSateInfo;
+            }
+            if ((satePr & ParsingResult.UpdateBdSateInfo) != 0)
+            {
+                snr3Pbox.Invalidate();
+                satePr &= ~ParsingResult.UpdateBdSateInfo;
             }
         }
 

@@ -56,7 +56,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_LocalRun|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug_LocalRun\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;_PHEONIX_;_LOCAL_RUN_</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -111,6 +111,24 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>RtkViewer.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_LocalRun|AnyCPU'">
+    <OutputPath>bin\Release_LocalRun\</OutputPath>
+    <DefineConstants>TRACE;_PHEONIX_;_LOCAL_RUN_</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_LocalRun|x86'">
+    <OutputPath>bin\x86\Release_LocalRun\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -265,6 +283,11 @@
     <None Include="Resources\Earth_30_120.png" />
     <None Include="Resources\Earth_-30_120.png" />
     <None Include="Resources\Earth_38_22.png" />
+    <None Include="Resources\bdEarthActImg.bmp" />
+    <None Include="Resources\BdAct-1.png" />
+    <None Include="Resources\BdDis-1.png" />
+    <None Include="Resources\GpsAct-1.png" />
+    <None Include="Resources\GpsDis-1.png" />
     <Content Include="RtkViewer.ico" />
   </ItemGroup>
   <ItemGroup>

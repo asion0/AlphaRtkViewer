@@ -62,13 +62,17 @@ namespace RtkViewer
         private const string LocalRunParam = "/LOCAL_RUN";
         static void ParsingParameters(string[] args)
         {
-            foreach(string s in args)
+#if _LOCAL_RUN_
+            localRun = true;
+#else
+            foreach (string s in args)
             {
                 if(s == LocalRunParam)
                 {
                     localRun = true;
                 }
             }
+#endif
         }
 
         static bool DirectlyRunInAppFolder()

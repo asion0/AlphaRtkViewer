@@ -102,6 +102,7 @@
             this.checkFirmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeFirmwareConstellationTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sDTimestampAcquisitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertRawDataToRINEXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rTKPostProcessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateFlightPlanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -169,7 +170,7 @@
             this.snr2Pbox = new System.Windows.Forms.PictureBox();
             this.snr3Pbox = new System.Windows.Forms.PictureBox();
             this.snr1Pbox = new System.Windows.Forms.PictureBox();
-            this.sDTimestampAcquisitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sateTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             this.viewerPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -923,6 +924,13 @@
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // sDTimestampAcquisitionToolStripMenuItem
+            // 
+            this.sDTimestampAcquisitionToolStripMenuItem.Name = "sDTimestampAcquisitionToolStripMenuItem";
+            this.sDTimestampAcquisitionToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.sDTimestampAcquisitionToolStripMenuItem.Text = "SD Timestamp Acquisition";
+            this.sDTimestampAcquisitionToolStripMenuItem.Click += new System.EventHandler(this.sDTimestampAcquisitionToolStripMenuItem_Click);
             // 
             // convertRawDataToRINEXToolStripMenuItem
             // 
@@ -1678,12 +1686,10 @@
             this.snr1Pbox.TabStop = false;
             this.snr1Pbox.Paint += new System.Windows.Forms.PaintEventHandler(this.snr1Pbox_Paint);
             // 
-            // sDTimestampAcquisitionToolStripMenuItem
+            // sateTimer
             // 
-            this.sDTimestampAcquisitionToolStripMenuItem.Name = "sDTimestampAcquisitionToolStripMenuItem";
-            this.sDTimestampAcquisitionToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.sDTimestampAcquisitionToolStripMenuItem.Text = "SD Timestamp Acquisition";
-            this.sDTimestampAcquisitionToolStripMenuItem.Click += new System.EventHandler(this.sDTimestampAcquisitionToolStripMenuItem_Click);
+            this.sateTimer.Interval = 500;
+            this.sateTimer.Tick += new System.EventHandler(this.sateTimer_Tick);
             // 
             // AlphaView
             // 
@@ -1884,6 +1890,7 @@
         private System.Windows.Forms.Label kVerSLbl;
         private System.Windows.Forms.ToolStripMenuItem saveDeviceOutputToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sDTimestampAcquisitionToolStripMenuItem;
+        private System.Windows.Forms.Timer sateTimer;
     }
 }
 

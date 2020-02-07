@@ -145,6 +145,13 @@ namespace RtkViewer
             {   //FW for Alpha
                 return DeviceInformation.FinalStage.None;
             }
+#if _PHEONIX_
+            if (deviceInfo.GetKernelVersion(false)[1] == 3)
+            {   //FW for Pheonix Alpha
+                return DeviceInformation.FinalStage.None;
+            }
+#endif
+
 
             //Check Boot Status
             watch.Reset();

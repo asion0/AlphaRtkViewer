@@ -83,6 +83,26 @@ namespace RtkViewer.Properties {
         /// <summary>
         ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
         /// </summary>
+        internal static System.Drawing.Bitmap BdErtAct {
+            get {
+                object obj = ResourceManager.GetObject("BdErtAct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap BdErtDis {
+            get {
+                object obj = ResourceManager.GetObject("BdErtDis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
         internal static System.Drawing.Bitmap bdSnrTitle {
             get {
                 object obj = ResourceManager.GetObject("bdSnrTitle", resourceCulture);
@@ -196,6 +216,26 @@ namespace RtkViewer.Properties {
         internal static System.Drawing.Bitmap gpDisImg {
             get {
                 object obj = ResourceManager.GetObject("gpDisImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap GpErtAct {
+            get {
+                object obj = ResourceManager.GetObject("GpErtAct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap GpErtDis {
+            get {
+                object obj = ResourceManager.GetObject("GpErtDis", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
