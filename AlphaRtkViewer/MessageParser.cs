@@ -2274,6 +2274,10 @@ namespace StqMessageParser
                         //    MessageParser.GetParsingStatus().ClearInUseGNList(Convert.ToInt32(param[3]), systemId);
                         //    break;
                     }
+                    if (type == ParsingStatus.SateType.Unknown)
+                    {
+                        return ParsingResult.None;
+                    }
                     MessageParser.GetParsingStatus().ClearInUseList(type);
                 }
 
@@ -2336,7 +2340,7 @@ namespace StqMessageParser
         private static int totalGsv = -1;
         private static int lastGsv = -1;
         private static DateTime lastGsvTime = new DateTime(0);
-        private static int gsvTimeout = 0;
+        //private static int gsvTimeout = 0;
         private static List<ParsingStatus.SateInfo> tmpGsvSate = new List<ParsingStatus.SateInfo>();
 
         public static int SetGsvTime(DateTime d)

@@ -43,7 +43,7 @@ namespace RtkViewer
             //    return;
             //}
 
-            AppTools.ShowDebug("RTK Viewer starts");
+            AppTools.ShowDebug("RTK Viewer2 starts");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new AlphaView());

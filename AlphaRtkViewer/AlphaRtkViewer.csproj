@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RtkViewer</RootNamespace>
-    <AssemblyName>RtkViewer</AssemblyName>
+    <AssemblyName>RtkViewer2</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -288,6 +288,7 @@
     <None Include="Resources\BdDis-1.png" />
     <None Include="Resources\GpsAct-1.png" />
     <None Include="Resources\GpsDis-1.png" />
+    <EmbeddedResource Include="lzma.exe" />
     <Content Include="RtkViewer.ico" />
   </ItemGroup>
   <ItemGroup>

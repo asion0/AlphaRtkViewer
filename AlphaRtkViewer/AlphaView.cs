@@ -469,7 +469,8 @@ namespace RtkViewer
                 return false;
             }
 
-            if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Rom_Mode)
+            if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Rom_Mode ||
+                deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Rom_Mode_Phoenix)
             {
                 MessageBox.Show("You are in ROM mode!");
             }
@@ -580,7 +581,7 @@ namespace RtkViewer
                 opModeLbl.Text = "RTK Rover " + ((deviceInfo.IsGlonassModule()) ? "GPS + GLONASS" : "GPS + BEIDOU");
                 opModeLbl.ForeColor = (deviceInfo.IsGlonassModule() ? Color.BlueViolet : Color.DarkOrange);
             }
-            else if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Rom_Mode)
+            else if (deviceInfo.IsRomMode())
             {
                 opModeLbl.Text = "ROM Mode";
                 opModeLbl.ForeColor = Color.Red;
@@ -591,7 +592,8 @@ namespace RtkViewer
             revisionMLbl.Text = deviceInfo.GetFormatRevision(false);
             crcMLbl.Text = deviceInfo.GetFormatCrc(false);
 
-            if (!deviceInfo.IsRtkBaseMode() && !(deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Rom_Mode))
+            if (!deviceInfo.IsPhoenixFirmware() && !deviceInfo.IsRtkBaseMode() && 
+                !(deviceInfo.IsRomMode()))
             {
                 kVerSLbl.Text = deviceInfo.GetFormatKernelVersion(true);
                 sVerSLbl.Text = deviceInfo.GetFormatSoftwareVersion(true);
@@ -807,7 +809,7 @@ namespace RtkViewer
 
         private void UpdateLicenseStatus()
         {
-            if(deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Rom_Mode)
+            if(deviceInfo.IsRomMode())
             {
                 rtkActLbl.Text = "";
                 licPeriodLbl.Text = "";
@@ -857,7 +859,7 @@ namespace RtkViewer
 
         void EnableSettingMenu(bool enable)
         {
-            if (enable && (deviceInfo.GetFinalStage() != DeviceInformation.FinalStage.Rom_Mode))
+            if (enable && (!deviceInfo.IsRomMode()))
             {
                 settingsToolStripMenuItem.Enabled = true;
             }
@@ -885,7 +887,7 @@ namespace RtkViewer
                 EnableSettingMenu(true);
                 //Updates
                 updatesToolStripMenuItem.Enabled = true;
-                changeFirmwareConstellationTypeToolStripMenuItem.Enabled = (deviceInfo.GetFinalStage() != DeviceInformation.FinalStage.Rom_Mode);
+                changeFirmwareConstellationTypeToolStripMenuItem.Enabled = (!deviceInfo.IsRomMode());
             }
             else
             {
@@ -919,9 +921,19 @@ namespace RtkViewer
 
         private void enableRTKFunctionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            byte[] serialNo = new byte[8];
+            byte[] serialNo = new byte[16];
+            int serialLen = 8;
             gps.UninstallDataReceiver();
-            GpsSerial.GPS_RESPONSE rep = gps.QuerySerialNumber(2000, ref serialNo);
+            GpsSerial.GPS_RESPONSE rep = GpsSerial.GPS_RESPONSE.NONE;
+
+            if (deviceInfo.IsPhoenixFirmware())
+            {
+                rep = gps.QueryExtendedSerialNumber(2000, ref serialLen, ref serialNo);
+            }
+            else
+            {
+                rep = gps.QuerySerialNumber(2000, ref serialNo);
+            }
             SetResponseMessage(rep, "Query Serial Number");
 
             if (rep != GpsSerial.GPS_RESPONSE.ACK)
@@ -932,7 +944,7 @@ namespace RtkViewer
             }
 
             EnableRTKFunctionForm form = new EnableRTKFunctionForm();
-            form.SetSerialNumber(MiscUtil.Conversion.MiscConverter.GetSerialNumberString(serialNo));
+            form.SetSerialNumber(MiscUtil.Conversion.MiscConverter.GetSerialNumberString(serialNo, serialLen));
             DialogResult dr = form.ShowDialog();
 
             if(dr != DialogResult.OK)
@@ -1213,6 +1225,14 @@ namespace RtkViewer
             if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Rom_Mode)
             {
                 form.SetDeviceInfoAndGpsSerial(CheckFirmwareUpdateForm.Mode.RomModeRecovery, deviceInfo, gps);
+            }
+            else if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Rom_Mode_Phoenix)
+            {
+                form.SetDeviceInfoAndGpsSerial(CheckFirmwareUpdateForm.Mode.AlphaPlusRomModeRecovery, deviceInfo, gps);
+            }
+            else if(deviceInfo.IsPhoenixFirmware())
+            {
+                form.SetDeviceInfoAndGpsSerial(CheckFirmwareUpdateForm.Mode.UpdateAlphaPlusFirmware, deviceInfo, gps);
             }
             else
             {

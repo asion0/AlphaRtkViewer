@@ -37,7 +37,7 @@
             this.checkFwPromptLbl = new System.Windows.Forms.Label();
             this.downloadStep2Panel = new System.Windows.Forms.Panel();
             this.opModeLbl = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.slaveGroup = new System.Windows.Forms.GroupBox();
             this.newFwKVerSLbl = new System.Windows.Forms.Label();
             this.newFwCrcSLbl = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -74,7 +74,7 @@
             this.label40 = new System.Windows.Forms.Label();
             this.downloadUpdatePanel.SuspendLayout();
             this.downloadStep2Panel.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.slaveGroup.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.downloadStep3Panel.SuspendLayout();
             this.downloadChangePanel.SuspendLayout();
@@ -146,7 +146,7 @@
             // downloadStep2Panel
             // 
             this.downloadStep2Panel.Controls.Add(this.opModeLbl);
-            this.downloadStep2Panel.Controls.Add(this.groupBox1);
+            this.downloadStep2Panel.Controls.Add(this.slaveGroup);
             this.downloadStep2Panel.Controls.Add(this.groupBox2);
             this.downloadStep2Panel.Controls.Add(this.step2NoBtn);
             this.downloadStep2Panel.Controls.Add(this.step2YesBtn);
@@ -167,23 +167,23 @@
             this.opModeLbl.Text = "RTK Rover GPS + GLO";
             this.opModeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // groupBox1
+            // slaveGroup
             // 
-            this.groupBox1.Controls.Add(this.newFwKVerSLbl);
-            this.groupBox1.Controls.Add(this.newFwCrcSLbl);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.newFwRevSLbl);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.newFwSVerSLbl);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox1.Location = new System.Drawing.Point(255, 193);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(234, 114);
-            this.groupBox1.TabIndex = 30;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Slave Firmware";
+            this.slaveGroup.Controls.Add(this.newFwKVerSLbl);
+            this.slaveGroup.Controls.Add(this.newFwCrcSLbl);
+            this.slaveGroup.Controls.Add(this.label6);
+            this.slaveGroup.Controls.Add(this.newFwRevSLbl);
+            this.slaveGroup.Controls.Add(this.label8);
+            this.slaveGroup.Controls.Add(this.newFwSVerSLbl);
+            this.slaveGroup.Controls.Add(this.label10);
+            this.slaveGroup.Controls.Add(this.label11);
+            this.slaveGroup.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.slaveGroup.Location = new System.Drawing.Point(255, 193);
+            this.slaveGroup.Name = "slaveGroup";
+            this.slaveGroup.Size = new System.Drawing.Size(234, 114);
+            this.slaveGroup.TabIndex = 30;
+            this.slaveGroup.TabStop = false;
+            this.slaveGroup.Text = "Slave Firmware";
             // 
             // newFwKVerSLbl
             // 
@@ -506,7 +506,7 @@
             this.radioButton2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.radioButton2.Location = new System.Drawing.Point(132, 134);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(196, 24);
+            this.radioButton2.Size = new System.Drawing.Size(226, 24);
             this.radioButton2.TabIndex = 12;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "GPS/BEIDOU RTK Receiver";
@@ -569,7 +569,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 361);
+            this.ClientSize = new System.Drawing.Size(504, 360);
             this.Controls.Add(this.downloadStep2Panel);
             this.Controls.Add(this.downloadStep3Panel);
             this.Controls.Add(this.downloadChangePanel);
@@ -584,8 +584,8 @@
             this.downloadUpdatePanel.ResumeLayout(false);
             this.downloadUpdatePanel.PerformLayout();
             this.downloadStep2Panel.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.slaveGroup.ResumeLayout(false);
+            this.slaveGroup.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.downloadStep3Panel.ResumeLayout(false);
@@ -629,7 +629,7 @@
         private System.Windows.Forms.Label progressTextLbl;
         private System.Windows.Forms.Label checkFwPromptLbl;
         private System.Windows.Forms.Button checkFwOkBtn;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox slaveGroup;
         private System.Windows.Forms.Label newFwKVerSLbl;
         private System.Windows.Forms.Label newFwCrcSLbl;
         private System.Windows.Forms.Label label6;

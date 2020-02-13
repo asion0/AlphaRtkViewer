@@ -30,6 +30,8 @@ namespace RtkViewer
             UpdateFirmware,
             ChangeConstellationType,
             RomModeRecovery,
+            UpdateAlphaPlusFirmware,
+            AlphaPlusRomModeRecovery,
         }
         private Mode mode = Mode.None;
         private enum Status
@@ -68,11 +70,17 @@ namespace RtkViewer
         private BackgroundWorker bwConfigureWorker = new BackgroundWorker();
         private void CheckFirmwareUpdateForm_Load(object sender, EventArgs e)
         {
-            if(mode == Mode.UpdateFirmware || mode == Mode.RomModeRecovery)
+            if(mode == Mode.UpdateFirmware || mode == Mode.RomModeRecovery ||
+                mode == Mode.UpdateAlphaPlusFirmware || mode == Mode.AlphaPlusRomModeRecovery)
             {
                 Text = "Check Firmware Update";
                 downloadStep2TitleLbl.Text = "New Firmware Found";
                 downloadStep2PromptLbl.Text = "New firmware is now available.\r\nWould you like to download it from the server and update onto it?";
+
+                if (mode == Mode.UpdateAlphaPlusFirmware || mode == Mode.AlphaPlusRomModeRecovery)
+                {
+                    slaveGroup.Visible = false;
+                }
             }
             else if(mode == Mode.ChangeConstellationType)
             {
@@ -99,7 +107,9 @@ namespace RtkViewer
         {
             None,
             AlphaStandard,
-            AlphaStartKit
+            AlphaStartKit,
+            AlphaPlus,
+            SmartAntennaS100
         }
         RomModeType romModeType = RomModeType.None;
         private void RomModeCheck()
@@ -127,6 +137,10 @@ namespace RtkViewer
                     status = Status.UnknowRomType;
                     return;
                 }
+            }
+            if (mode == Mode.AlphaPlusRomModeRecovery)
+            {
+                romModeType = RomModeType.AlphaPlus;
             }
 
             UpdateServer.SetTimeout(5000);
@@ -182,6 +196,16 @@ namespace RtkViewer
                 remoteFwFolder = AppTools.GlFirmwareFtpFolderName;
                 remoteListName = (romModeType == RomModeType.AlphaStandard) ? Program.fwStandardUpdateProfile : Program.fwStartKitUpdateProfile;
             }
+            else if (mode == Mode.UpdateAlphaPlusFirmware)
+            {
+                remoteFwFolder = AppTools.PlusFirmwareFtpFolderName;
+                remoteListName = Program.fwStandardUpdateProfile;
+            }
+            else if (mode == Mode.AlphaPlusRomModeRecovery)
+            {
+                remoteFwFolder = AppTools.PlusFirmwareFtpFolderName;
+                remoteListName = Program.fwStandardUpdateProfile;
+            }
 
             UpdateServer.SetTimeout(10000);
             string fwInfoXml = UpdateServer.GetFileString(remoteFwFolder, remoteListName);
@@ -191,18 +215,46 @@ namespace RtkViewer
                 return;
             }
 
-            fwInfo = AppTools.GetFirmwareInfoFromXml(fwInfoXml);
-            if (!fwInfo.Validate())
-            {   //Server list file error, list file xml can't parsing
-                status = Status.ServerError;
-                return;
-            }
+            if (mode == Mode.UpdateFirmware)
+            {
+                fwInfo = AppTools.GetFirmwareInfoFromXml(fwInfoXml);
+                if (!fwInfo.Validate())
+                {   //Server list file error, list file xml can't parsing
+                    status = Status.ServerError;
+                    return;
+                }
 
-            bool needUpdateFirmware = CheckFirmwareVersion(fwInfo);
-            if (!needUpdateFirmware)
-            {   //Doesn't need update, it's the newest version
-                status = Status.NewestVersion;
-                return;
+                bool needUpdateFirmware = CheckFirmwareVersion(fwInfo);
+                if (!needUpdateFirmware)
+                {   //Doesn't need update, it's the newest version
+                    status = Status.NewestVersion;
+                    return;
+                }
+            }
+            else if (mode == Mode.UpdateAlphaPlusFirmware)
+            {
+                fwInfo = AppTools.GetFirmwareInfoFromXml(fwInfoXml);
+                if (!fwInfo.ValidatePlus())
+                {   //Server list file error, list file xml can't parsing
+                    status = Status.ServerError;
+                    return;
+                }
+
+                bool needUpdateFirmware = CheckFirmwareVersion(fwInfo);
+                if (!needUpdateFirmware)
+                {   //Doesn't need update, it's the newest version
+                    status = Status.NewestVersion;
+                    return;
+                }
+            }
+            else if(mode == Mode.AlphaPlusRomModeRecovery || mode == Mode.RomModeRecovery)
+            {
+                fwInfo = AppTools.GetFirmwareInfoFromXml(fwInfoXml);
+                if (!fwInfo.ValidatePlus())
+                {   //Server list file error, list file xml can't parsing
+                    status = Status.ServerError;
+                    return;
+                }
             }
             status = Status.UpdateAvailable;
         }
@@ -237,12 +289,18 @@ namespace RtkViewer
             newFwRevSLbl.Text = fwInfo.fwS.revision;
             newFwCrcSLbl.Text = fwInfo.fwS.crc;
 
+            
             if (remoteFwFolder == AppTools.GlFirmwareFtpFolderName)
             {
                 opModeLbl.Text = "GPS + GLONASS";
                 opModeLbl.ForeColor = Color.BlueViolet;
             }
             else if (remoteFwFolder == AppTools.BdFirmwareFtpFolderName)
+            {
+                opModeLbl.Text = "GPS + BEIDOU";
+                opModeLbl.ForeColor = Color.DarkOrange;
+            }
+            else if(remoteFwFolder == AppTools.PlusFirmwareFtpFolderName)
             {
                 opModeLbl.Text = "GPS + BEIDOU";
                 opModeLbl.ForeColor = Color.DarkOrange;
@@ -283,17 +341,19 @@ namespace RtkViewer
                 return;
             }
 
-            //Download slave firmware
-            progressBase = fwInfo.fwM.size;
-            dstName = GetDownloadFilePathName(true);
-            UpdateServer.SetTimeout(10000);
-            downloadFinish = UpdateServer.GetFile(remoteFwFolder, dstName, fwInfo.fwS.path, ShowFtpProgress);
-            if (!downloadFinish)
+            if (fwInfo.fwS.size > 0)
             {
-                status = Status.DownloadSlaveFailed;
-                return;
+                //Download slave firmware
+                progressBase = fwInfo.fwM.size;
+                dstName = GetDownloadFilePathName(true);
+                UpdateServer.SetTimeout(10000);
+                downloadFinish = UpdateServer.GetFile(remoteFwFolder, dstName, fwInfo.fwS.path, ShowFtpProgress);
+                if (!downloadFinish)
+                {
+                    status = Status.DownloadSlaveFailed;
+                    return;
+                }
             }
-
             status = Status.DownloadFinished;
         }
 
@@ -389,7 +449,15 @@ namespace RtkViewer
             const int defaultDownloadBaudIdx = 7;
             bool ret = false;
 
-            ret = FirmwareDownload.DoDownloadFirmware(gps, GetDownloadFilePathName(false), defaultDownloadBaudIdx, false, ShowUpdateProgress);
+            if (mode == Mode.UpdateAlphaPlusFirmware || mode == Mode.AlphaPlusRomModeRecovery)
+            {
+                ret = FirmwareDownload.DoDownloadPhoenixFirmware(gps, GetDownloadFilePathName(false), defaultDownloadBaudIdx, false, ShowUpdateProgress);
+            }
+            else
+            {
+                ret = FirmwareDownload.DoDownloadFirmware(gps, GetDownloadFilePathName(false), defaultDownloadBaudIdx, false, ShowUpdateProgress);
+            }
+
             if (!ret)
             {
                 status = Status.UpdateMasterFailed;
@@ -418,7 +486,25 @@ namespace RtkViewer
                 return;
             }
 
-            if (mode != Mode.RomModeRecovery)
+            if(mode == Mode.UpdateAlphaPlusFirmware)
+            {
+                LaunchConfigureWorker();
+                return;
+            }
+
+            if (mode == Mode.RomModeRecovery)
+            {
+                MessageBox.Show("The Alpha master firmware has been restored. Please unplug the USB cable and plug it in again, then connect at 115200 baud rate. Perform a \"Check Firmware Update\" after connecting to ensure that the slave firmware is correct.");
+                Close();
+                return;
+            }
+            else if(mode == Mode.AlphaPlusRomModeRecovery)
+            {
+                MessageBox.Show("The Alpha+ firmware has been restored. Please unplug the USB cable and plug it in again");
+                Close();
+                return;
+            }
+            else
             {
                 if (NeedSlaveUpdate(fwInfo))
                 {
@@ -426,12 +512,6 @@ namespace RtkViewer
                     return;
                 }
                 LaunchConfigureWorker();
-            }
-            else
-            {
-                MessageBox.Show("The Alpha master firmware has been restored. Please unplug the USB cable and plug it in again, then connect at 115200 baud rate. Perform a \"Check Firmware Update\" after connecting to ensure that the slave firmware is correct.");
-                Close();
-                return;
             }
         }
 
@@ -521,7 +601,15 @@ namespace RtkViewer
         //return true if version is not the same
         private bool CheckFirmwareVersion(FirmwareInfo fi)
         {
-            if(deviceInfo.IsRtkBaseMode())
+            if (deviceInfo.IsPhoenixFirmware())
+            {   //No slave FW information in Phoenix.
+                return ((deviceInfo.GetFormatKernelVersion(false) != fi.fwM.kernelVer) ||
+                    (deviceInfo.GetFormatSoftwareVersion(false) != fi.fwM.softwareVer) ||
+                    (deviceInfo.GetFormatRevision(false) != fi.fwM.revision) ||
+                    (deviceInfo.GetFormatCrc(false) != fi.fwM.crc.ToUpper()));
+            }
+
+            if (deviceInfo.IsRtkBaseMode())
             {   //No slave FW information in RTK Base mode.
                 return ((deviceInfo.GetFormatKernelVersion(false) != fi.fwM.kernelVer) ||
                     (deviceInfo.GetFormatSoftwareVersion(false) != fi.fwM.softwareVer) ||
@@ -639,7 +727,14 @@ namespace RtkViewer
         private int maxProgressValue = 0;
         private void step2YesBtn_Click(object sender, EventArgs e)
         {
-            maxProgressValue = fwInfo.fwM.size + fwInfo.fwS.size;
+            if (fwInfo.fwS.size != 0)
+            {
+                maxProgressValue = fwInfo.fwM.size + fwInfo.fwS.size;
+            }
+            else
+            {
+                maxProgressValue = fwInfo.fwM.size;
+            }
             downloadStep3Progress.Maximum = maxProgressValue;
             step = Step.Step3;
             UpdateStatus();

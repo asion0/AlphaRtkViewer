@@ -78,50 +78,18 @@ namespace RtkViewer
         {
             watch.Reset();
             watch.Start();
-
-            //Query Slave Software Version
-            GpsSerial.GPS_RESPONSE rep = deviceInfo.QuerySoftwareVersion(true);
-            w.ReportProgress(-1, String.Format("Querying slave FW version returns {0} ({1} ms)", rep.ToString(), watch.ElapsedMilliseconds));
-            if (GpsSerial.GPS_RESPONSE.ACK != rep && GpsSerial.GPS_RESPONSE.NACK != rep)
-            {   //Device error
-                w.ReportProgress(-1, "Querying slave FW version failed!");
-                return DeviceInformation.FinalStage.Device_Error;
-            }
-
-            byte[] kVer;
-            byte[] sVer;
-            byte[] rev;
-            if (GpsSerial.GPS_RESPONSE.NACK != rep)
-            {
-                kVer = deviceInfo.GetKernelVersion(true);
-                sVer = deviceInfo.GetSoftwareVersion(true);
-                rev = deviceInfo.GetRevision(true);
-                w.ReportProgress(-1, "Slave K.Ver.: " + deviceInfo.GetFormatKernelVersion(true));
-                w.ReportProgress(-1, "Slave S.Ver.: " + deviceInfo.GetFormatSoftwareVersion(true));
-                w.ReportProgress(-1, "Slave Rev.: " + deviceInfo.GetFormatRevision(true));
-
-                //Get Firmware CRC
-                watch.Reset();
-                watch.Start();
-                rep = deviceInfo.QueryCrc(true);
-                w.ReportProgress(-1, String.Format("Querying slave FW CRC returns {0} ({1} ms)", rep.ToString(), watch.ElapsedMilliseconds));
-                if (GpsSerial.GPS_RESPONSE.ACK != rep && GpsSerial.GPS_RESPONSE.NACK != rep)
-                {   //Device error
-                    w.ReportProgress(-1, "Querying slave CRC failed!");
-                    return DeviceInformation.FinalStage.Device_Error;
-                }
-                w.ReportProgress(-1, "Slave CRC: " + deviceInfo.GetFormatCrc(true));
-            }
-
             //Query Master Software Version
-            rep = deviceInfo.QuerySoftwareVersion(false);
+            GpsSerial.GPS_RESPONSE rep = deviceInfo.QuerySoftwareVersion(false);
             w.ReportProgress(-1, String.Format("Querying master FW version returns {0} ({1} ms)", rep.ToString(), watch.ElapsedMilliseconds));
             if (GpsSerial.GPS_RESPONSE.ACK != rep)
             {   //Device error
                 w.ReportProgress(-1, "Querying master FW version failed!");
                 return DeviceInformation.FinalStage.Device_Error;
             }
-            
+            byte[] kVer;
+            byte[] sVer;
+            byte[] rev;
+
             kVer = deviceInfo.GetKernelVersion(false);
             sVer = deviceInfo.GetSoftwareVersion(false);
             rev = deviceInfo.GetRevision(false);
@@ -141,18 +109,48 @@ namespace RtkViewer
             }
             w.ReportProgress(-1, "Master CRC: " + deviceInfo.GetFormatCrc(false));
 
-            if (deviceInfo.GetSoftwareVersion(false)[1] == 10 || deviceInfo.GetSoftwareVersion(false)[1] == 200)
-            {   //FW for Alpha
-                return DeviceInformation.FinalStage.None;
+            if (!deviceInfo.IsPhoenixFirmware())
+            {
+                //Query Slave Software Version
+                rep = deviceInfo.QuerySoftwareVersion(true);
+                w.ReportProgress(-1, String.Format("Querying slave FW version returns {0} ({1} ms)", rep.ToString(), watch.ElapsedMilliseconds));
+                if (GpsSerial.GPS_RESPONSE.ACK != rep && GpsSerial.GPS_RESPONSE.NACK != rep)
+                {   //Device error
+                    w.ReportProgress(-1, "Querying slave FW version failed!");
+                    return DeviceInformation.FinalStage.Device_Error;
+                }
+
+                if (GpsSerial.GPS_RESPONSE.NACK != rep)
+                {
+                    kVer = deviceInfo.GetKernelVersion(true);
+                    sVer = deviceInfo.GetSoftwareVersion(true);
+                    rev = deviceInfo.GetRevision(true);
+                    w.ReportProgress(-1, "Slave K.Ver.: " + deviceInfo.GetFormatKernelVersion(true));
+                    w.ReportProgress(-1, "Slave S.Ver.: " + deviceInfo.GetFormatSoftwareVersion(true));
+                    w.ReportProgress(-1, "Slave Rev.: " + deviceInfo.GetFormatRevision(true));
+
+                    //Get Firmware CRC
+                    watch.Reset();
+                    watch.Start();
+                    rep = deviceInfo.QueryCrc(true);
+                    w.ReportProgress(-1, String.Format("Querying slave FW CRC returns {0} ({1} ms)", rep.ToString(), watch.ElapsedMilliseconds));
+                    if (GpsSerial.GPS_RESPONSE.ACK != rep && GpsSerial.GPS_RESPONSE.NACK != rep)
+                    {   //Device error
+                        w.ReportProgress(-1, "Querying slave CRC failed!");
+                        return DeviceInformation.FinalStage.Device_Error;
+                    }
+                    w.ReportProgress(-1, "Slave CRC: " + deviceInfo.GetFormatCrc(true));
+                }
+                if (deviceInfo.GetSoftwareVersion(false)[1] == 10 || deviceInfo.GetSoftwareVersion(false)[1] == 200)
+                {   //FW for Alpha
+                    return DeviceInformation.FinalStage.None;
+                }
             }
-#if _PHEONIX_
-            if (deviceInfo.GetKernelVersion(false)[1] == 3)
+            else if (deviceInfo.IsAlphaFirmware())
             {   //FW for Pheonix Alpha
                 return DeviceInformation.FinalStage.None;
             }
-#endif
-
-
+       
             //Check Boot Status
             watch.Reset();
             watch.Start();
@@ -168,7 +166,10 @@ namespace RtkViewer
             w.ReportProgress(-1, "Boot ROM: " + deviceInfo.GetBootRomFlag().ToString());
             if (deviceInfo.GetBootFailedFlag() || deviceInfo.GetBootRomFlag())
             {   //In ROM mode
-                return DeviceInformation.FinalStage.Rom_Mode;
+                if (deviceInfo.IsPhoenixFirmware())
+                    return DeviceInformation.FinalStage.Rom_Mode_Phoenix;
+                else
+                    return DeviceInformation.FinalStage.Rom_Mode;
             }
 
             //Unable to support
@@ -293,6 +294,7 @@ namespace RtkViewer
             new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.None, DetectFwType, DeviceInformation.FinalStage.None),
             new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Device_Error, null, DeviceInformation.FinalStage.Device_Error),
             new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Rom_Mode, null, DeviceInformation.FinalStage.Rom_Mode),
+            new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Rom_Mode_Phoenix, null, DeviceInformation.FinalStage.Rom_Mode_Phoenix),
             new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Device_Not_Support, null, DeviceInformation.FinalStage.Device_Not_Support),
             //new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Device_FirstTimeout, ReopenDevice, DeviceInformation.FinalStage.None),
             new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Device_Error, null, DeviceInformation.FinalStage.Device_Error),
@@ -357,6 +359,10 @@ namespace RtkViewer
                     noticePanel.Visible = true;
                     break;
                 case DeviceInformation.FinalStage.Rom_Mode:
+                    noticeLbl.Text = "Your device is in ROM mode, please use \"Check Firmware Update\" to restore your firmware.";
+                    noticePanel.Visible = true;
+                    break;
+                case DeviceInformation.FinalStage.Rom_Mode_Phoenix:
                     noticeLbl.Text = "Your device is in ROM mode, please use \"Check Firmware Update\" to restore your firmware.";
                     noticePanel.Visible = true;
                     break;

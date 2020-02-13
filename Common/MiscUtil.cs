@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using System.Timers;
 
 namespace MiscUtil.Conversion
 {
@@ -961,10 +962,24 @@ namespace MiscUtil.Conversion
             return d + m / 60.0 + s / 3600.0;
         }
 
-        public static string GetSerialNumberString(byte[] s)
+        public static string GetSerialNumberString(byte[] s, int len)
         {
-            return string.Format("{0:X2}{1:X2}{2:X2}{3:X2}{4:X2}{5:X2}{6:X2}{7:X2}",
-                s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7]);
+            if (len == 8)
+            {
+                return string.Format("{0:X2}{1:X2}{2:X2}{3:X2}{4:X2}{5:X2}{6:X2}{7:X2}",
+                    s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7]);
+            }
+            else if(len == 12)
+            {
+                return string.Format("{0:X2}{1:X2}{2:X2}{3:X2}{4:X2}{5:X2}{6:X2}{7:X2}{8:X2}{9:X2}{10:X2}{11:X2}",
+                    s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11]);
+            }
+            else if(len == 16)
+            {
+                return string.Format("{0:X2}{1:X2}{2:X2}{3:X2}{4:X2}{5:X2}{6:X2}{7:X2}{8:X2}{9:X2}{10:X2}{11:X2}{12:X2}{13:X2}{14:X2}{15:X2}",
+                    s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11], s[12], s[13], s[14], s[15]);
+            }
+            return "";
         }
 
         public static byte[] StringToByteArrayNoSpace(string hex)
@@ -1074,7 +1089,14 @@ namespace MiscUtil.App
             return (fwM.size > 0) && (fwS.size > 0) && (fwM.crc.Length > 0) && (fwS.crc.Length > 0) &&
                 (fwM.revision.Length > 0) && (fwS.revision.Length > 0) && (fwM.softwareVer.Length > 0) &&
                 (fwS.softwareVer.Length > 0) && (fwM.kernelVer.Length > 0) && (fwS.kernelVer.Length > 0) &&
-                (fwM.path.Length > 0) && (fwS.path.Length > 0) & (fwM.baud > 0) && (fwS.baud > 0);
+                (fwM.path.Length > 0) && (fwS.path.Length > 0) && (fwM.baud > 0) && (fwS.baud > 0);
+        }
+
+        public bool ValidatePlus()
+        {
+            return (fwM.size > 0) && (fwM.crc.Length > 0) &&
+                (fwM.revision.Length > 0) && (fwM.softwareVer.Length > 0) &&
+                (fwM.kernelVer.Length > 0) && (fwM.path.Length > 0) && (fwM.baud > 0);
         }
     }
 
@@ -1165,8 +1187,8 @@ namespace MiscUtil.App
         }
 
         const string AppFolderCompanyName = "\\Polaris";
-        const string AppFolderAppName = "\\RTK_Viewer";
-        const string AppFolderDownloadName = "\\RTK_Viewer_Tmp";
+        const string AppFolderAppName = "\\RTK_Viewer2";
+        const string AppFolderDownloadName = "\\RTK_Viewer2_Tmp";
         public static string GetRtkViewerFolder(bool create)
         {
             StringBuilder sb = new StringBuilder(260);
@@ -1208,6 +1230,11 @@ namespace MiscUtil.App
         public static string GetRtkViewerUpdaterPath()
         {
             return string.Format("{0}\\{1}", GetRtkViewerDownloadFolder(false), "RtkViewerUpdater.exe");
+        }
+
+        public static string GetRtkViewerLzmaPath()
+        {
+            return string.Format("{0}\\{1}", GetRtkViewerDownloadFolder(false), "Lzma.exe");
         }
 
         public static bool IsNewVersion(string current, string newone)
@@ -1423,6 +1450,14 @@ namespace MiscUtil.App
             p.Start();
         }
 
+        public static bool LaunchExeWait(string path, string param, int timeout)
+        {
+            var p = new Process();
+            p.StartInfo.FileName = path;
+            p.StartInfo.Arguments = param;
+            p.Start();
+            return p.WaitForExit(timeout);
+        }
         /// <summary>
         /// Extracts an embedded file to local file system.
         /// </summary>
@@ -1460,11 +1495,14 @@ namespace MiscUtil.App
         private static Mutex mutex;
         public const string RtkViewerMutexName = "RtkViewer#99DBD532";
         public const string RtkViewerUpdaterMutexName = "RtkUpdater#D76D04ED";
-        public const string RtkViewerFileName = "\\RtkViewer.exe";
+        public const string RtkViewerFileName = "\\RtkViewer2.exe";
 
-        public const string ViewerFtpFolderName = "Viewer";
+        public const string ViewerFtpFolderName = "Viewer2";
         public const string GlFirmwareFtpFolderName = "GlonassFw";
         public const string BdFirmwareFtpFolderName = "BeidouFw";
+        //Added for Alpha+ on 20190210
+        public const string PlusFirmwareFtpFolderName = "PhoenixBdFw";
+
         public static bool CreateMutex(string mutexName)
         {
             bool first = false;
@@ -1490,7 +1528,45 @@ namespace MiscUtil.Network
     public class UpdateServer
     {
         public delegate void FtpProgressFunction(int progressByte);
+        /*
+        public class WebClientAsync : WebClient
+        {
+            private int _timeoutMilliseconds;
 
+            public WebClientAsync(int timeoutSeconds)
+            {
+                _timeoutMilliseconds = timeoutSeconds * 1000;
+
+                System.Timers.Timer timer = new System.Timers.Timer(_timeoutMilliseconds);
+                ElapsedEventHandler handler = null;
+
+                handler = ((sender, args) =>
+                {
+                    timer.Elapsed -= handler;
+                    this.CancelAsync();
+                });
+
+                timer.Elapsed += handler;
+                timer.Enabled = true;
+            }
+
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                WebRequest request = base.GetWebRequest(address);
+                request.Timeout = _timeoutMilliseconds;
+                ((HttpWebRequest)request).ReadWriteTimeout = _timeoutMilliseconds;
+
+                return request;
+            }
+
+            protected override void OnDownloadProgressChanged(DownloadProgressChangedEventArgs e)
+            {
+                base.OnDownloadProgressChanged(e);
+                timer.Reset(); //If this does not work try below
+                timer.Start();
+            }
+        }
+        */
         enum ServerType
         {
             None,
@@ -1633,7 +1709,7 @@ namespace MiscUtil.Network
         static bool UrlToFile(string url, string localPath, bool isSecurity)
         {
             AppTools.ShowDebug(string.Format("UrlToFile({0},{1})", url, isSecurity));
-            MyWebClient webclient = new MyWebClient();
+            WebClient webclient = new WebClient();
             webclient.Headers.Add("user-agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)");
             webclient.Encoding = Encoding.UTF8;
             if (isSecurity)

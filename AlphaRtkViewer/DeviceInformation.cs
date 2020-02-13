@@ -31,6 +31,8 @@ namespace RtkViewer
             Normal_In_Bd_Base,
             Normal_In_Odr,
             Device_FirstTimeout,
+            Rom_Mode_Phoenix,
+
         }
 
         private FinalStage finalStage = FinalStage.None;
@@ -57,6 +59,9 @@ namespace RtkViewer
         public byte[] GetRevision(bool isSlave) { return (isSlave) ? slaveVer.rev : masterVer.rev; }
         public bool IsAlphaFirmware() { return masterVer.sVer[1] == 10; }
         public bool IsAlphaStartKitFirmware() { return masterVer.sVer[1] == 200; }
+        public bool IsPhoenixFirmware() { return masterVer.kVer[1] > 2; }
+        public bool IsRomMode() { return (GetFinalStage() == FinalStage.Rom_Mode || GetFinalStage() == FinalStage.Rom_Mode_Phoenix); }
+
         public string GetFormatKernelVersion(bool isSlave)
         {
             return string.Format("{0:00}.{1:00}.{2:00}",

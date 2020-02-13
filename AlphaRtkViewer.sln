@@ -13,6 +13,8 @@ Global
 		Debug_LocalRun|x86 = Debug_LocalRun|x86
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release_LocalRun|Any CPU = Release_LocalRun|Any CPU
+		Release_LocalRun|x86 = Release_LocalRun|x86
 		Release_Yves|Any CPU = Release_Yves|Any CPU
 		Release_Yves|x86 = Release_Yves|x86
 		Release|Any CPU = Release|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F4518967-B561-4825-9C02-FC3B2537220F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4518967-B561-4825-9C02-FC3B2537220F}.Debug|x86.ActiveCfg = Debug|x86
 		{F4518967-B561-4825-9C02-FC3B2537220F}.Debug|x86.Build.0 = Debug|x86
+		{F4518967-B561-4825-9C02-FC3B2537220F}.Release_LocalRun|Any CPU.ActiveCfg = Release_LocalRun|Any CPU
+		{F4518967-B561-4825-9C02-FC3B2537220F}.Release_LocalRun|Any CPU.Build.0 = Release_LocalRun|Any CPU
+		{F4518967-B561-4825-9C02-FC3B2537220F}.Release_LocalRun|x86.ActiveCfg = Release_LocalRun|x86
+		{F4518967-B561-4825-9C02-FC3B2537220F}.Release_LocalRun|x86.Build.0 = Release_LocalRun|x86
 		{F4518967-B561-4825-9C02-FC3B2537220F}.Release_Yves|Any CPU.ActiveCfg = Release_Yves|Any CPU
 		{F4518967-B561-4825-9C02-FC3B2537220F}.Release_Yves|Any CPU.Build.0 = Release_Yves|Any CPU
 		{F4518967-B561-4825-9C02-FC3B2537220F}.Release_Yves|x86.ActiveCfg = Release_Yves|x86
@@ -43,6 +49,10 @@ Global
 		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Debug|x86.Build.0 = Debug|Any CPU
+		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Release_LocalRun|Any CPU.ActiveCfg = Release|Any CPU
+		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Release_LocalRun|Any CPU.Build.0 = Release|Any CPU
+		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Release_LocalRun|x86.ActiveCfg = Release|Any CPU
+		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Release_LocalRun|x86.Build.0 = Release|Any CPU
 		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Release_Yves|Any CPU.ActiveCfg = Release|Any CPU
 		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Release_Yves|Any CPU.Build.0 = Release|Any CPU
 		{98A5D21D-8793-4F48-84BC-E781CA57984D}.Release_Yves|x86.ActiveCfg = Release|Any CPU

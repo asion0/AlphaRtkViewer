@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 組件的一般資訊是由下列的屬性集控制。
 // 變更這些屬性的值即可修改組件的相關
 // 資訊。
-[assembly: AssemblyTitle("RTK Viewer")]
+[assembly: AssemblyTitle("RTK Viewer2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
@@ -32,9 +32,10 @@ using System.Runtime.InteropServices;
 // 您可以指定所有的值，也可以依照以下的方式，使用 '*' 將組建和修訂編號
 // 指定為預設值: 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.19")]
-[assembly: AssemblyFileVersion("1.0.0.19")]
+[assembly: AssemblyVersion("2.0.0.1")]
+[assembly: AssemblyFileVersion("2.0.0.1")]
 
+//2.0.0.1 - 20200212, Modify for Phoenix Alpha+, request from Oliver
 //1.0.0.19 - 20200120, Modify for Phoenix, request from Oliver
 //1.0.0.18 - 20190911, Modify fix mode in RTCM output, request from Jim Lin
 //1.0.0.17 - 20190411, no leap seconds in parsing time stamp for PPK application, report by Jim Lin

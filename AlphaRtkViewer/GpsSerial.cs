@@ -707,6 +707,31 @@ namespace RtkViewer
             return retval;
         }
 
+        public GPS_RESPONSE QueryExtendedSerialNumber(int timeout, ref int len, ref byte[] serialNo)
+        {
+            GPS_RESPONSE retval = GPS_RESPONSE.NONE;
+            byte[] cmdData = new byte[2];
+            cmdData[0] = 0x64;
+            cmdData[1] = 0x6E;
+
+            BinaryCommand cmd = new BinaryCommand(cmdData);
+            retval = SendCmdAck(cmd.GetBuffer(), cmd.Size(), timeout);
+            if (retval != GPS_RESPONSE.ACK)
+            {
+                return retval;
+            }
+
+            byte[] retCmd = new byte[128];
+            retval = WaitReturnCommand(0x64, retCmd, timeout);
+            if (retval != GPS_RESPONSE.ACK)
+            {
+                return retval;
+            }
+            len = retCmd[6];
+            Array.Copy(retCmd, 7, serialNo, 0, len);
+            return retval;
+        }
+
         public GPS_RESPONSE QueryRtkMode(int timeout, ref RtkModeInfo rtkInfo)
         {
             GPS_RESPONSE retval = GPS_RESPONSE.NONE;
@@ -851,6 +876,37 @@ namespace RtkViewer
                 " " + (length + checksum).ToString() + " ";
 
             retval = SendStringCmdAck(cmd, cmd.Length, timeout, "OK\0");
+            return retval;
+        }
+
+        public GPS_RESPONSE SendRomBinSize8(int timeout, byte[] raw, byte checksum, int tagPos, int mode)
+        {
+            const int LzmaHeaderSize = 13;
+            int lzmaSize = raw.Length - LzmaHeaderSize;
+            UInt32 check = (UInt32)lzmaSize + (UInt32)checksum + (UInt32)tagPos + (UInt32)mode;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("BINSIZ8 = {0} {1} {2} {3} ", lzmaSize, checksum, tagPos, mode);
+
+            for (int i = 0; i < LzmaHeaderSize; ++i)
+            {
+                check += raw[i];
+                sb.AppendFormat("{0} ", raw[i]);
+            }
+            sb.AppendFormat("{0} ", check);
+
+            GPS_RESPONSE retval = SendStringCmdAck(sb.ToString(), sb.Length, timeout, "OK\0");
+            return retval;
+        }
+
+        public GPS_RESPONSE SendRomBinSize3(int timeout, byte[] raw, byte checksum, int tagPos, int mode)
+        {
+            int lzmaSize = raw.Length;
+            UInt32 check = (UInt32)lzmaSize + (UInt32)checksum + (UInt32)tagPos + (UInt32)mode;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("BINSIZ3 = {0} {1} {2} {3} ", lzmaSize, checksum, tagPos, mode);
+            sb.AppendFormat("{0} ", check);
+
+            GPS_RESPONSE retval = SendStringCmdAck(sb.ToString(), sb.Length, timeout, "OK\0");
             return retval;
         }
 
