@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -8,10 +7,8 @@ using MiscUtil.UI;
 using StqMessageParser;
 using System.Text;
 using System.Collections.Generic;
-using MiscUtil.Network;
 using System.Threading;
 using System.ComponentModel;
-using System.Xml;
 using MiscUtil.App;
 using MiscUtil.IO;
 
@@ -28,6 +25,8 @@ namespace RtkViewer
         private int snr2Y = 0;
         private int snr3X = 0;
         private int snr3Y = 0;
+        private int snr4X = 0;
+        private int snr4Y = 0;
         private void AlphaView_Load(object sender, EventArgs e)
         {
             Text = AppTools.GetAppTitleWithVersion();
@@ -44,28 +43,31 @@ namespace RtkViewer
                 Color.FromArgb(255, 255, 255, 204),
                 "gpActImg", "gpDisImg", "gpSnrTitle",
                 Color.FromArgb(255, 61, 179, 255),
-                Color.FromArgb(255, 47, 123, 203),
-                Color.FromArgb(255, 98, 162, 246));
-            //bdDrawSnrBar = new DrawSnrBar(Color.FromArgb(255, (byte)204, (byte)255, (byte)255),
-            //        "bdActImg", "bdDisImg", "bdSnrTitle",
-            //        Color.FromArgb(255, (byte)255, (byte)153, (byte)1),
-            //        Color.FromArgb(255, 255, 153, 1));
+                Color.FromArgb(255, 43, 120, 204),
+                Color.FromArgb(255, 151, 176, 204));
             bdDrawSnrBar = new DrawSnrBar(
                 Color.FromArgb(255, 204, 255, 255),
                 "bdActImg", "bdDisImg", "bdSnrTitle",
                 Color.FromArgb(255, 255, 153, 1),
-                Color.FromArgb(255, 209, 70, 0),
-                Color.FromArgb(255, 255, 111, 45));
+                Color.FromArgb(255, 219, 107, 51),
+                Color.FromArgb(255, 249, 112, 0));
 
             glDrawSnrBar = new DrawSnrBar(
                 Color.FromArgb(255, 204, 255, 204),
                 "glActImg", "glDisImg", "glSnrTitle",
                 Color.FromArgb(255, 195, 128, 255),
-                Color.FromArgb(255, 156, 102, 204),
-                Color.FromArgb(255, 191, 147, 99));
+                Color.FromArgb(255, 151,  98, 195),
+                Color.FromArgb(255, 195, 169, 217));
+
+            gaDrawSnrBar = new DrawSnrBar(
+                Color.FromArgb(255, 204, 255, 204),
+                "gaActImg", "gaDisImg", "gaSnrTitle",
+                Color.FromArgb(255, 195, 128, 255),
+                Color.FromArgb(255, 149,  206, 72),
+                Color.FromArgb(255, 113, 157, 54));
 
             //drawEarth = new DrawEarth("gpActImg", "gpDisImg", "glActImg", "glDisImg", "bdActImg", "bdDisImg", "giActImg", "giDisImg");
-            drawEarth = new DrawEarth("GpErtAct", "GpErtDis", "glActImg", "glDisImg", "BdErtAct", "BdErtDis", "giActImg", "giDisImg");
+            drawEarth = new DrawEarth("GpErtAct", "GpErtDis", "GlErtAct", "GlErtDis", "BdErtAct", "BdErtDis", "giActImg", "giDisImg", "GaErtAct", "GaErtDis");
             drawScatter = new DrawScatter();
             InitScatterScaleCmb();
             
@@ -199,11 +201,11 @@ namespace RtkViewer
                 sVerMLbl.Text = "";
                 revisionMLbl.Text = "";
                 crcMLbl.Text = "";
-                kVerSLbl.Text = "";
-                sVerSLbl.Text = "";
-                revisionSLbl.Text = "";
-                crcSLbl.Text = "";
-                rtkActLbl.Text = "";
+                //kVerSLbl.Text = "";
+                //sVerSLbl.Text = "";
+                //revisionSLbl.Text = "";
+                //crcSLbl.Text = "";
+                //rtkActLbl.Text = "";
                 licPeriodLbl.Text = "";
             }
 
@@ -246,23 +248,25 @@ namespace RtkViewer
             xGapR = totalW - responsePanel.Left - responsePanel.Width;
             xGapA2 = earthPanel.Left - snr2Pbox.Left - snr2Pbox.Width;
             yGapT = viewerPanel.Top;
-            yGap1 = infoPanel.Top - messagePanel.Top - messagePanel.Height;
-            yGap2 = snr1Pbox.Top - infoPanel.Top - infoPanel.Height;
-            yGap3 = snr2Pbox.Top - snr1Pbox.Top - snr1Pbox.Height;
-            yGap4 = snr3Pbox.Top - snr2Pbox.Top - snr2Pbox.Height;
+            yGap1 = snr1Pbox.Top - messagePanel.Top - messagePanel.Height;
+            yGap2 = snr2Pbox.Top - snr1Pbox.Top - snr1Pbox.Height;
+            yGap3 = snr3Pbox.Top - snr2Pbox.Top - snr2Pbox.Height;
+            yGap4 = snr4Pbox.Top - snr3Pbox.Top - snr3Pbox.Height;
+
             yGapA1 = scatterPanel.Top - responsePanel.Top - responsePanel.Height;
             yGapA2 = earthPanel.Top - scatterPanel.Top - scatterPanel.Height;
-            yGapB = totalH - viewerPanel.Top - viewerPanel.Height;
+            yGapB = totalH - viewerPanel.Height;
         }
 
         private void AlphaView_SizeChanged(object sender, EventArgs e)
         {
             int totalW = (sender as Form).ClientSize.Width;
-            int totalH = (sender as Form).ClientSize.Height - viewerPanel.Top;
+            int totalH = (sender as Form).ClientSize.Height;
 
             int w = (totalW - viewerPanel.Width - xGapL - xGap1 - xGap2 - xGapR) / 2;
-            int h = totalH - yGapT - yGap1 - infoPanel.Height - yGap2 - snr1Pbox.Height - yGap3 -
-                    snr2Pbox.Height - yGap4 - snr3Pbox.Height - yGapB;
+            int h = totalH - yGapT - yGap1 - snr1Pbox.Height - yGap2 - snr2Pbox.Height - yGap3 -
+                    snr3Pbox.Height - yGap4 - snr4Pbox.Height - yGapB;
+
             viewerPanel.Height = totalH - yGapT - yGapB;
             messagePanel.Width = w;
             messagePanel.Height = h;
@@ -271,21 +275,23 @@ namespace RtkViewer
             responsePanel.Left = messagePanel.Left + xGap1 + messagePanel.Width;
 
             w = totalW - xGapL - viewerPanel.Width - xGap1 - xGapA2 - scatterPanel.Width;
-            infoPanel.Width = w;
+            //infoPanel.Width = w;
             snr1Pbox.Width = w;
             snr2Pbox.Width = w;
             snr3Pbox.Width = w;
+            snr4Pbox.Width = w;
 
             int y = messagePanel.Top + messagePanel.Height + yGap1;
-            infoPanel.Top = y;
-            y += infoPanel.Height + yGap2;
             snr1Pbox.Top = y;
-            y += snr1Pbox.Height + yGap3;
+            y += snr1Pbox.Height + yGap2;
             snr2Pbox.Top = y;
-            y += snr2Pbox.Height + yGap4;
+            y += snr2Pbox.Height + yGap3;
             snr3Pbox.Top = y;
+            y += snr3Pbox.Height + yGap4;
+            snr4Pbox.Top = y;
 
-            int x = infoPanel.Left + infoPanel.Width + xGapA2;
+
+            int x = snr1Pbox.Left + snr1Pbox.Width + xGapA2;
             y = responsePanel.Top + responsePanel.Height + yGapA1;
             scatterPanel.Left = x;
             scatterPanel.Top = y;
@@ -294,12 +300,13 @@ namespace RtkViewer
             earthPanel.Top = y;
 
             BackupSnrPanelPosition();
-            SwitchSnrPanel();
+            //SwitchSnrPanel();
 
             earthPbox.Invalidate();
             snr1Pbox.Invalidate();
             snr2Pbox.Invalidate();
             snr3Pbox.Invalidate();
+            snr4Pbox.Invalidate();
         }
 
         private void BackupSnrPanelPosition()
@@ -308,6 +315,8 @@ namespace RtkViewer
             snr2Y = snr2Pbox.Top;
             snr3X = snr3Pbox.Left;
             snr3Y = snr3Pbox.Top;
+            snr4X = snr3Pbox.Left;
+            snr4Y = snr3Pbox.Top;
         }
 
         private void messagePanel_SizeChanged(object sender, EventArgs e)
@@ -475,13 +484,11 @@ namespace RtkViewer
                 MessageBox.Show("You are in ROM mode!");
             }
 
-            if(deviceInfo.IsAlphaStartKitFirmware())
+            if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Viewer_Mode )
             {
-                rtkActLbl.Visible = false;
-                licPeriodLbl.Visible = false;
+                MessageBox.Show("You are in Viewer mode!");
             }
 
-            SwitchSnrPanel();
             return true;
         }
 
@@ -573,13 +580,29 @@ namespace RtkViewer
             }
             else if(deviceInfo.IsRtkBaseMode())
             {
-                opModeLbl.Text = "RTK Base " + ((deviceInfo.IsGlonassModule()) ? "GPS + GLONASS" : "GPS + BEIDOU");
-                opModeLbl.ForeColor = (deviceInfo.IsGlonassModule() ? Color.BlueViolet : Color.DarkOrange);
+                if (deviceInfo.IsPhoenixFirmware())
+                {
+                    opModeLbl.Text = "B GPS+GLO+BDS+GLA";
+                    opModeLbl.ForeColor =Color.Crimson;
+                }
+                else
+                {
+                    opModeLbl.Text = "RTK Base " + ((deviceInfo.IsGlonassModule()) ? "GPS + GLONASS" : "GPS + BEIDOU");
+                    opModeLbl.ForeColor = (deviceInfo.IsGlonassModule() ? Color.BlueViolet : Color.DarkOrange);
+                }
             }
             else if (deviceInfo.IsRtkRoverMode())
             {
-                opModeLbl.Text = "RTK Rover " + ((deviceInfo.IsGlonassModule()) ? "GPS + GLONASS" : "GPS + BEIDOU");
-                opModeLbl.ForeColor = (deviceInfo.IsGlonassModule() ? Color.BlueViolet : Color.DarkOrange);
+                if(deviceInfo.IsPhoenixFirmware())
+                {
+                    opModeLbl.Text = "R GPS+GLO+BDS+GLA";
+                    opModeLbl.ForeColor = Color.Crimson;
+                }
+                else
+                {
+                    opModeLbl.Text = "RTK Rover " + ((deviceInfo.IsGlonassModule()) ? "GPS + GLONASS" : "GPS + BEIDOU");
+                    opModeLbl.ForeColor = (deviceInfo.IsGlonassModule() ? Color.BlueViolet : Color.DarkOrange);
+                }
             }
             else if (deviceInfo.IsRomMode())
             {
@@ -587,27 +610,27 @@ namespace RtkViewer
                 opModeLbl.ForeColor = Color.Red;
             }
 
-            kVerMLbl.Text = deviceInfo.GetFormatKernelVersion(false);
-            sVerMLbl.Text = deviceInfo.GetFormatSoftwareVersion(false);
-            revisionMLbl.Text = deviceInfo.GetFormatRevision(false);
-            crcMLbl.Text = deviceInfo.GetFormatCrc(false);
-
-            if (!deviceInfo.IsPhoenixFirmware() && !deviceInfo.IsRtkBaseMode() && 
-                !(deviceInfo.IsRomMode()))
+            if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Viewer_Mode)
             {
-                kVerSLbl.Text = deviceInfo.GetFormatKernelVersion(true);
-                sVerSLbl.Text = deviceInfo.GetFormatSoftwareVersion(true);
-                revisionSLbl.Text = deviceInfo.GetFormatRevision(true);
-                crcSLbl.Text = deviceInfo.GetFormatCrc(true);
+                Text = string.Format("{0}  Viewer Mode", AppTools.GetAppTitleWithVersion());
+                UpdateLicenseStatus();
             }
             else
             {
-                kVerSLbl.Text = "";
-                sVerSLbl.Text = "";
-                revisionSLbl.Text = "";
-                crcSLbl.Text = "";
+                kVerMLbl.Text =
+                sVerMLbl.Text = deviceInfo.GetFormatSoftwareVersion(false);
+                revisionMLbl.Text = deviceInfo.GetFormatRevision(false);
+                crcMLbl.Text = deviceInfo.GetFormatCrc(false);
+
+                Text = string.Format("{0}  FW-S{1} K{2} R{3} CRC_{4}",
+                    AppTools.GetAppTitleWithVersion(),
+                    deviceInfo.GetFormatSoftwareVersion(false),
+                    deviceInfo.GetFormatKernelVersion(false),
+                    deviceInfo.GetFormatRevision(false),
+                    deviceInfo.GetFormatCrc(false));
+
+                UpdateLicenseStatus();
             }
-            UpdateLicenseStatus();
         }
 
         private void SwitchSnrPanel()
@@ -622,6 +645,12 @@ namespace RtkViewer
                 snr2Pbox.Top = snr3Y;
                 snr3Pbox.Left = snr2X;
                 snr3Pbox.Top = snr2Y;
+                if (deviceInfo.IsPhoenixFirmware())
+                {
+                    snr4Pbox.Left = snr3X;
+                    snr4Pbox.Top = snr3Y;
+                    snr2Pbox.Visible = false;
+                }
             }
             else
             {
@@ -629,6 +658,10 @@ namespace RtkViewer
                 snr2Pbox.Top = snr2Y;
                 snr3Pbox.Left = snr3X;
                 snr3Pbox.Top = snr3Y;
+                if (deviceInfo.IsPhoenixFirmware())
+                {
+                    snr2Pbox.Visible = true;
+                }
             }
         }
 
@@ -682,9 +715,18 @@ namespace RtkViewer
                     sateTimer.Start();
                 }
             }
-            if((args.parsingResult & ParsingResult.UpdateGpSateInfo) != 0 ||
+            if ((args.parsingResult & ParsingResult.UpdateGaSateInfo) != 0)
+            {
+                satePr |= ParsingResult.UpdateGaSateInfo;
+                if (!sateTimer.Enabled)
+                {
+                    sateTimer.Start();
+                }
+            }
+            if ((args.parsingResult & ParsingResult.UpdateGpSateInfo) != 0 ||
                 (args.parsingResult & ParsingResult.UpdateGlSateInfo) != 0 ||
-                (args.parsingResult & ParsingResult.UpdateBdSateInfo) != 0)
+                (args.parsingResult & ParsingResult.UpdateBdSateInfo) != 0 ||
+                (args.parsingResult & ParsingResult.UpdateGaSateInfo) != 0)
             {
                 earthPbox.Invalidate();
             }
@@ -811,26 +853,35 @@ namespace RtkViewer
         {
             if(deviceInfo.IsRomMode())
             {
-                rtkActLbl.Text = "";
+                //rtkActLbl.Text = "";
                 licPeriodLbl.Text = "";
-                rtkActLbl.ForeColor = Color.Blue;
+                licPeriodLbl.BackColor = Color.White;
+                licPeriodLbl.ForeColor = Color.Blue;
+                return;
+            }
+
+            if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Viewer_Mode)
+            {
+                //rtkActLbl.Text = "";
+                licPeriodLbl.Text = "";
+                licPeriodLbl.BackColor = Color.White;
                 licPeriodLbl.ForeColor = Color.Blue;
                 return;
             }
 
             if (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.Perpetual)
             {
-                rtkActLbl.Text = "Perpetual License";
-                licPeriodLbl.Text = "";
-                rtkActLbl.ForeColor = Color.Blue;
+                //rtkActLbl.Text = "Perpetual License";
+                licPeriodLbl.Text = "Perpetual License";
+                licPeriodLbl.BackColor = Color.White;
                 licPeriodLbl.ForeColor = Color.Blue;
             }
             else if (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.Monthly ||
                 deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.OneYear)
             {
-                rtkActLbl.Text = (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.OneYear)
-                    ? "One Year License"
-                    : "Monthly License";
+                //rtkActLbl.Text = (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.OneYear)
+                //    ? "One Year License"
+                //    : "Monthly License";
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormat("{0}/{1}/{2} ", deviceInfo.GetMiscStartY(), deviceInfo.GetMiscStartM(), deviceInfo.GetMiscStartD());
                 sb.AppendFormat(" ~ {0}/{1}/{2}", deviceInfo.GetMiscEndY(), deviceInfo.GetMiscEndM(), deviceInfo.GetMiscEndD());
@@ -839,21 +890,23 @@ namespace RtkViewer
                 DateTime utc = MessageParser.GetParsingStatus().GetDateTime();
                 if (deviceInfo.IsValidateMiscTime(utc))
                 {
-                    rtkActLbl.ForeColor = Color.Black;
+                    //rtkActLbl.ForeColor = Color.Black;
+                    licPeriodLbl.BackColor = Color.White;
                     licPeriodLbl.ForeColor = Color.Black;
                 }
                 else
                 {
-                    rtkActLbl.ForeColor = Color.Blue;
+                    //rtkActLbl.ForeColor = Color.Blue;
+                    licPeriodLbl.BackColor = Color.White;
                     licPeriodLbl.ForeColor = Color.Blue;
                 }
             }
             else
             {
-                rtkActLbl.Text = "License Required";
-                licPeriodLbl.Text = "";
-                rtkActLbl.ForeColor = Color.Red;
-                licPeriodLbl.ForeColor = Color.Red;
+                //rtkActLbl.Text = "License Required";
+                licPeriodLbl.Text = "License Required";
+                licPeriodLbl.BackColor = Color.Red;
+                licPeriodLbl.ForeColor = Color.White;
             }
         }
 
@@ -881,13 +934,24 @@ namespace RtkViewer
                 coldStartBtn.Enabled = true;
                 setOriginBtn.Enabled = true;
                 clearBtn.Enabled = true;
-                //Viewer menu
-                enableRTKFunctionToolStripMenuItem.Enabled = deviceInfo.IsAlphaFirmware();
-                //Setting menu
-                EnableSettingMenu(true);
-                //Updates
-                updatesToolStripMenuItem.Enabled = true;
-                changeFirmwareConstellationTypeToolStripMenuItem.Enabled = (!deviceInfo.IsRomMode());
+                if (deviceInfo.GetFinalStage() == DeviceInformation.FinalStage.Viewer_Mode)
+                {
+                    enableRTKFunctionToolStripMenuItem.Enabled = false;
+                    updatesToolStripMenuItem.Enabled = false;
+                    changeFirmwareConstellationTypeToolStripMenuItem.Enabled = false;
+                    hotStartBtn.Enabled = false;
+                    coldStartBtn.Enabled = false;
+                }
+                else
+                {
+                    //Viewer menu
+                    enableRTKFunctionToolStripMenuItem.Enabled = deviceInfo.IsAlphaFirmware();
+                    //Setting menu
+                    EnableSettingMenu(true);
+                    //Updates
+                    updatesToolStripMenuItem.Enabled = true;
+                    changeFirmwareConstellationTypeToolStripMenuItem.Enabled = (!deviceInfo.IsRomMode());
+                }
             }
             else
             {
@@ -1391,11 +1455,9 @@ namespace RtkViewer
         }
 
         private DrawSnrBar gpDrawSnrBar = null;
-
         private DrawSnrBar glDrawSnrBar = null;
-
         private DrawSnrBar bdDrawSnrBar = null;
-
+        private DrawSnrBar gaDrawSnrBar = null;
         private void snr1Pbox_Paint(object sender, PaintEventArgs e)
         {
             if (deviceInfo == null)
@@ -1438,6 +1500,21 @@ namespace RtkViewer
                 MessageParser.GetParsingStatus().GetBeidouSateListClone(),
                 MessageParser.GetParsingStatus().GetBeidouSignalListClone(),
                 (sender as PictureBox).Width, 
+                (sender as PictureBox).Height);
+        }
+
+        private void snr4Pbox_Paint(object sender, PaintEventArgs e)
+        {
+            if (deviceInfo == null)
+            {
+                gaDrawSnrBar.DrawBg(e.Graphics, (sender as PictureBox).Width, (sender as PictureBox).Height);
+                return;
+            }
+            gaDrawSnrBar.Draw(
+                e.Graphics,
+                MessageParser.GetParsingStatus().GetGalileoSateListClone(),
+                MessageParser.GetParsingStatus().GetGalileoSignalListClone(),
+                (sender as PictureBox).Width,
                 (sender as PictureBox).Height);
         }
 
@@ -1630,7 +1707,14 @@ namespace RtkViewer
                 snr3Pbox.Invalidate();
                 satePr &= ~ParsingResult.UpdateBdSateInfo;
             }
+            if ((satePr & ParsingResult.UpdateGaSateInfo) != 0)
+            {
+                snr4Pbox.Invalidate();
+                satePr &= ~ParsingResult.UpdateGaSateInfo;
+            }
         }
+
+
 
         private void clearResponseLsbMenuItem_Click(object sender, EventArgs e)
         {
@@ -1644,21 +1728,37 @@ namespace RtkViewer
             {
                 return;
             }
-            if (deviceInfo.IsBeidouModule())
+            if(deviceInfo.IsPhoenixFirmware())
             {
                 List<ParsingStatus.SateInfo>[] l = {
                     MessageParser.GetParsingStatus().GetBeidouSateListClone(),
-                    MessageParser.GetParsingStatus().GetGpsSateListClone() };
-                ParsingStatus.SateType[] t = { ParsingStatus.SateType.Beidou, ParsingStatus.SateType.Gps };
+                    MessageParser.GetParsingStatus().GetGpsSateListClone(),
+                    MessageParser.GetParsingStatus().GetGalileoSateListClone(),
+                    MessageParser.GetParsingStatus().GetGlonassSateListClone() };
+                ParsingStatus.SateType[] t = { ParsingStatus.SateType.Beidou, ParsingStatus.SateType.Gps, ParsingStatus.SateType.Galileo, ParsingStatus.SateType.Glonass };
+                drawEarth.Draw(e.Graphics, l, t);
+                return;
+            }
+            else if (deviceInfo.IsBeidouModule())
+            {
+                List<ParsingStatus.SateInfo>[] l = {
+                    MessageParser.GetParsingStatus().GetBeidouSateListClone(),
+                    MessageParser.GetParsingStatus().GetGpsSateListClone(),
+                    MessageParser.GetParsingStatus().GetGalileoSateListClone(),
+                MessageParser.GetParsingStatus().GetGalileoSateListClone()};
+                ParsingStatus.SateType[] t = { ParsingStatus.SateType.Beidou, ParsingStatus.SateType.Gps, ParsingStatus.SateType.Galileo };
                 drawEarth.Draw(e.Graphics, l, t);
             }
             else
             {
                 List<ParsingStatus.SateInfo>[] l = {
-                    MessageParser.GetParsingStatus().GetGlonassSateListClone(),
-                    MessageParser.GetParsingStatus().GetGpsSateListClone() };
-                ParsingStatus.SateType[] t = { ParsingStatus.SateType.Glonass, ParsingStatus.SateType.Gps };
+                    MessageParser.GetParsingStatus().GetBeidouSateListClone(),
+                    MessageParser.GetParsingStatus().GetGpsSateListClone(),
+                    MessageParser.GetParsingStatus().GetGalileoSateListClone(),
+                    MessageParser.GetParsingStatus().GetGlonassSateListClone() };
+                ParsingStatus.SateType[] t = { ParsingStatus.SateType.Beidou, ParsingStatus.SateType.Gps, ParsingStatus.SateType.Galileo, ParsingStatus.SateType.Glonass };
                 drawEarth.Draw(e.Graphics, l, t);
+                return;
             }
         }
 
@@ -1706,6 +1806,7 @@ namespace RtkViewer
             snr1Pbox.Invalidate();
             snr2Pbox.Invalidate();
             snr3Pbox.Invalidate();
+            snr4Pbox.Invalidate();
         }
     }
 }

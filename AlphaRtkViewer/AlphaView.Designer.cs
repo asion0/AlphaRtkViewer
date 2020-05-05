@@ -44,39 +44,71 @@
             this.coldStartBtn = new System.Windows.Forms.Button();
             this.ttffLbl = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.timeLbl = new System.Windows.Forms.Label();
-            this.dateLbl = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.baudRateCmb = new System.Windows.Forms.ComboBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.elpHLbl = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
             this.mslAltLbl = new System.Windows.Forms.Label();
             this.longitudeLbl = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
             this.latitudeLbl = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.fixStatusLbl = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.timeLbl = new System.Windows.Forms.Label();
+            this.dateLbl = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.baudRateCmb = new System.Windows.Forms.ComboBox();
+            this.infoPanel = new System.Windows.Forms.Panel();
+            this.infoTab = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.informationPanel = new System.Windows.Forms.Panel();
             this.licPeriodLbl = new System.Windows.Forms.Label();
-            this.rtkActLbl = new System.Windows.Forms.Label();
-            this.crcSLbl = new System.Windows.Forms.Label();
-            this.crcMLbl = new System.Windows.Forms.Label();
-            this.revisionSLbl = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.revisionMLbl = new System.Windows.Forms.Label();
-            this.sVerSLbl = new System.Windows.Forms.Label();
-            this.sVerMLbl = new System.Windows.Forms.Label();
             this.opModeLbl = new System.Windows.Forms.Label();
-            this.kVerSLbl = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.pdopLbl = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.wgs84zLbl = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.wgs84yLbl = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.vdopLbl = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.hdopLbl = new System.Windows.Forms.Label();
+            this.wgs84xLbl = new System.Windows.Forms.Label();
+            this.speedLbl = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.directionLbl = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.rtkInfoPanel = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.upProjLbl = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.northProjLbl = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.easeProjLbl = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.baselineCouLbl = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.baselineLenLbl = new System.Windows.Forms.Label();
+            this.cyckeSlipLbl = new System.Windows.Forms.Label();
+            this.rtkRatioLbl = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.rtkAgeLbl = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.crcMLbl = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.sVerMLbl = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.kVerMLbl = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.fixStatusLbl = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.connectBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -120,44 +152,6 @@
             this.responseLsbMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyResponseLsbMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearResponseLsbMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.infoPanel = new System.Windows.Forms.Panel();
-            this.infoTab = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.informationPanel = new System.Windows.Forms.Panel();
-            this.label41 = new System.Windows.Forms.Label();
-            this.pdopLbl = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.wgs84zLbl = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.wgs84yLbl = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.vdopLbl = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.hdopLbl = new System.Windows.Forms.Label();
-            this.wgs84xLbl = new System.Windows.Forms.Label();
-            this.speedLbl = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.directionLbl = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.rtkInfoPanel = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
-            this.upProjLbl = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.northProjLbl = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.easeProjLbl = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.baselineCouLbl = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.baselineLenLbl = new System.Windows.Forms.Label();
-            this.cyckeSlipLbl = new System.Windows.Forms.Label();
-            this.rtkRatioLbl = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
-            this.rtkAgeLbl = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.scaleCmb = new System.Windows.Forms.ComboBox();
             this.ttffTimer = new System.Windows.Forms.Timer(this.components);
@@ -167,26 +161,26 @@
             this.scatterPbox = new System.Windows.Forms.PictureBox();
             this.earthPanel = new System.Windows.Forms.Panel();
             this.earthPbox = new System.Windows.Forms.PictureBox();
+            this.sateTimer = new System.Windows.Forms.Timer(this.components);
             this.snr2Pbox = new System.Windows.Forms.PictureBox();
             this.snr3Pbox = new System.Windows.Forms.PictureBox();
             this.snr1Pbox = new System.Windows.Forms.PictureBox();
-            this.sateTimer = new System.Windows.Forms.Timer(this.components);
+            this.snr4Pbox = new System.Windows.Forms.PictureBox();
             this.toolStrip1.SuspendLayout();
             this.viewerPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.messagePanel.SuspendLayout();
-            this.responsePanel.SuspendLayout();
-            this.responseLsbMenu.SuspendLayout();
             this.infoPanel.SuspendLayout();
             this.infoTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.informationPanel.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.rtkInfoPanel.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.messagePanel.SuspendLayout();
+            this.responsePanel.SuspendLayout();
+            this.responseLsbMenu.SuspendLayout();
             this.scatterPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scatterPbox)).BeginInit();
             this.earthPanel.SuspendLayout();
@@ -194,6 +188,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.snr2Pbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.snr3Pbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.snr1Pbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.snr4Pbox)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -207,7 +202,7 @@
             this.toolStripButton3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(852, 48);
+            this.toolStrip1.Size = new System.Drawing.Size(1022, 48);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.Visible = false;
@@ -276,15 +271,14 @@
             this.viewerPanel.Controls.Add(this.ttffLbl);
             this.viewerPanel.Controls.Add(this.groupBox4);
             this.viewerPanel.Controls.Add(this.baudRateCmb);
-            this.viewerPanel.Controls.Add(this.groupBox3);
+            this.viewerPanel.Controls.Add(this.infoPanel);
             this.viewerPanel.Controls.Add(this.fixStatusLbl);
-            this.viewerPanel.Controls.Add(this.groupBox1);
             this.viewerPanel.Controls.Add(this.label2);
             this.viewerPanel.Controls.Add(this.connectBtn);
             this.viewerPanel.Controls.Add(this.label1);
             this.viewerPanel.Location = new System.Drawing.Point(4, 27);
             this.viewerPanel.Name = "viewerPanel";
-            this.viewerPanel.Size = new System.Drawing.Size(280, 564);
+            this.viewerPanel.Size = new System.Drawing.Size(280, 578);
             this.viewerPanel.TabIndex = 2;
             // 
             // label16
@@ -302,11 +296,11 @@
             // comPortCmb
             // 
             this.comPortCmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comPortCmb.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.comPortCmb.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comPortCmb.FormattingEnabled = true;
             this.comPortCmb.Location = new System.Drawing.Point(6, 20);
             this.comPortCmb.Name = "comPortCmb";
-            this.comPortCmb.Size = new System.Drawing.Size(127, 27);
+            this.comPortCmb.Size = new System.Drawing.Size(127, 22);
             this.comPortCmb.TabIndex = 0;
             this.comPortCmb.SelectedIndexChanged += new System.EventHandler(this.comPortCmb_SelectedIndexChanged);
             this.comPortCmb.MouseHover += new System.EventHandler(this.comPortCmb_MouseHover);
@@ -316,7 +310,7 @@
             this.groupBox2.Controls.Add(this.hotStartBtn);
             this.groupBox2.Controls.Add(this.coldStartBtn);
             this.groupBox2.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox2.Location = new System.Drawing.Point(4, 507);
+            this.groupBox2.Location = new System.Drawing.Point(4, 523);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(265, 52);
             this.groupBox2.TabIndex = 7;
@@ -359,160 +353,792 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label14);
+            this.groupBox4.Controls.Add(this.label27);
+            this.groupBox4.Controls.Add(this.elpHLbl);
+            this.groupBox4.Controls.Add(this.label36);
+            this.groupBox4.Controls.Add(this.mslAltLbl);
+            this.groupBox4.Controls.Add(this.longitudeLbl);
+            this.groupBox4.Controls.Add(this.label45);
+            this.groupBox4.Controls.Add(this.latitudeLbl);
+            this.groupBox4.Controls.Add(this.label18);
             this.groupBox4.Controls.Add(this.timeLbl);
             this.groupBox4.Controls.Add(this.dateLbl);
-            this.groupBox4.Controls.Add(this.label27);
-            this.groupBox4.Controls.Add(this.label30);
+            this.groupBox4.Controls.Add(this.label28);
             this.groupBox4.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.groupBox4.Location = new System.Drawing.Point(4, 126);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(265, 68);
+            this.groupBox4.Size = new System.Drawing.Size(266, 137);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Date  / Time";
+            this.groupBox4.Text = "Date  / Time / Location";
             // 
-            // timeLbl
+            // label14
             // 
-            this.timeLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.timeLbl.Location = new System.Drawing.Point(109, 42);
-            this.timeLbl.Name = "timeLbl";
-            this.timeLbl.Size = new System.Drawing.Size(148, 19);
-            this.timeLbl.TabIndex = 0;
-            this.timeLbl.Text = "23:59:59";
-            // 
-            // dateLbl
-            // 
-            this.dateLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dateLbl.Location = new System.Drawing.Point(109, 18);
-            this.dateLbl.Name = "dateLbl";
-            this.dateLbl.Size = new System.Drawing.Size(148, 19);
-            this.dateLbl.TabIndex = 0;
-            this.dateLbl.Text = "2048/12/28";
+            this.label14.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label14.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label14.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label14.Location = new System.Drawing.Point(134, 97);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(128, 17);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "Ellipsoidal H.";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label27
             // 
-            this.label27.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label27.Location = new System.Drawing.Point(5, 42);
+            this.label27.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label27.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label27.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label27.Location = new System.Drawing.Point(4, 97);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(102, 17);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Time";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label27.Size = new System.Drawing.Size(128, 17);
+            this.label27.TabIndex = 2;
+            this.label27.Text = "MSL. Altitude";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label30
+            // elpHLbl
             // 
-            this.label30.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label30.Location = new System.Drawing.Point(5, 18);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(102, 17);
-            this.label30.TabIndex = 0;
-            this.label30.Text = "Date";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.elpHLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.elpHLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.elpHLbl.Location = new System.Drawing.Point(134, 114);
+            this.elpHLbl.Name = "elpHLbl";
+            this.elpHLbl.Size = new System.Drawing.Size(128, 18);
+            this.elpHLbl.TabIndex = 3;
+            this.elpHLbl.Text = "232.5";
+            this.elpHLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label36
+            // 
+            this.label36.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label36.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label36.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label36.Location = new System.Drawing.Point(134, 60);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(128, 17);
+            this.label36.TabIndex = 4;
+            this.label36.Text = "Longitude";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // mslAltLbl
+            // 
+            this.mslAltLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mslAltLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.mslAltLbl.Location = new System.Drawing.Point(4, 114);
+            this.mslAltLbl.Name = "mslAltLbl";
+            this.mslAltLbl.Size = new System.Drawing.Size(128, 18);
+            this.mslAltLbl.TabIndex = 5;
+            this.mslAltLbl.Text = "232.5";
+            this.mslAltLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // longitudeLbl
+            // 
+            this.longitudeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.longitudeLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.longitudeLbl.Location = new System.Drawing.Point(134, 77);
+            this.longitudeLbl.Name = "longitudeLbl";
+            this.longitudeLbl.Size = new System.Drawing.Size(128, 18);
+            this.longitudeLbl.TabIndex = 6;
+            this.longitudeLbl.Text = "232.5";
+            this.longitudeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label45
+            // 
+            this.label45.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label45.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label45.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label45.Location = new System.Drawing.Point(4, 60);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(128, 17);
+            this.label45.TabIndex = 7;
+            this.label45.Text = "Latitude";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // latitudeLbl
+            // 
+            this.latitudeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.latitudeLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.latitudeLbl.Location = new System.Drawing.Point(4, 77);
+            this.latitudeLbl.Name = "latitudeLbl";
+            this.latitudeLbl.Size = new System.Drawing.Size(128, 18);
+            this.latitudeLbl.TabIndex = 8;
+            this.latitudeLbl.Text = "232.5";
+            this.latitudeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label18.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label18.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label18.Location = new System.Drawing.Point(4, 23);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(128, 17);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Date";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timeLbl
+            // 
+            this.timeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.timeLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.timeLbl.Location = new System.Drawing.Point(134, 40);
+            this.timeLbl.Name = "timeLbl";
+            this.timeLbl.Size = new System.Drawing.Size(128, 18);
+            this.timeLbl.TabIndex = 0;
+            this.timeLbl.Text = "232.5";
+            this.timeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dateLbl
+            // 
+            this.dateLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dateLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateLbl.Location = new System.Drawing.Point(4, 40);
+            this.dateLbl.Name = "dateLbl";
+            this.dateLbl.Size = new System.Drawing.Size(128, 18);
+            this.dateLbl.TabIndex = 0;
+            this.dateLbl.Text = "232.5";
+            this.dateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label28
+            // 
+            this.label28.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label28.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label28.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label28.Location = new System.Drawing.Point(134, 23);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(128, 17);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "Time";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // baudRateCmb
             // 
             this.baudRateCmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.baudRateCmb.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.baudRateCmb.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.baudRateCmb.FormattingEnabled = true;
             this.baudRateCmb.Location = new System.Drawing.Point(6, 65);
             this.baudRateCmb.Name = "baudRateCmb";
-            this.baudRateCmb.Size = new System.Drawing.Size(127, 27);
+            this.baudRateCmb.Size = new System.Drawing.Size(127, 22);
             this.baudRateCmb.TabIndex = 0;
             this.baudRateCmb.SelectedIndexChanged += new System.EventHandler(this.baudRateCmb_SelectedIndexChanged);
             // 
-            // groupBox3
+            // infoPanel
             // 
-            this.groupBox3.Controls.Add(this.elpHLbl);
-            this.groupBox3.Controls.Add(this.mslAltLbl);
-            this.groupBox3.Controls.Add(this.longitudeLbl);
-            this.groupBox3.Controls.Add(this.latitudeLbl);
-            this.groupBox3.Controls.Add(this.label21);
-            this.groupBox3.Controls.Add(this.label24);
-            this.groupBox3.Controls.Add(this.label25);
-            this.groupBox3.Controls.Add(this.label26);
-            this.groupBox3.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox3.Location = new System.Drawing.Point(4, 197);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(265, 116);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Location";
+            this.infoPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.infoPanel.Controls.Add(this.infoTab);
+            this.infoPanel.Location = new System.Drawing.Point(0, 261);
+            this.infoPanel.Name = "infoPanel";
+            this.infoPanel.Size = new System.Drawing.Size(272, 264);
+            this.infoPanel.TabIndex = 4;
             // 
-            // elpHLbl
+            // infoTab
             // 
-            this.elpHLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.elpHLbl.Location = new System.Drawing.Point(109, 90);
-            this.elpHLbl.Name = "elpHLbl";
-            this.elpHLbl.Size = new System.Drawing.Size(148, 19);
-            this.elpHLbl.TabIndex = 0;
-            this.elpHLbl.Text = "114.25 M";
+            this.infoTab.Controls.Add(this.tabPage1);
+            this.infoTab.Controls.Add(this.tabPage2);
+            this.infoTab.Controls.Add(this.tabPage3);
+            this.infoTab.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.infoTab.Location = new System.Drawing.Point(4, 2);
+            this.infoTab.Name = "infoTab";
+            this.infoTab.SelectedIndex = 0;
+            this.infoTab.Size = new System.Drawing.Size(268, 258);
+            this.infoTab.TabIndex = 0;
             // 
-            // mslAltLbl
+            // tabPage1
             // 
-            this.mslAltLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.mslAltLbl.Location = new System.Drawing.Point(109, 66);
-            this.mslAltLbl.Name = "mslAltLbl";
-            this.mslAltLbl.Size = new System.Drawing.Size(148, 19);
-            this.mslAltLbl.TabIndex = 0;
-            this.mslAltLbl.Text = "94.65 M";
+            this.tabPage1.Controls.Add(this.informationPanel);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(260, 226);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Information";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // longitudeLbl
+            // informationPanel
             // 
-            this.longitudeLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.longitudeLbl.Location = new System.Drawing.Point(109, 42);
-            this.longitudeLbl.Name = "longitudeLbl";
-            this.longitudeLbl.Size = new System.Drawing.Size(148, 19);
-            this.longitudeLbl.TabIndex = 0;
-            this.longitudeLbl.Text = "121°0.523421\' E";
+            this.informationPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.informationPanel.Controls.Add(this.licPeriodLbl);
+            this.informationPanel.Controls.Add(this.label42);
+            this.informationPanel.Controls.Add(this.label8);
+            this.informationPanel.Controls.Add(this.revisionMLbl);
+            this.informationPanel.Controls.Add(this.opModeLbl);
+            this.informationPanel.Controls.Add(this.label41);
+            this.informationPanel.Controls.Add(this.pdopLbl);
+            this.informationPanel.Controls.Add(this.label37);
+            this.informationPanel.Controls.Add(this.wgs84zLbl);
+            this.informationPanel.Controls.Add(this.label10);
+            this.informationPanel.Controls.Add(this.label33);
+            this.informationPanel.Controls.Add(this.label39);
+            this.informationPanel.Controls.Add(this.wgs84yLbl);
+            this.informationPanel.Controls.Add(this.label35);
+            this.informationPanel.Controls.Add(this.label19);
+            this.informationPanel.Controls.Add(this.vdopLbl);
+            this.informationPanel.Controls.Add(this.label22);
+            this.informationPanel.Controls.Add(this.hdopLbl);
+            this.informationPanel.Controls.Add(this.wgs84xLbl);
+            this.informationPanel.Controls.Add(this.speedLbl);
+            this.informationPanel.Controls.Add(this.label17);
+            this.informationPanel.Controls.Add(this.directionLbl);
+            this.informationPanel.Location = new System.Drawing.Point(0, 0);
+            this.informationPanel.Name = "informationPanel";
+            this.informationPanel.Size = new System.Drawing.Size(267, 233);
+            this.informationPanel.TabIndex = 5;
             // 
-            // latitudeLbl
+            // licPeriodLbl
             // 
-            this.latitudeLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.latitudeLbl.Location = new System.Drawing.Point(109, 18);
-            this.latitudeLbl.Name = "latitudeLbl";
-            this.latitudeLbl.Size = new System.Drawing.Size(148, 19);
-            this.latitudeLbl.TabIndex = 0;
-            this.latitudeLbl.Text = "24°47.08954\' N";
+            this.licPeriodLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.licPeriodLbl.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.licPeriodLbl.Location = new System.Drawing.Point(0, 208);
+            this.licPeriodLbl.Name = "licPeriodLbl";
+            this.licPeriodLbl.Size = new System.Drawing.Size(258, 18);
+            this.licPeriodLbl.TabIndex = 8;
+            this.licPeriodLbl.Text = "RTK Rover GPS + GLONASS";
+            this.licPeriodLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label21
+            // label42
             // 
-            this.label21.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label21.Location = new System.Drawing.Point(5, 42);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(102, 17);
-            this.label21.TabIndex = 0;
-            this.label21.Text = "Longitude";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label42.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label42.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label42.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label42.Location = new System.Drawing.Point(0, 191);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(258, 17);
+            this.label42.TabIndex = 9;
+            this.label42.Text = "License Period";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label24
+            // label8
             // 
-            this.label24.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label24.Location = new System.Drawing.Point(5, 90);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(102, 17);
-            this.label24.TabIndex = 0;
-            this.label24.Text = "Ellipsoidal H.";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label8.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label8.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label8.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label8.Location = new System.Drawing.Point(130, 81);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(128, 17);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "Revision";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label25
+            // revisionMLbl
             // 
-            this.label25.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label25.Location = new System.Drawing.Point(5, 66);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(102, 17);
-            this.label25.TabIndex = 0;
-            this.label25.Text = "MSL. Altitude";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.revisionMLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.revisionMLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.revisionMLbl.Location = new System.Drawing.Point(130, 98);
+            this.revisionMLbl.Name = "revisionMLbl";
+            this.revisionMLbl.Size = new System.Drawing.Size(128, 18);
+            this.revisionMLbl.TabIndex = 7;
+            this.revisionMLbl.Text = "232.5";
+            this.revisionMLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label26
+            // opModeLbl
             // 
-            this.label26.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label26.Location = new System.Drawing.Point(5, 18);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(102, 17);
-            this.label26.TabIndex = 0;
-            this.label26.Text = "Latitude";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.opModeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.opModeLbl.Font = new System.Drawing.Font("Cambria", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.opModeLbl.Location = new System.Drawing.Point(130, 171);
+            this.opModeLbl.Name = "opModeLbl";
+            this.opModeLbl.Size = new System.Drawing.Size(128, 18);
+            this.opModeLbl.TabIndex = 0;
+            this.opModeLbl.Text = "B GPS+GLO+BDS+GLA";
+            this.opModeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label41
+            // 
+            this.label41.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label41.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label41.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label41.Location = new System.Drawing.Point(0, 81);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(128, 17);
+            this.label41.TabIndex = 0;
+            this.label41.Text = "PDOP";
+            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pdopLbl
+            // 
+            this.pdopLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdopLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.pdopLbl.Location = new System.Drawing.Point(0, 98);
+            this.pdopLbl.Name = "pdopLbl";
+            this.pdopLbl.Size = new System.Drawing.Size(128, 18);
+            this.pdopLbl.TabIndex = 0;
+            this.pdopLbl.Text = "232.5";
+            this.pdopLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label37
+            // 
+            this.label37.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label37.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label37.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label37.Location = new System.Drawing.Point(0, 154);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(128, 17);
+            this.label37.TabIndex = 0;
+            this.label37.Text = "WGS84 Z";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // wgs84zLbl
+            // 
+            this.wgs84zLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.wgs84zLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.wgs84zLbl.Location = new System.Drawing.Point(0, 171);
+            this.wgs84zLbl.Name = "wgs84zLbl";
+            this.wgs84zLbl.Size = new System.Drawing.Size(128, 18);
+            this.wgs84zLbl.TabIndex = 0;
+            this.wgs84zLbl.Text = "232.5";
+            this.wgs84zLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label10.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label10.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label10.Location = new System.Drawing.Point(130, 154);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(128, 17);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "RTK Mode";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label33
+            // 
+            this.label33.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label33.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label33.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label33.Location = new System.Drawing.Point(130, 118);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(128, 17);
+            this.label33.TabIndex = 0;
+            this.label33.Text = "WGS84 Y";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label39
+            // 
+            this.label39.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label39.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label39.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label39.Location = new System.Drawing.Point(130, 44);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(128, 17);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "VDOP";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // wgs84yLbl
+            // 
+            this.wgs84yLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.wgs84yLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.wgs84yLbl.Location = new System.Drawing.Point(130, 135);
+            this.wgs84yLbl.Name = "wgs84yLbl";
+            this.wgs84yLbl.Size = new System.Drawing.Size(128, 18);
+            this.wgs84yLbl.TabIndex = 0;
+            this.wgs84yLbl.Text = "232.5";
+            this.wgs84yLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label35
+            // 
+            this.label35.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label35.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label35.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label35.Location = new System.Drawing.Point(0, 44);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(128, 17);
+            this.label35.TabIndex = 0;
+            this.label35.Text = "HDOP";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label19.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label19.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label19.Location = new System.Drawing.Point(0, 118);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(128, 17);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "WGS84 X";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // vdopLbl
+            // 
+            this.vdopLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.vdopLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.vdopLbl.Location = new System.Drawing.Point(130, 61);
+            this.vdopLbl.Name = "vdopLbl";
+            this.vdopLbl.Size = new System.Drawing.Size(128, 18);
+            this.vdopLbl.TabIndex = 0;
+            this.vdopLbl.Text = "232.5";
+            this.vdopLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label22
+            // 
+            this.label22.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label22.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label22.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label22.Location = new System.Drawing.Point(130, 7);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(128, 17);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "Speed";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // hdopLbl
+            // 
+            this.hdopLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.hdopLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.hdopLbl.Location = new System.Drawing.Point(0, 61);
+            this.hdopLbl.Name = "hdopLbl";
+            this.hdopLbl.Size = new System.Drawing.Size(128, 18);
+            this.hdopLbl.TabIndex = 0;
+            this.hdopLbl.Text = "232.5";
+            this.hdopLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // wgs84xLbl
+            // 
+            this.wgs84xLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.wgs84xLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.wgs84xLbl.Location = new System.Drawing.Point(0, 135);
+            this.wgs84xLbl.Name = "wgs84xLbl";
+            this.wgs84xLbl.Size = new System.Drawing.Size(128, 18);
+            this.wgs84xLbl.TabIndex = 0;
+            this.wgs84xLbl.Text = "232.5";
+            this.wgs84xLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // speedLbl
+            // 
+            this.speedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.speedLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.speedLbl.Location = new System.Drawing.Point(130, 24);
+            this.speedLbl.Name = "speedLbl";
+            this.speedLbl.Size = new System.Drawing.Size(128, 18);
+            this.speedLbl.TabIndex = 0;
+            this.speedLbl.Text = "232.5";
+            this.speedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label17
+            // 
+            this.label17.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label17.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label17.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label17.Location = new System.Drawing.Point(0, 7);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(128, 17);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Direction";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // directionLbl
+            // 
+            this.directionLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.directionLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.directionLbl.Location = new System.Drawing.Point(0, 24);
+            this.directionLbl.Name = "directionLbl";
+            this.directionLbl.Size = new System.Drawing.Size(128, 18);
+            this.directionLbl.TabIndex = 0;
+            this.directionLbl.Text = "232.5";
+            this.directionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.rtkInfoPanel);
+            this.tabPage2.Location = new System.Drawing.Point(4, 28);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(260, 226);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "RTK Info.";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // rtkInfoPanel
+            // 
+            this.rtkInfoPanel.Controls.Add(this.label15);
+            this.rtkInfoPanel.Controls.Add(this.upProjLbl);
+            this.rtkInfoPanel.Controls.Add(this.label20);
+            this.rtkInfoPanel.Controls.Add(this.northProjLbl);
+            this.rtkInfoPanel.Controls.Add(this.label32);
+            this.rtkInfoPanel.Controls.Add(this.label34);
+            this.rtkInfoPanel.Controls.Add(this.easeProjLbl);
+            this.rtkInfoPanel.Controls.Add(this.label38);
+            this.rtkInfoPanel.Controls.Add(this.label40);
+            this.rtkInfoPanel.Controls.Add(this.baselineCouLbl);
+            this.rtkInfoPanel.Controls.Add(this.label43);
+            this.rtkInfoPanel.Controls.Add(this.baselineLenLbl);
+            this.rtkInfoPanel.Controls.Add(this.cyckeSlipLbl);
+            this.rtkInfoPanel.Controls.Add(this.rtkRatioLbl);
+            this.rtkInfoPanel.Controls.Add(this.label47);
+            this.rtkInfoPanel.Controls.Add(this.rtkAgeLbl);
+            this.rtkInfoPanel.Location = new System.Drawing.Point(0, 0);
+            this.rtkInfoPanel.Name = "rtkInfoPanel";
+            this.rtkInfoPanel.Size = new System.Drawing.Size(262, 226);
+            this.rtkInfoPanel.TabIndex = 5;
+            // 
+            // label15
+            // 
+            this.label15.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label15.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label15.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label15.Location = new System.Drawing.Point(130, 118);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(128, 17);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Up Projection";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // upProjLbl
+            // 
+            this.upProjLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.upProjLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.upProjLbl.Location = new System.Drawing.Point(130, 135);
+            this.upProjLbl.Name = "upProjLbl";
+            this.upProjLbl.Size = new System.Drawing.Size(128, 18);
+            this.upProjLbl.TabIndex = 0;
+            this.upProjLbl.Text = "232.5";
+            this.upProjLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            this.label20.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label20.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label20.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label20.Location = new System.Drawing.Point(0, 118);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(128, 17);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "North-Projection";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // northProjLbl
+            // 
+            this.northProjLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.northProjLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.northProjLbl.Location = new System.Drawing.Point(0, 135);
+            this.northProjLbl.Name = "northProjLbl";
+            this.northProjLbl.Size = new System.Drawing.Size(128, 18);
+            this.northProjLbl.TabIndex = 0;
+            this.northProjLbl.Text = "232.5";
+            this.northProjLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label32
+            // 
+            this.label32.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label32.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label32.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label32.Location = new System.Drawing.Point(130, 81);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(128, 17);
+            this.label32.TabIndex = 0;
+            this.label32.Text = "East-Projection";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label34
+            // 
+            this.label34.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label34.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label34.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label34.Location = new System.Drawing.Point(130, 44);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(128, 17);
+            this.label34.TabIndex = 0;
+            this.label34.Text = "Baseline Course";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // easeProjLbl
+            // 
+            this.easeProjLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.easeProjLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.easeProjLbl.Location = new System.Drawing.Point(130, 98);
+            this.easeProjLbl.Name = "easeProjLbl";
+            this.easeProjLbl.Size = new System.Drawing.Size(128, 18);
+            this.easeProjLbl.TabIndex = 0;
+            this.easeProjLbl.Text = "232.5";
+            this.easeProjLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label38
+            // 
+            this.label38.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label38.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label38.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label38.Location = new System.Drawing.Point(0, 44);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(128, 17);
+            this.label38.TabIndex = 0;
+            this.label38.Text = "Baseline Length";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label40
+            // 
+            this.label40.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label40.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label40.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label40.Location = new System.Drawing.Point(0, 81);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(128, 17);
+            this.label40.TabIndex = 0;
+            this.label40.Text = "Cycle-Slipped";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // baselineCouLbl
+            // 
+            this.baselineCouLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.baselineCouLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.baselineCouLbl.Location = new System.Drawing.Point(130, 61);
+            this.baselineCouLbl.Name = "baselineCouLbl";
+            this.baselineCouLbl.Size = new System.Drawing.Size(128, 18);
+            this.baselineCouLbl.TabIndex = 0;
+            this.baselineCouLbl.Text = "232.5";
+            this.baselineCouLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label43
+            // 
+            this.label43.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label43.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label43.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label43.Location = new System.Drawing.Point(130, 7);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(128, 17);
+            this.label43.TabIndex = 0;
+            this.label43.Text = "RTK Ratio";
+            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // baselineLenLbl
+            // 
+            this.baselineLenLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.baselineLenLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.baselineLenLbl.Location = new System.Drawing.Point(0, 61);
+            this.baselineLenLbl.Name = "baselineLenLbl";
+            this.baselineLenLbl.Size = new System.Drawing.Size(128, 18);
+            this.baselineLenLbl.TabIndex = 0;
+            this.baselineLenLbl.Text = "232.5";
+            this.baselineLenLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cyckeSlipLbl
+            // 
+            this.cyckeSlipLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cyckeSlipLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cyckeSlipLbl.Location = new System.Drawing.Point(0, 98);
+            this.cyckeSlipLbl.Name = "cyckeSlipLbl";
+            this.cyckeSlipLbl.Size = new System.Drawing.Size(128, 18);
+            this.cyckeSlipLbl.TabIndex = 0;
+            this.cyckeSlipLbl.Text = "232.5";
+            this.cyckeSlipLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // rtkRatioLbl
+            // 
+            this.rtkRatioLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtkRatioLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.rtkRatioLbl.Location = new System.Drawing.Point(130, 24);
+            this.rtkRatioLbl.Name = "rtkRatioLbl";
+            this.rtkRatioLbl.Size = new System.Drawing.Size(128, 18);
+            this.rtkRatioLbl.TabIndex = 0;
+            this.rtkRatioLbl.Text = "232.5";
+            this.rtkRatioLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label47
+            // 
+            this.label47.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label47.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label47.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label47.Location = new System.Drawing.Point(0, 7);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(128, 17);
+            this.label47.TabIndex = 0;
+            this.label47.Text = "RTK Age";
+            this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // rtkAgeLbl
+            // 
+            this.rtkAgeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtkAgeLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.rtkAgeLbl.Location = new System.Drawing.Point(0, 24);
+            this.rtkAgeLbl.Name = "rtkAgeLbl";
+            this.rtkAgeLbl.Size = new System.Drawing.Size(128, 18);
+            this.rtkAgeLbl.TabIndex = 0;
+            this.rtkAgeLbl.Text = "232.5";
+            this.rtkAgeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label6);
+            this.tabPage3.Controls.Add(this.crcMLbl);
+            this.tabPage3.Controls.Add(this.label12);
+            this.tabPage3.Controls.Add(this.sVerMLbl);
+            this.tabPage3.Controls.Add(this.label23);
+            this.tabPage3.Controls.Add(this.kVerMLbl);
+            this.tabPage3.Location = new System.Drawing.Point(4, 28);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(260, 226);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "FW Info.";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label6.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label6.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label6.Location = new System.Drawing.Point(0, 44);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(128, 17);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Firmware CRC";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // crcMLbl
+            // 
+            this.crcMLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crcMLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.crcMLbl.Location = new System.Drawing.Point(0, 61);
+            this.crcMLbl.Name = "crcMLbl";
+            this.crcMLbl.Size = new System.Drawing.Size(128, 18);
+            this.crcMLbl.TabIndex = 3;
+            this.crcMLbl.Text = "232.5";
+            this.crcMLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label12.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label12.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label12.Location = new System.Drawing.Point(130, 7);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(128, 17);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "S.W. Version";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // sVerMLbl
+            // 
+            this.sVerMLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sVerMLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.sVerMLbl.Location = new System.Drawing.Point(130, 24);
+            this.sVerMLbl.Name = "sVerMLbl";
+            this.sVerMLbl.Size = new System.Drawing.Size(128, 18);
+            this.sVerMLbl.TabIndex = 6;
+            this.sVerMLbl.Text = "232.5";
+            this.sVerMLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label23
+            // 
+            this.label23.BackColor = System.Drawing.Color.DodgerBlue;
+            this.label23.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label23.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label23.Location = new System.Drawing.Point(0, 7);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(128, 17);
+            this.label23.TabIndex = 7;
+            this.label23.Text = "Kernel Version";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // kVerMLbl
+            // 
+            this.kVerMLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.kVerMLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.kVerMLbl.Location = new System.Drawing.Point(0, 24);
+            this.kVerMLbl.Name = "kVerMLbl";
+            this.kVerMLbl.Size = new System.Drawing.Size(128, 18);
+            this.kVerMLbl.TabIndex = 8;
+            this.kVerMLbl.Text = "232.5";
+            this.kVerMLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fixStatusLbl
             // 
@@ -524,193 +1150,6 @@
             this.fixStatusLbl.TabIndex = 8;
             this.fixStatusLbl.Text = "DR Estimated";
             this.fixStatusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.licPeriodLbl);
-            this.groupBox1.Controls.Add(this.rtkActLbl);
-            this.groupBox1.Controls.Add(this.crcSLbl);
-            this.groupBox1.Controls.Add(this.crcMLbl);
-            this.groupBox1.Controls.Add(this.revisionSLbl);
-            this.groupBox1.Controls.Add(this.revisionMLbl);
-            this.groupBox1.Controls.Add(this.sVerSLbl);
-            this.groupBox1.Controls.Add(this.sVerMLbl);
-            this.groupBox1.Controls.Add(this.opModeLbl);
-            this.groupBox1.Controls.Add(this.kVerSLbl);
-            this.groupBox1.Controls.Add(this.kVerMLbl);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox1.Location = new System.Drawing.Point(4, 316);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(265, 188);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Firmware";
-            // 
-            // licPeriodLbl
-            // 
-            this.licPeriodLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.licPeriodLbl.Location = new System.Drawing.Point(111, 144);
-            this.licPeriodLbl.Name = "licPeriodLbl";
-            this.licPeriodLbl.Size = new System.Drawing.Size(136, 38);
-            this.licPeriodLbl.TabIndex = 0;
-            this.licPeriodLbl.Text = "20180901 ~ 20181001";
-            // 
-            // rtkActLbl
-            // 
-            this.rtkActLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.rtkActLbl.Location = new System.Drawing.Point(111, 123);
-            this.rtkActLbl.Name = "rtkActLbl";
-            this.rtkActLbl.Size = new System.Drawing.Size(136, 17);
-            this.rtkActLbl.TabIndex = 0;
-            this.rtkActLbl.Text = "Monthly License ";
-            // 
-            // crcSLbl
-            // 
-            this.crcSLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.crcSLbl.Location = new System.Drawing.Point(183, 102);
-            this.crcSLbl.Name = "crcSLbl";
-            this.crcSLbl.Size = new System.Drawing.Size(78, 17);
-            this.crcSLbl.TabIndex = 0;
-            this.crcSLbl.Text = "EBD5";
-            // 
-            // crcMLbl
-            // 
-            this.crcMLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.crcMLbl.Location = new System.Drawing.Point(108, 102);
-            this.crcMLbl.Name = "crcMLbl";
-            this.crcMLbl.Size = new System.Drawing.Size(81, 17);
-            this.crcMLbl.TabIndex = 0;
-            this.crcMLbl.Text = "EBD5";
-            // 
-            // revisionSLbl
-            // 
-            this.revisionSLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.revisionSLbl.Location = new System.Drawing.Point(183, 81);
-            this.revisionSLbl.Name = "revisionSLbl";
-            this.revisionSLbl.Size = new System.Drawing.Size(81, 17);
-            this.revisionSLbl.TabIndex = 0;
-            this.revisionSLbl.Text = "20180720";
-            // 
-            // revisionMLbl
-            // 
-            this.revisionMLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.revisionMLbl.Location = new System.Drawing.Point(108, 81);
-            this.revisionMLbl.Name = "revisionMLbl";
-            this.revisionMLbl.Size = new System.Drawing.Size(81, 17);
-            this.revisionMLbl.TabIndex = 0;
-            this.revisionMLbl.Text = "20180720";
-            // 
-            // sVerSLbl
-            // 
-            this.sVerSLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.sVerSLbl.Location = new System.Drawing.Point(183, 60);
-            this.sVerSLbl.Name = "sVerSLbl";
-            this.sVerSLbl.Size = new System.Drawing.Size(78, 17);
-            this.sVerSLbl.TabIndex = 0;
-            this.sVerSLbl.Text = "1.7.28";
-            // 
-            // sVerMLbl
-            // 
-            this.sVerMLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.sVerMLbl.Location = new System.Drawing.Point(108, 60);
-            this.sVerMLbl.Name = "sVerMLbl";
-            this.sVerMLbl.Size = new System.Drawing.Size(81, 17);
-            this.sVerMLbl.TabIndex = 0;
-            this.sVerMLbl.Text = "1.7.28";
-            // 
-            // opModeLbl
-            // 
-            this.opModeLbl.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.opModeLbl.Location = new System.Drawing.Point(9, 18);
-            this.opModeLbl.Name = "opModeLbl";
-            this.opModeLbl.Size = new System.Drawing.Size(246, 21);
-            this.opModeLbl.TabIndex = 0;
-            this.opModeLbl.Text = "RTK Rover GPS + GLONASS";
-            this.opModeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // kVerSLbl
-            // 
-            this.kVerSLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.kVerSLbl.Location = new System.Drawing.Point(183, 39);
-            this.kVerSLbl.Name = "kVerSLbl";
-            this.kVerSLbl.Size = new System.Drawing.Size(78, 17);
-            this.kVerSLbl.TabIndex = 0;
-            this.kVerSLbl.Text = "2.2.5";
-            // 
-            // kVerMLbl
-            // 
-            this.kVerMLbl.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.kVerMLbl.Location = new System.Drawing.Point(108, 39);
-            this.kVerMLbl.Name = "kVerMLbl";
-            this.kVerMLbl.Size = new System.Drawing.Size(81, 17);
-            this.kVerMLbl.TabIndex = 0;
-            this.kVerMLbl.Text = "2.2.5";
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.Location = new System.Drawing.Point(1, 60);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(110, 17);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "S.W. Version";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label13
-            // 
-            this.label13.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label13.Location = new System.Drawing.Point(1, 144);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(110, 17);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "License Period";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label11.Location = new System.Drawing.Point(1, 123);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(110, 17);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "RTK Activation";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.Location = new System.Drawing.Point(1, 102);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(110, 17);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "CRC";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(1, 81);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(110, 17);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Revision";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(1, 39);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 17);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Kernel Version";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
@@ -911,6 +1350,7 @@
             this.changeFirmwareConstellationTypeToolStripMenuItem.Name = "changeFirmwareConstellationTypeToolStripMenuItem";
             this.changeFirmwareConstellationTypeToolStripMenuItem.Size = new System.Drawing.Size(295, 22);
             this.changeFirmwareConstellationTypeToolStripMenuItem.Text = "Alpha RTK Receiver Type Configuration";
+            this.changeFirmwareConstellationTypeToolStripMenuItem.Visible = false;
             this.changeFirmwareConstellationTypeToolStripMenuItem.Click += new System.EventHandler(this.changeFirmwareConstellationTypeToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
@@ -1106,462 +1546,6 @@
             this.clearResponseLsbMenuItem.Text = "Clear";
             this.clearResponseLsbMenuItem.Click += new System.EventHandler(this.clearResponseLsbMenuItem_Click);
             // 
-            // infoPanel
-            // 
-            this.infoPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.infoPanel.Controls.Add(this.infoTab);
-            this.infoPanel.Location = new System.Drawing.Point(284, 159);
-            this.infoPanel.Name = "infoPanel";
-            this.infoPanel.Size = new System.Drawing.Size(432, 108);
-            this.infoPanel.TabIndex = 4;
-            // 
-            // infoTab
-            // 
-            this.infoTab.Controls.Add(this.tabPage1);
-            this.infoTab.Controls.Add(this.tabPage2);
-            this.infoTab.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.infoTab.Location = new System.Drawing.Point(0, 0);
-            this.infoTab.Name = "infoTab";
-            this.infoTab.SelectedIndex = 0;
-            this.infoTab.Size = new System.Drawing.Size(432, 108);
-            this.infoTab.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.informationPanel);
-            this.tabPage1.Location = new System.Drawing.Point(4, 28);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(424, 76);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Information";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // informationPanel
-            // 
-            this.informationPanel.Controls.Add(this.label41);
-            this.informationPanel.Controls.Add(this.pdopLbl);
-            this.informationPanel.Controls.Add(this.label37);
-            this.informationPanel.Controls.Add(this.wgs84zLbl);
-            this.informationPanel.Controls.Add(this.label33);
-            this.informationPanel.Controls.Add(this.label39);
-            this.informationPanel.Controls.Add(this.wgs84yLbl);
-            this.informationPanel.Controls.Add(this.label35);
-            this.informationPanel.Controls.Add(this.label19);
-            this.informationPanel.Controls.Add(this.vdopLbl);
-            this.informationPanel.Controls.Add(this.label22);
-            this.informationPanel.Controls.Add(this.hdopLbl);
-            this.informationPanel.Controls.Add(this.wgs84xLbl);
-            this.informationPanel.Controls.Add(this.speedLbl);
-            this.informationPanel.Controls.Add(this.label17);
-            this.informationPanel.Controls.Add(this.directionLbl);
-            this.informationPanel.Location = new System.Drawing.Point(0, 0);
-            this.informationPanel.Name = "informationPanel";
-            this.informationPanel.Size = new System.Drawing.Size(424, 82);
-            this.informationPanel.TabIndex = 5;
-            // 
-            // label41
-            // 
-            this.label41.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label41.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label41.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label41.Location = new System.Drawing.Point(319, 39);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(100, 17);
-            this.label41.TabIndex = 0;
-            this.label41.Text = "PDOP";
-            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pdopLbl
-            // 
-            this.pdopLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdopLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.pdopLbl.Location = new System.Drawing.Point(319, 56);
-            this.pdopLbl.Name = "pdopLbl";
-            this.pdopLbl.Size = new System.Drawing.Size(100, 18);
-            this.pdopLbl.TabIndex = 0;
-            this.pdopLbl.Text = "232.5";
-            this.pdopLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label37
-            // 
-            this.label37.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label37.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label37.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label37.Location = new System.Drawing.Point(214, 39);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(100, 17);
-            this.label37.TabIndex = 0;
-            this.label37.Text = "WGS84 Z";
-            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // wgs84zLbl
-            // 
-            this.wgs84zLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.wgs84zLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.wgs84zLbl.Location = new System.Drawing.Point(214, 56);
-            this.wgs84zLbl.Name = "wgs84zLbl";
-            this.wgs84zLbl.Size = new System.Drawing.Size(100, 18);
-            this.wgs84zLbl.TabIndex = 0;
-            this.wgs84zLbl.Text = "232.5";
-            this.wgs84zLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label33
-            // 
-            this.label33.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label33.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label33.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label33.Location = new System.Drawing.Point(109, 39);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(100, 17);
-            this.label33.TabIndex = 0;
-            this.label33.Text = "WGS84 Y";
-            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label39
-            // 
-            this.label39.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label39.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label39.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label39.Location = new System.Drawing.Point(319, 2);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(100, 17);
-            this.label39.TabIndex = 0;
-            this.label39.Text = "VDOP";
-            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // wgs84yLbl
-            // 
-            this.wgs84yLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.wgs84yLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.wgs84yLbl.Location = new System.Drawing.Point(109, 56);
-            this.wgs84yLbl.Name = "wgs84yLbl";
-            this.wgs84yLbl.Size = new System.Drawing.Size(100, 18);
-            this.wgs84yLbl.TabIndex = 0;
-            this.wgs84yLbl.Text = "232.5";
-            this.wgs84yLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label35
-            // 
-            this.label35.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label35.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label35.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label35.Location = new System.Drawing.Point(214, 2);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(100, 17);
-            this.label35.TabIndex = 0;
-            this.label35.Text = "HDOP";
-            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label19
-            // 
-            this.label19.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label19.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label19.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label19.Location = new System.Drawing.Point(4, 39);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(100, 17);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "WGS84 X";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // vdopLbl
-            // 
-            this.vdopLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.vdopLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.vdopLbl.Location = new System.Drawing.Point(319, 19);
-            this.vdopLbl.Name = "vdopLbl";
-            this.vdopLbl.Size = new System.Drawing.Size(100, 18);
-            this.vdopLbl.TabIndex = 0;
-            this.vdopLbl.Text = "232.5";
-            this.vdopLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label22
-            // 
-            this.label22.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label22.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label22.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label22.Location = new System.Drawing.Point(109, 2);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(100, 17);
-            this.label22.TabIndex = 0;
-            this.label22.Text = "Speed";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // hdopLbl
-            // 
-            this.hdopLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hdopLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.hdopLbl.Location = new System.Drawing.Point(214, 19);
-            this.hdopLbl.Name = "hdopLbl";
-            this.hdopLbl.Size = new System.Drawing.Size(100, 18);
-            this.hdopLbl.TabIndex = 0;
-            this.hdopLbl.Text = "232.5";
-            this.hdopLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // wgs84xLbl
-            // 
-            this.wgs84xLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.wgs84xLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.wgs84xLbl.Location = new System.Drawing.Point(4, 56);
-            this.wgs84xLbl.Name = "wgs84xLbl";
-            this.wgs84xLbl.Size = new System.Drawing.Size(100, 18);
-            this.wgs84xLbl.TabIndex = 0;
-            this.wgs84xLbl.Text = "232.5";
-            this.wgs84xLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // speedLbl
-            // 
-            this.speedLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.speedLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.speedLbl.Location = new System.Drawing.Point(109, 19);
-            this.speedLbl.Name = "speedLbl";
-            this.speedLbl.Size = new System.Drawing.Size(100, 18);
-            this.speedLbl.TabIndex = 0;
-            this.speedLbl.Text = "232.5";
-            this.speedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label17
-            // 
-            this.label17.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label17.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label17.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label17.Location = new System.Drawing.Point(4, 2);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(100, 17);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "Direction";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // directionLbl
-            // 
-            this.directionLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.directionLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.directionLbl.Location = new System.Drawing.Point(4, 19);
-            this.directionLbl.Name = "directionLbl";
-            this.directionLbl.Size = new System.Drawing.Size(100, 18);
-            this.directionLbl.TabIndex = 0;
-            this.directionLbl.Text = "232.5";
-            this.directionLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.rtkInfoPanel);
-            this.tabPage2.Location = new System.Drawing.Point(4, 28);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(424, 76);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "RTK Info.";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // rtkInfoPanel
-            // 
-            this.rtkInfoPanel.Controls.Add(this.label15);
-            this.rtkInfoPanel.Controls.Add(this.upProjLbl);
-            this.rtkInfoPanel.Controls.Add(this.label20);
-            this.rtkInfoPanel.Controls.Add(this.northProjLbl);
-            this.rtkInfoPanel.Controls.Add(this.label32);
-            this.rtkInfoPanel.Controls.Add(this.label34);
-            this.rtkInfoPanel.Controls.Add(this.easeProjLbl);
-            this.rtkInfoPanel.Controls.Add(this.label38);
-            this.rtkInfoPanel.Controls.Add(this.label40);
-            this.rtkInfoPanel.Controls.Add(this.baselineCouLbl);
-            this.rtkInfoPanel.Controls.Add(this.label43);
-            this.rtkInfoPanel.Controls.Add(this.baselineLenLbl);
-            this.rtkInfoPanel.Controls.Add(this.cyckeSlipLbl);
-            this.rtkInfoPanel.Controls.Add(this.rtkRatioLbl);
-            this.rtkInfoPanel.Controls.Add(this.label47);
-            this.rtkInfoPanel.Controls.Add(this.rtkAgeLbl);
-            this.rtkInfoPanel.Location = new System.Drawing.Point(0, 0);
-            this.rtkInfoPanel.Name = "rtkInfoPanel";
-            this.rtkInfoPanel.Size = new System.Drawing.Size(424, 82);
-            this.rtkInfoPanel.TabIndex = 5;
-            // 
-            // label15
-            // 
-            this.label15.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label15.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label15.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label15.Location = new System.Drawing.Point(319, 39);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(100, 17);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Up Projection";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // upProjLbl
-            // 
-            this.upProjLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.upProjLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.upProjLbl.Location = new System.Drawing.Point(319, 56);
-            this.upProjLbl.Name = "upProjLbl";
-            this.upProjLbl.Size = new System.Drawing.Size(100, 18);
-            this.upProjLbl.TabIndex = 0;
-            this.upProjLbl.Text = "232.5";
-            this.upProjLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label20
-            // 
-            this.label20.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label20.Font = new System.Drawing.Font("微軟正黑體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label20.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label20.Location = new System.Drawing.Point(214, 39);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(100, 17);
-            this.label20.TabIndex = 0;
-            this.label20.Text = "North-Projection";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // northProjLbl
-            // 
-            this.northProjLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.northProjLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.northProjLbl.Location = new System.Drawing.Point(214, 56);
-            this.northProjLbl.Name = "northProjLbl";
-            this.northProjLbl.Size = new System.Drawing.Size(100, 18);
-            this.northProjLbl.TabIndex = 0;
-            this.northProjLbl.Text = "232.5";
-            this.northProjLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label32
-            // 
-            this.label32.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label32.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label32.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label32.Location = new System.Drawing.Point(109, 39);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(100, 17);
-            this.label32.TabIndex = 0;
-            this.label32.Text = "East-Projection";
-            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label34
-            // 
-            this.label34.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label34.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label34.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label34.Location = new System.Drawing.Point(319, 2);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(100, 17);
-            this.label34.TabIndex = 0;
-            this.label34.Text = "Baseline Course";
-            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // easeProjLbl
-            // 
-            this.easeProjLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.easeProjLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.easeProjLbl.Location = new System.Drawing.Point(109, 56);
-            this.easeProjLbl.Name = "easeProjLbl";
-            this.easeProjLbl.Size = new System.Drawing.Size(100, 18);
-            this.easeProjLbl.TabIndex = 0;
-            this.easeProjLbl.Text = "232.5";
-            this.easeProjLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label38
-            // 
-            this.label38.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label38.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label38.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label38.Location = new System.Drawing.Point(214, 2);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(100, 17);
-            this.label38.TabIndex = 0;
-            this.label38.Text = "Baseline Length";
-            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label40
-            // 
-            this.label40.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label40.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label40.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label40.Location = new System.Drawing.Point(4, 39);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(100, 17);
-            this.label40.TabIndex = 0;
-            this.label40.Text = "Cycle-Slipped";
-            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // baselineCouLbl
-            // 
-            this.baselineCouLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baselineCouLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.baselineCouLbl.Location = new System.Drawing.Point(319, 19);
-            this.baselineCouLbl.Name = "baselineCouLbl";
-            this.baselineCouLbl.Size = new System.Drawing.Size(100, 18);
-            this.baselineCouLbl.TabIndex = 0;
-            this.baselineCouLbl.Text = "232.5";
-            this.baselineCouLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label43
-            // 
-            this.label43.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label43.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label43.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label43.Location = new System.Drawing.Point(109, 2);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(100, 17);
-            this.label43.TabIndex = 0;
-            this.label43.Text = "RTK Ratio";
-            this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // baselineLenLbl
-            // 
-            this.baselineLenLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baselineLenLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.baselineLenLbl.Location = new System.Drawing.Point(214, 19);
-            this.baselineLenLbl.Name = "baselineLenLbl";
-            this.baselineLenLbl.Size = new System.Drawing.Size(100, 18);
-            this.baselineLenLbl.TabIndex = 0;
-            this.baselineLenLbl.Text = "232.5";
-            this.baselineLenLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cyckeSlipLbl
-            // 
-            this.cyckeSlipLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cyckeSlipLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.cyckeSlipLbl.Location = new System.Drawing.Point(4, 56);
-            this.cyckeSlipLbl.Name = "cyckeSlipLbl";
-            this.cyckeSlipLbl.Size = new System.Drawing.Size(100, 18);
-            this.cyckeSlipLbl.TabIndex = 0;
-            this.cyckeSlipLbl.Text = "232.5";
-            this.cyckeSlipLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rtkRatioLbl
-            // 
-            this.rtkRatioLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtkRatioLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.rtkRatioLbl.Location = new System.Drawing.Point(109, 19);
-            this.rtkRatioLbl.Name = "rtkRatioLbl";
-            this.rtkRatioLbl.Size = new System.Drawing.Size(100, 18);
-            this.rtkRatioLbl.TabIndex = 0;
-            this.rtkRatioLbl.Text = "232.5";
-            this.rtkRatioLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label47
-            // 
-            this.label47.BackColor = System.Drawing.Color.DodgerBlue;
-            this.label47.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label47.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label47.Location = new System.Drawing.Point(4, 2);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(100, 17);
-            this.label47.TabIndex = 0;
-            this.label47.Text = "RTK Age";
-            this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rtkAgeLbl
-            // 
-            this.rtkAgeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtkAgeLbl.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.rtkAgeLbl.Location = new System.Drawing.Point(4, 19);
-            this.rtkAgeLbl.Name = "rtkAgeLbl";
-            this.rtkAgeLbl.Size = new System.Drawing.Size(100, 18);
-            this.rtkAgeLbl.TabIndex = 0;
-            this.rtkAgeLbl.Text = "232.5";
-            this.rtkAgeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.DimGray;
@@ -1598,7 +1582,7 @@
             this.scatterPanel.Controls.Add(this.scaleCmb);
             this.scatterPanel.Controls.Add(this.setOriginBtn);
             this.scatterPanel.Controls.Add(this.scatterPbox);
-            this.scatterPanel.Location = new System.Drawing.Point(718, 159);
+            this.scatterPanel.Location = new System.Drawing.Point(718, 163);
             this.scatterPanel.Name = "scatterPanel";
             this.scatterPanel.Size = new System.Drawing.Size(300, 216);
             this.scatterPanel.TabIndex = 10;
@@ -1641,25 +1625,31 @@
             // earthPanel
             // 
             this.earthPanel.Controls.Add(this.earthPbox);
-            this.earthPanel.Location = new System.Drawing.Point(718, 375);
+            this.earthPanel.Location = new System.Drawing.Point(718, 383);
             this.earthPanel.Name = "earthPanel";
-            this.earthPanel.Size = new System.Drawing.Size(300, 216);
+            this.earthPanel.Size = new System.Drawing.Size(300, 220);
             this.earthPanel.TabIndex = 11;
             // 
             // earthPbox
             // 
             this.earthPbox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("earthPbox.BackgroundImage")));
+            this.earthPbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.earthPbox.Location = new System.Drawing.Point(0, 0);
             this.earthPbox.Name = "earthPbox";
-            this.earthPbox.Size = new System.Drawing.Size(300, 216);
+            this.earthPbox.Size = new System.Drawing.Size(300, 220);
             this.earthPbox.TabIndex = 5;
             this.earthPbox.TabStop = false;
             this.earthPbox.Paint += new System.Windows.Forms.PaintEventHandler(this.earthPbox_Paint);
             // 
+            // sateTimer
+            // 
+            this.sateTimer.Interval = 500;
+            this.sateTimer.Tick += new System.EventHandler(this.sateTimer_Tick);
+            // 
             // snr2Pbox
             // 
             this.snr2Pbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.snr2Pbox.Location = new System.Drawing.Point(284, 375);
+            this.snr2Pbox.Location = new System.Drawing.Point(284, 273);
             this.snr2Pbox.Name = "snr2Pbox";
             this.snr2Pbox.Size = new System.Drawing.Size(430, 108);
             this.snr2Pbox.TabIndex = 0;
@@ -1669,7 +1659,7 @@
             // snr3Pbox
             // 
             this.snr3Pbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.snr3Pbox.Location = new System.Drawing.Point(284, 483);
+            this.snr3Pbox.Location = new System.Drawing.Point(284, 385);
             this.snr3Pbox.Name = "snr3Pbox";
             this.snr3Pbox.Size = new System.Drawing.Size(430, 108);
             this.snr3Pbox.TabIndex = 0;
@@ -1679,32 +1669,37 @@
             // snr1Pbox
             // 
             this.snr1Pbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.snr1Pbox.Location = new System.Drawing.Point(284, 267);
+            this.snr1Pbox.Location = new System.Drawing.Point(284, 161);
             this.snr1Pbox.Name = "snr1Pbox";
             this.snr1Pbox.Size = new System.Drawing.Size(430, 108);
             this.snr1Pbox.TabIndex = 0;
             this.snr1Pbox.TabStop = false;
             this.snr1Pbox.Paint += new System.Windows.Forms.PaintEventHandler(this.snr1Pbox_Paint);
             // 
-            // sateTimer
+            // snr4Pbox
             // 
-            this.sateTimer.Interval = 500;
-            this.sateTimer.Tick += new System.EventHandler(this.sateTimer_Tick);
+            this.snr4Pbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.snr4Pbox.Location = new System.Drawing.Point(284, 497);
+            this.snr4Pbox.Name = "snr4Pbox";
+            this.snr4Pbox.Size = new System.Drawing.Size(430, 108);
+            this.snr4Pbox.TabIndex = 12;
+            this.snr4Pbox.TabStop = false;
+            this.snr4Pbox.Paint += new System.Windows.Forms.PaintEventHandler(this.snr4Pbox_Paint);
             // 
             // AlphaView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1022, 591);
+            this.ClientSize = new System.Drawing.Size(1022, 609);
             this.Controls.Add(this.earthPanel);
             this.Controls.Add(this.scatterPanel);
             this.Controls.Add(this.snr2Pbox);
             this.Controls.Add(this.snr3Pbox);
             this.Controls.Add(this.snr1Pbox);
             this.Controls.Add(this.responsePanel);
-            this.Controls.Add(this.infoPanel);
             this.Controls.Add(this.messagePanel);
             this.Controls.Add(this.viewerPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.snr4Pbox);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -1722,8 +1717,13 @@
             this.viewerPanel.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
+            this.infoPanel.ResumeLayout(false);
+            this.infoTab.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.informationPanel.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.rtkInfoPanel.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.messagePanel.ResumeLayout(false);
@@ -1731,12 +1731,6 @@
             this.responsePanel.ResumeLayout(false);
             this.responsePanel.PerformLayout();
             this.responseLsbMenu.ResumeLayout(false);
-            this.infoPanel.ResumeLayout(false);
-            this.infoTab.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.informationPanel.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.rtkInfoPanel.ResumeLayout(false);
             this.scatterPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scatterPbox)).EndInit();
             this.earthPanel.ResumeLayout(false);
@@ -1744,6 +1738,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.snr2Pbox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.snr3Pbox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.snr1Pbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.snr4Pbox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1783,37 +1778,11 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button hotStartBtn;
         private System.Windows.Forms.Button coldStartBtn;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label licPeriodLbl;
-        private System.Windows.Forms.Label rtkActLbl;
-        private System.Windows.Forms.Label crcMLbl;
-        private System.Windows.Forms.Label revisionMLbl;
-        private System.Windows.Forms.Label sVerMLbl;
-        private System.Windows.Forms.Label kVerMLbl;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button connectBtn;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox baudRateCmb;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label elpHLbl;
-        private System.Windows.Forms.Label mslAltLbl;
-        private System.Windows.Forms.Label longitudeLbl;
-        private System.Windows.Forms.Label latitudeLbl;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label fixStatusLbl;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label timeLbl;
-        private System.Windows.Forms.Label dateLbl;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label ttffLbl;
         private System.Windows.Forms.Panel messagePanel;
         private System.Windows.Forms.Panel responsePanel;
@@ -1884,13 +1853,34 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem configGlCpifMenuItem;
         private System.Windows.Forms.ToolStripMenuItem queryGlCpifMenuItem;
-        private System.Windows.Forms.Label crcSLbl;
-        private System.Windows.Forms.Label revisionSLbl;
-        private System.Windows.Forms.Label sVerSLbl;
-        private System.Windows.Forms.Label kVerSLbl;
         private System.Windows.Forms.ToolStripMenuItem saveDeviceOutputToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sDTimestampAcquisitionToolStripMenuItem;
         private System.Windows.Forms.Timer sateTimer;
+        private System.Windows.Forms.PictureBox snr4Pbox;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label crcMLbl;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label sVerMLbl;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label kVerMLbl;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label revisionMLbl;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label dateLbl;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label timeLbl;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label elpHLbl;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label mslAltLbl;
+        private System.Windows.Forms.Label longitudeLbl;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label latitudeLbl;
+        private System.Windows.Forms.Label licPeriodLbl;
+        private System.Windows.Forms.Label label42;
     }
 }
 

@@ -81,18 +81,27 @@ namespace RtkViewer
             //Query Master Software Version
             GpsSerial.GPS_RESPONSE rep = deviceInfo.QuerySoftwareVersion(false);
             w.ReportProgress(-1, String.Format("Querying master FW version returns {0} ({1} ms)", rep.ToString(), watch.ElapsedMilliseconds));
+            if (GpsSerial.GPS_RESPONSE.TIMEOUT == rep)
+            {   //Device error
+                w.ReportProgress(-1, "Querying master FW version timeout!");
+                return DeviceInformation.FinalStage.Viewer_Mode;
+            }
             if (GpsSerial.GPS_RESPONSE.ACK != rep)
             {   //Device error
                 w.ReportProgress(-1, "Querying master FW version failed!");
                 return DeviceInformation.FinalStage.Device_Error;
             }
+
             byte[] kVer;
             byte[] sVer;
             byte[] rev;
-
             kVer = deviceInfo.GetKernelVersion(false);
             sVer = deviceInfo.GetSoftwareVersion(false);
             rev = deviceInfo.GetRevision(false);
+
+#if DEBUG
+            sVer[1] = 10;
+#endif
             w.ReportProgress(-1, "Master K.ver.: " + deviceInfo.GetFormatKernelVersion(false));
             w.ReportProgress(-1, "Master S.Ver.: " + deviceInfo.GetFormatSoftwareVersion(false));
             w.ReportProgress(-1, "Master Rev.: " + deviceInfo.GetFormatRevision(false));
@@ -197,6 +206,9 @@ namespace RtkViewer
             watch.Start();
             rep = deviceInfo.QueryDrPredictUpdateRate();
             w.ReportProgress(-1, String.Format("Querying DR mode return {0} ({1} ms)", rep.ToString(), watch.ElapsedMilliseconds));
+#if DEBUG
+            rep = GpsSerial.GPS_RESPONSE.NACK;
+#endif
             if (GpsSerial.GPS_RESPONSE.ACK == rep)
             {   //Only DR FW will response this command
                 w.ReportProgress(-1, "Operation mode: ODR ");
@@ -208,6 +220,7 @@ namespace RtkViewer
             watch.Start();
             rep = deviceInfo.QueryRtkMode();
             w.ReportProgress(-1, String.Format("Querying RTK mode return {0} ({1} ms)", rep.ToString(), watch.ElapsedMilliseconds));
+
             if (GpsSerial.GPS_RESPONSE.ACK != rep)
             {   //Only DR FW will response this command
                 w.ReportProgress(-1, "Device error! ");
@@ -240,7 +253,11 @@ namespace RtkViewer
             w.ReportProgress(-1, "Message type: " + deviceInfo.GetMessageTypeString());
 
             DeviceInformation.FinalStage ret = DeviceInformation.FinalStage.Device_Error;
-            if (deviceInfo.IsGlonassModule())
+            if (deviceInfo.IsPhoenixFirmware())
+            {
+                ret = (deviceInfo.IsRtkBaseMode()) ? DeviceInformation.FinalStage.Normal_In_Phoenix_Base : DeviceInformation.FinalStage.Normal_In_Phoenix_Rover;
+            }
+            else if (deviceInfo.IsGlonassModule())
             {
                 ret = (deviceInfo.IsRtkBaseMode()) ? DeviceInformation.FinalStage.Normal_In_Gl_Base : DeviceInformation.FinalStage.Normal_In_Gl_Rover;
             }
@@ -270,7 +287,6 @@ namespace RtkViewer
             return ret;
         }
 
-
         public delegate DeviceInformation.FinalStage WorkerFunction(int workType, BackgroundWorker w, GpsSerial g);
 
         private class DetectWorker
@@ -296,12 +312,15 @@ namespace RtkViewer
             new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Rom_Mode, null, DeviceInformation.FinalStage.Rom_Mode),
             new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Rom_Mode_Phoenix, null, DeviceInformation.FinalStage.Rom_Mode_Phoenix),
             new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Device_Not_Support, null, DeviceInformation.FinalStage.Device_Not_Support),
+            new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Viewer_Mode, null, DeviceInformation.FinalStage.Viewer_Mode),
             //new DetectWorker(QuerySwVersion, DeviceInformation.FinalStage.Device_FirstTimeout, ReopenDevice, DeviceInformation.FinalStage.None),
             new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Device_Error, null, DeviceInformation.FinalStage.Device_Error),
             new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Normal_In_Gl_Rover, null, DeviceInformation.FinalStage.Normal_In_Gl_Rover),
             new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Normal_In_Gl_Base, null, DeviceInformation.FinalStage.Normal_In_Gl_Base),
             new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Normal_In_Bd_Rover, null, DeviceInformation.FinalStage.Normal_In_Bd_Rover),
             new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Normal_In_Bd_Base, null, DeviceInformation.FinalStage.Normal_In_Bd_Base),
+            new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Normal_In_Phoenix_Rover, null, DeviceInformation.FinalStage.Normal_In_Phoenix_Rover),
+            new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Normal_In_Phoenix_Base, null, DeviceInformation.FinalStage.Normal_In_Phoenix_Base),
             new DetectWorker(DetectFwType, DeviceInformation.FinalStage.Normal_In_Odr, null, DeviceInformation.FinalStage.Normal_In_Odr),
         };
 
@@ -373,11 +392,19 @@ namespace RtkViewer
                     licenseLbl.Text = "---";
                     infoPanel.Visible = true;
                     break;
+                case DeviceInformation.FinalStage.Viewer_Mode:
+                    noticeLbl.Text = "Your device is in Viewer mode and cannot configure any settings. Try to change the position of the Slide switch and reconnect.";
+                    noticePanel.Visible = true;
+                    break;
                 case DeviceInformation.FinalStage.Normal_In_Gl_Base:
                 case DeviceInformation.FinalStage.Normal_In_Gl_Rover:
                 case DeviceInformation.FinalStage.Normal_In_Bd_Base:
                 case DeviceInformation.FinalStage.Normal_In_Bd_Rover:
-                    if (deviceInfo.IsGlonassModule())
+                case DeviceInformation.FinalStage.Normal_In_Phoenix_Base:
+                case DeviceInformation.FinalStage.Normal_In_Phoenix_Rover:
+                    if (deviceInfo.IsPhoenixFirmware())
+                        receiverTypeLbl.Text = "GPS+GLO+GAL+BDS";
+                    else if (deviceInfo.IsGlonassModule())
                         receiverTypeLbl.Text = "GPS + GLONASS";
                     else if (deviceInfo.IsBeidouModule())
                         receiverTypeLbl.Text = "GPS + BEIDOU";
@@ -416,6 +443,7 @@ namespace RtkViewer
                         if (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.Perpetual)
                         {
                             licenseLbl.Text = "Perpetual License";
+
                         }
                         else if (deviceInfo.GetLicenseType() == DeviceInformation.LicenseType.Monthly)
                         {

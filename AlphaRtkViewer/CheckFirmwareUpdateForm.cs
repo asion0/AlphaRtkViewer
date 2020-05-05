@@ -302,7 +302,7 @@ namespace RtkViewer
             }
             else if(remoteFwFolder == AppTools.PlusFirmwareFtpFolderName)
             {
-                opModeLbl.Text = "GPS + BEIDOU";
+                opModeLbl.Text = "Alpha+ GPS+GLO+BDS+GAL";
                 opModeLbl.ForeColor = Color.DarkOrange;
             }
             UpdateStatus();
@@ -451,7 +451,11 @@ namespace RtkViewer
 
             if (mode == Mode.UpdateAlphaPlusFirmware || mode == Mode.AlphaPlusRomModeRecovery)
             {
-                ret = FirmwareDownload.DoDownloadPhoenixFirmware(gps, GetDownloadFilePathName(false), defaultDownloadBaudIdx, false, ShowUpdateProgress);
+                byte[] v = deviceInfo.GetSoftwareVersion(false);
+                byte ver = deviceInfo.GetSoftwareVersion(false)[3];
+                bool b = (deviceInfo.GetSoftwareVersion(false)[3] >= 31);
+
+                ret = FirmwareDownload.DoDownloadPhoenixFirmware(gps, GetDownloadFilePathName(false), defaultDownloadBaudIdx, (deviceInfo.GetSoftwareVersion(false)[3] >= 31), ShowUpdateProgress);
             }
             else
             {

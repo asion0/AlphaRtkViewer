@@ -150,7 +150,12 @@ namespace RtkViewer
 
         public void DrawDual(Graphics g, List<ParsingStatus.SateInfo> s, List<int> sigList, int w, int h)
         {
-            for (int i = 0; i < s.Count; i++)
+            if(sigList.Count == 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < s.Count; ++i)
             {
                 if (s[i].prn == ParsingStatus.NullValue)
                 {
@@ -237,7 +242,7 @@ namespace RtkViewer
 
     class DrawEarth
     {
-        private const int MaxConstellationSupport = 4;
+        private const int MaxConstellationSupport = 5;
         private const int MaxEarthBackground = 6;
         private Image[] inUsePrnImage = new Image[MaxConstellationSupport];
         private Image[] nonUsePrnImage = new Image[MaxConstellationSupport];
@@ -248,20 +253,23 @@ namespace RtkViewer
         public DrawEarth(string gpInuse, string gpNonUse,
             string glInuse, string glNonUse,
             string bdInuse, string bdNonUse,
-            string giInuse, string giNonUse)
+            string giInuse, string giNonUse,
+            string gaInuse, string gaNonUse)
         {
-            string[] inUseTable = { gpInuse, glInuse, bdInuse, giInuse };
-            string[] nonUseTable = { gpNonUse, glNonUse, bdNonUse, giNonUse };
+            string[] inUseTable = { gpInuse, glInuse, bdInuse, giInuse, gaInuse };
+            string[] nonUseTable = { gpNonUse, glNonUse, bdNonUse, giNonUse, gaNonUse };
             Color[] inUseColorTable = {
+                Color.FromArgb(255, 250, 250, 250),
                 Color.FromArgb(255, 250, 250, 250),
                 Color.FromArgb(255, 250, 250, 250),
                 Color.FromArgb(255, 250, 250, 250),
                 Color.FromArgb(255, 250, 250, 250) };
             Color[] nonUseColorTable = {
-                Color.FromArgb(255, 26, 144, 255),
-                Color.FromArgb(255, 156, 102, 204),
+                Color.FromArgb(255, 43, 120, 204),
+                Color.FromArgb(255, 151, 98, 195),
+                Color.FromArgb(255, 219, 107, 51),
                 Color.FromArgb(255, 255, 153, 1),
-                Color.FromArgb(255, 255, 153, 1) };
+                Color.FromArgb(255, 149, 206, 72) };
 
             for (int i = 0; i < MaxConstellationSupport; ++i)
             {

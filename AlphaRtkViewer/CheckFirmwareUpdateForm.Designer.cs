@@ -56,7 +56,6 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.step2NoBtn = new System.Windows.Forms.Button();
-            this.step2YesBtn = new System.Windows.Forms.Button();
             this.downloadStep2TitleLbl = new System.Windows.Forms.Label();
             this.downloadStep2PromptLbl = new System.Windows.Forms.Label();
             this.downloadStep3Panel = new System.Windows.Forms.Panel();
@@ -72,6 +71,7 @@
             this.step0YesBtn = new System.Windows.Forms.Button();
             this.label39 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
+            this.step2YesBtn = new System.Windows.Forms.Button();
             this.downloadUpdatePanel.SuspendLayout();
             this.downloadStep2Panel.SuspendLayout();
             this.slaveGroup.SuspendLayout();
@@ -390,17 +390,6 @@
             this.step2NoBtn.UseVisualStyleBackColor = true;
             this.step2NoBtn.Click += new System.EventHandler(this.step2NoBtn_Click);
             // 
-            // step2YesBtn
-            // 
-            this.step2YesBtn.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.step2YesBtn.Location = new System.Drawing.Point(297, 317);
-            this.step2YesBtn.Name = "step2YesBtn";
-            this.step2YesBtn.Size = new System.Drawing.Size(200, 32);
-            this.step2YesBtn.TabIndex = 10;
-            this.step2YesBtn.Text = "Download and Update";
-            this.step2YesBtn.UseVisualStyleBackColor = true;
-            this.step2YesBtn.Click += new System.EventHandler(this.step2YesBtn_Click);
-            // 
             // downloadStep2TitleLbl
             // 
             this.downloadStep2TitleLbl.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -565,6 +554,17 @@
             this.label40.Text = "When changing type configuration, RTK Viewer will fetch firmware from Polaris ser" +
     "ver to update Alpha.";
             // 
+            // step2YesBtn
+            // 
+            this.step2YesBtn.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.step2YesBtn.Location = new System.Drawing.Point(297, 317);
+            this.step2YesBtn.Name = "step2YesBtn";
+            this.step2YesBtn.Size = new System.Drawing.Size(200, 32);
+            this.step2YesBtn.TabIndex = 10;
+            this.step2YesBtn.Text = "Download and Update";
+            this.step2YesBtn.UseVisualStyleBackColor = true;
+            this.step2YesBtn.Click += new System.EventHandler(this.step2YesBtn_Click);
+            // 
             // CheckFirmwareUpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -603,7 +603,6 @@
         private System.Windows.Forms.Label downloadStep2TitleLbl;
         private System.Windows.Forms.Label downloadStep2PromptLbl;
         private System.Windows.Forms.Button step2NoBtn;
-        private System.Windows.Forms.Button step2YesBtn;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label newFwKVerMLbl;
         private System.Windows.Forms.Label newFwCrcMLbl;
@@ -640,5 +639,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label downloadStep3ProgressLbl;
         private System.Windows.Forms.Label opModeLbl;
+        private System.Windows.Forms.Button step2YesBtn;
     }
 }

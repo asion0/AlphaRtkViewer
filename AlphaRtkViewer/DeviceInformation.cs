@@ -30,9 +30,11 @@ namespace RtkViewer
             Normal_In_Bd_Rover,
             Normal_In_Bd_Base,
             Normal_In_Odr,
+            Normal_In_Phoenix_Rover,
+            Normal_In_Phoenix_Base,
             Device_FirstTimeout,
             Rom_Mode_Phoenix,
-
+            Viewer_Mode,
         }
 
         private FinalStage finalStage = FinalStage.None;
@@ -57,7 +59,8 @@ namespace RtkViewer
         public byte[] GetKernelVersion(bool isSlave) { return (isSlave) ? slaveVer.kVer : masterVer.kVer; }
         public byte[] GetSoftwareVersion(bool isSlave) { return (isSlave) ? slaveVer.sVer : masterVer.sVer; }
         public byte[] GetRevision(bool isSlave) { return (isSlave) ? slaveVer.rev : masterVer.rev; }
-        public bool IsAlphaFirmware() { return masterVer.sVer[1] == 10; }
+        public bool IsAlphaFirmware() { return (masterVer.sVer[1] == 10 || masterVer.sVer[1] == 11); }
+        public bool IsAlphaPlusFirmware() { return masterVer.sVer[1] == 11; }
         public bool IsAlphaStartKitFirmware() { return masterVer.sVer[1] == 200; }
         public bool IsPhoenixFirmware() { return masterVer.kVer[1] > 2; }
         public bool IsRomMode() { return (GetFinalStage() == FinalStage.Rom_Mode || GetFinalStage() == FinalStage.Rom_Mode_Phoenix); }
@@ -83,10 +86,12 @@ namespace RtkViewer
                 (isSlave) ? slaveVer.rev[2] : masterVer.rev[2],
                 (isSlave) ? slaveVer.rev[3] : masterVer.rev[3]);
         }
+
         public string GetFormatCrc(bool isSlave)
         {
             return string.Format("{0:X4}", (isSlave) ? slaveVer.crc : masterVer.crc);
         }
+
         public GpsSerial.GPS_RESPONSE QuerySoftwareVersion(bool isSlave)
         {
             GpsSerial.GPS_RESPONSE rep = GpsSerial.GPS_RESPONSE.NONE;
@@ -120,6 +125,13 @@ namespace RtkViewer
         public GpsSerial.GPS_RESPONSE QueryUpdateRate()
         {
             GpsSerial.GPS_RESPONSE rep = gps.QueryUpdateRate(DefaultCmdTimeout(), ref updateRate);
+#if DEBUG
+            if(rep != GpsSerial.GPS_RESPONSE.ACK)
+            {
+                updateRate = 1;
+                rep = GpsSerial.GPS_RESPONSE.ACK;
+            }
+#endif
             return rep;
         }
 
@@ -155,6 +167,9 @@ namespace RtkViewer
         public GpsSerial.GPS_RESPONSE QueryRtkMode()
         {
             GpsSerial.GPS_RESPONSE rep = gps.QueryRtkMode(DefaultCmdTimeout(), ref rtkInfo);
+#if DEBUG
+            rep = GpsSerial.GPS_RESPONSE.ACK;
+#endif
             if (rep == GpsSerial.GPS_RESPONSE.ACK)
                 isRtkFw = true;
             return rep;
@@ -162,8 +177,9 @@ namespace RtkViewer
 
         private GpsSerial.ConstellationType ctType = 0;
         public GpsSerial.ConstellationType GetConstellationType() { return ctType; }
-        public bool IsGlonassModule() { return ctType == GpsSerial.ConstellationType.GPS_GLONASS; }
-        public bool IsBeidouModule() { return ctType == GpsSerial.ConstellationType.GPS_BEIDOU; }
+        public bool IsGlonassModule() { return ((ctType & GpsSerial.ConstellationType.GLONASS) != 0); }
+        public bool IsBeidouModule() { return ((ctType & GpsSerial.ConstellationType.BEIDOU) != 0); }
+        public bool IsGalileoModule() { return ((ctType & GpsSerial.ConstellationType.GALILEO) != 0); }
         public GpsSerial.GPS_RESPONSE QueryConstellationType()
         {
             GpsSerial.GPS_RESPONSE rep = gps.QueryConstellationType(DefaultCmdTimeout(), ref ctType);
@@ -263,7 +279,11 @@ namespace RtkViewer
         public GpsSerial.GPS_RESPONSE QueryMiscInformation()
         {
             GpsSerial.GPS_RESPONSE rep = gps.QueryMiscInformation(DefaultCmdTimeout(), ref miscInfo);
+#if DEBUG
+            return GpsSerial.GPS_RESPONSE.ACK;
+#else
             return rep;
+#endif
         }
 
         private class ParserClass

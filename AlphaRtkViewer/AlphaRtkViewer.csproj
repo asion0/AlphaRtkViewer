@@ -56,7 +56,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_LocalRun|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug_LocalRun\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;_PHEONIX_;_LOCAL_RUN_</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;_PHEONIX_;_LOCAL_RUN_</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -289,6 +289,13 @@
     <None Include="Resources\GpsAct-1.png" />
     <None Include="Resources\GpsDis-1.png" />
     <EmbeddedResource Include="lzma.exe" />
+    <None Include="Resources\GaSnrTitle.png" />
+    <None Include="Resources\GaAct.png" />
+    <None Include="Resources\GaDis.png" />
+    <None Include="Resources\GalileoAct.png" />
+    <None Include="Resources\GalileoDis.png" />
+    <None Include="Resources\GlAct.png" />
+    <None Include="Resources\GlDis.png" />
     <Content Include="RtkViewer.ico" />
   </ItemGroup>
   <ItemGroup>

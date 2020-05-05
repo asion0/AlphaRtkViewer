@@ -818,22 +818,24 @@ namespace RtkViewer
             return retval;
         }
 
-        public GPS_RESPONSE SendLoaderDownload(int timeout, int downloadBaudIdx, bool useBinaryCommand)
+        public GPS_RESPONSE SendLoaderDownload(int timeout, int downloadBaudIdx, bool newCmd)
         {
             GPS_RESPONSE rep = GPS_RESPONSE.NONE;
-            if (useBinaryCommand)
+            if (!newCmd)
             {
                 rep = ExternalLoaderDownload(timeout, downloadBaudIdx);
-                if (rep == GPS_RESPONSE.ACK)
-                {
-                    rep = GPS_RESPONSE.OK;
-                }
-                return rep;
             }
-
-            String cmd = "$LOADER DOWNLOAD";
-            rep = SendStringCmdAck(cmd, cmd.Length, timeout, "OK\0");
+            else
+            {
+                rep = ExternalLoaderDownload2(timeout, downloadBaudIdx);
+            }
+            if (rep == GPS_RESPONSE.ACK)
+            {
+                rep = GPS_RESPONSE.OK;
+            }
             return rep;
+
+
         }
 
         public GPS_RESPONSE ExternalLoaderDownload(int timeout, int downloadBaudRate)
@@ -843,6 +845,24 @@ namespace RtkViewer
 
             cmdData[0] = 0x64;
             cmdData[1] = 0x1B;
+            cmdData[2] = (byte)downloadBaudRate;
+            cmdData[3] = 0;
+            cmdData[4] = 0;
+            cmdData[5] = 0;
+            cmdData[6] = 0;
+
+            BinaryCommand cmd = new BinaryCommand(cmdData);
+            retval = SendCmdAck(cmd.GetBuffer(), cmd.Size(), timeout);
+            return retval;
+        }
+
+        public GPS_RESPONSE ExternalLoaderDownload2(int timeout, int downloadBaudRate)
+        {
+            GPS_RESPONSE retval = GPS_RESPONSE.NONE;
+            byte[] cmdData = new byte[7];
+
+            cmdData[0] = 0x64;
+            cmdData[1] = 0x4F;
             cmdData[2] = (byte)downloadBaudRate;
             cmdData[3] = 0;
             cmdData[4] = 0;

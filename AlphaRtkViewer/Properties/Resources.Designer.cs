@@ -173,6 +173,56 @@ namespace RtkViewer.Properties {
         /// <summary>
         ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
         /// </summary>
+        internal static System.Drawing.Bitmap gaActImg {
+            get {
+                object obj = ResourceManager.GetObject("gaActImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap gaDisImg {
+            get {
+                object obj = ResourceManager.GetObject("gaDisImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap GaErtAct {
+            get {
+                object obj = ResourceManager.GetObject("GaErtAct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap GaErtDis {
+            get {
+                object obj = ResourceManager.GetObject("GaErtDis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap gaSnrTitle {
+            get {
+                object obj = ResourceManager.GetObject("gaSnrTitle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
         internal static System.Drawing.Bitmap glActImg {
             get {
                 object obj = ResourceManager.GetObject("glActImg", resourceCulture);
@@ -186,6 +236,26 @@ namespace RtkViewer.Properties {
         internal static System.Drawing.Bitmap glDisImg {
             get {
                 object obj = ResourceManager.GetObject("glDisImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap GlErtAct {
+            get {
+                object obj = ResourceManager.GetObject("GlErtAct", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap GlErtDis {
+            get {
+                object obj = ResourceManager.GetObject("GlErtDis", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

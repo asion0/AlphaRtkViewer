@@ -1257,7 +1257,7 @@ namespace MiscUtil.App
 
         public static string GetAppTitle() { return ((AssemblyTitleAttribute)Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(AssemblyTitleAttribute), false))?.Title; }
         public static string GetAppVersionString() { return Assembly.GetEntryAssembly().GetName().Version.ToString(); }
-        public static string GetAppTitleWithVersion() { return GetAppTitle() + " - " + GetAppVersionString(); }
+        public static string GetAppTitleWithVersion() { return GetAppTitle() + " V" + GetAppVersionString(); }
 
         public static AppInfo GetAppInfoFromXml(string xmlString)
         {
@@ -1590,6 +1590,9 @@ namespace MiscUtil.Network
 
         static ServerItem[] serverList =
         {
+#if DEBUG
+            new ServerItem("192.168.0.83/alpha", 80, ServerType.Http),
+#endif
             new ServerItem("203.66.45.201/alpha", 80, ServerType.Http),
             new ServerItem("203.66.45.201", 21, ServerType.Ftp),
             new ServerItem("www.polaris-gnss.com/alpha", 80, ServerType.Https),
