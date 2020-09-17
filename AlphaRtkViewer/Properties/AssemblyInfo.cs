@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // 組件的一般資訊是由下列的屬性集控制。
@@ -32,9 +31,11 @@ using System.Runtime.InteropServices;
 // 您可以指定所有的值，也可以依照以下的方式，使用 '*' 將組建和修訂編號
 // 指定為預設值: 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.6")]
-[assembly: AssemblyFileVersion("2.0.0.6")]
+[assembly: AssemblyVersion("2.0.0.8")]
+[assembly: AssemblyFileVersion("2.0.0.8")]
 
+//2.0.0.8 - 20200917, Add Configure / Query Very Low Speed Filter, request from Oliver / Austin
+//2.0.0.7 - 20200914, Add exception handler for draw classes, report from from user https://forum.polaris-gnss.com/t/rtk-viewer-v2-0-0-6-bug/618
 //2.0.0.6 - 20200504, Support Viewer mode, request from Jim Lin
 //2.0.0.5 - 20200410, Adjust Binsize timeout from 3000ms to 8000ms, request from user
 //2.0.0.4 - 20200401, Display 4 system support, request from Oliver

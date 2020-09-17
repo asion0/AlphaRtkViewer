@@ -1714,7 +1714,50 @@ namespace RtkViewer
             }
         }
 
+        private void configureVeryLowSpeedFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CommonCammondForm form = new CommonCammondForm();
+            form.SetMode(CommonCammondForm.Mode.ConfigureVeryLowSpeedFilter);
+            DialogResult dr = form.ShowDialog();
 
+            if (dr != DialogResult.OK)
+            {
+                return;
+            }
+
+            byte veryLow = (byte)((form.GetVeryLowSpeedFilter()) ? 1 : 0);
+
+            gps.UninstallDataReceiver();
+            GpsSerial.GPS_RESPONSE rep = gps.ConfigureVeryLowSpeedFilter(2000, veryLow, GpsSerial.Attributes.SramAndFlash);
+            SetResponseMessage(rep, "Configure Very Low Speed Filter");
+
+            if (rep != GpsSerial.GPS_RESPONSE.ACK)
+            {
+                gps.InstallDataReceiver(deviceInfo.GetDataInHandler());
+                MessageBox.Show("Configure Very Low Speed Filter failed!");
+            }
+
+            DoDisconnection();
+            DoConnection(false);
+        }
+
+        private void queryVeryLowSpeedFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gps.UninstallDataReceiver();
+            GpsSerial.GPS_RESPONSE rep = deviceInfo.QueryVeryLowSpeedFilter();
+            SetResponseMessage(rep, "Query Very Low Speed Filter");
+
+            gps.InstallDataReceiver(deviceInfo.GetDataInHandler());
+            if (rep != GpsSerial.GPS_RESPONSE.ACK)
+            {
+                gps.InstallDataReceiver(deviceInfo.GetDataInHandler());
+                MessageBox.Show("Query Very Low Speed Filter failed!");
+            }
+            else
+            {
+                MessageBox.Show("Very Low Speed Filter: " + ((deviceInfo.GetVeryLowSpeedFilter() == 0) ? "Disable" : "Enable"));
+            }
+        }
 
         private void clearResponseLsbMenuItem_Click(object sender, EventArgs e)
         {

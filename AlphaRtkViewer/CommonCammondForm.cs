@@ -18,6 +18,7 @@ namespace RtkViewer
             QuerySoftwareInformation,
             QueryRtkMode,
             ConfigurePositioningUpdateRate,
+            ConfigureVeryLowSpeedFilter,
         }
 
         private Mode mode = Mode.SetFactoryDefault;
@@ -50,7 +51,6 @@ namespace RtkViewer
             String title = "";
             setFactoryDefaultPanel.Visible = false;
             configureSerialPortPanel.Visible = false;
-            //queryVersionPanel.Visible = false;
             queryRtkModePanel.Visible = false;
             configurePositionUpdateRatePanel.Visible = false;
             switch (mode)
@@ -63,10 +63,6 @@ namespace RtkViewer
                     p = configureSerialPortPanel;
                     title = "Configure Serial Port";
                     break;
-                //case Mode.QuerySoftwareInformation:
-                //    p = queryVersionPanel;
-                //    title = "Query Software Information";
-                //    break;
                 case Mode.QueryRtkMode:
                     p = queryRtkModePanel;
                     title = "Query RTK Mode";
@@ -77,52 +73,14 @@ namespace RtkViewer
                     savedRtkLatLbl.Text = r.savedLat.ToString("F7");
                     savedRtkLonLbl.Text = r.savedLon.ToString("F7");
                     savedRtkAltLbl.Text = r.savedAlt.ToString("F2");
-
-                    if (r.rtkMode == GpsSerial.RtkModeInfo.RtkMode.RTK_Base)
-                    {
-                        if(r.optMode == GpsSerial.RtkModeInfo.RtkOperationMode.Base_Static)
-                        {
-                            //savedRtkOpLbl.Text = "Static Mode";
-                            //runtimeRtkOpTLbl.Visible = true;
-                            //runtimeRtkOpLbl.Visible = true;
-                            //savedRtkLatLbl.Text = r.savedLat.ToString("F7");
-                            //savedRtkLonLbl.Text = r.savedLon.ToString("F7");
-                            //savedRtkAltLbl.Text = r.savedAlt.ToString("F2");
-                        }
-                        else if (r.optMode == GpsSerial.RtkModeInfo.RtkOperationMode.Base_Survey)
-                        {
-                            //savedRtkOpLbl.Text = "Survey Mode";
-                            //runtimeRtkOpTLbl.Visible = true;
-                            //runtimeRtkOpLbl.Visible = true;
-                            //savedRtkLatLbl.Text = "---";
-                            //savedRtkLonLbl.Text = "---";
-                            //savedRtkAltLbl.Text = "---";
-                            //runtimeRtkOpLbl.Text = (r.runtimeOptMode == GpsSerial.RtkModeInfo.RtkOperationMode.Base_Survey) ? "Survey Mode" : "Static Mode";
-                        }
-                        else
-                        {
-                            //savedRtkOpLbl.Text = "Kinematic Mode";
-                            //runtimeRtkOpTLbl.Visible = false;
-                            //runtimeRtkOpLbl.Visible = false;
-                            ////savedRtkLatLbl.Text = "---";
-                            //savedRtkLonLbl.Text = "---";
-                            //savedRtkAltLbl.Text = "---";
-                        }
-                        //rtkBasePanel.Visible = true;
-                    }
-                    else if (r.rtkMode == GpsSerial.RtkModeInfo.RtkMode.RTK_Rover)
-                    {
-                        //rtkModeLbl.Text = "RTK Rover Mode";
-                        //rtkBasePanel.Visible = false;
-                    }
-                    else
-                    {
-                        //rtkBasePanel.Visible = false;
-                    }
                     break;
                 case Mode.ConfigurePositioningUpdateRate:
                     p = configurePositionUpdateRatePanel;
                     title = "Configure Positioning Update Rate";
+                    break;
+                case Mode.ConfigureVeryLowSpeedFilter:
+                    p = configureVeryLowSpeedPanel;
+                    title = "Configure Very Low Speed Filter";
                     break;
                 default:
                     break;
@@ -153,7 +111,6 @@ namespace RtkViewer
 
         private void configureSerialPortAcceptBtn_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Configure Output Baud Rate successful.");
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -165,7 +122,6 @@ namespace RtkViewer
 
         private void configurePositionUpdateRateAcceptBtn_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Configure Position Update Rate successful.");
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -229,6 +185,29 @@ namespace RtkViewer
             {
                 selectedUpdateRate = Convert.ToInt32((sender as RadioButton).Text.Split(' ')[0]);
             }
+        }
+
+        private void configureVeryLowSpeedAcceptBtn_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void configureVeryLowSpeedCancelBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private bool veryLowSpeed = false;
+        public bool GetVeryLowSpeedFilter() { return veryLowSpeed; }
+        private void veryLowDisableRdo_CheckedChanged(object sender, EventArgs e)
+        {
+            veryLowSpeed = false;
+        }
+
+        private void veryLowEnableRdo_CheckedChanged(object sender, EventArgs e)
+        {
+            veryLowSpeed = true;
         }
     }
 }

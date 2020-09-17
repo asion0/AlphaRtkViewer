@@ -72,11 +72,18 @@
             this.radioButton13 = new System.Windows.Forms.RadioButton();
             this.radioButton14 = new System.Windows.Forms.RadioButton();
             this.label36 = new System.Windows.Forms.Label();
+            this.configureVeryLowSpeedPanel = new System.Windows.Forms.Panel();
+            this.veryLowEnableRdo = new System.Windows.Forms.RadioButton();
+            this.configureVeryLowSpeedCancelBtn = new System.Windows.Forms.Button();
+            this.configureVeryLowSpeedAcceptBtn = new System.Windows.Forms.Button();
+            this.veryLowDisableRdo = new System.Windows.Forms.RadioButton();
+            this.label7 = new System.Windows.Forms.Label();
             this.setFactoryDefaultPanel.SuspendLayout();
             this.configureSerialPortPanel.SuspendLayout();
             this.queryRtkModePanel.SuspendLayout();
             this.rtkBasePanel.SuspendLayout();
             this.configurePositionUpdateRatePanel.SuspendLayout();
+            this.configureVeryLowSpeedPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // setFactoryDefaultPanel
@@ -593,14 +600,86 @@
             this.label36.TabIndex = 3;
             this.label36.Text = "Configure Position Update Rate";
             // 
+            // configureVeryLowSpeedPanel
+            // 
+            this.configureVeryLowSpeedPanel.Controls.Add(this.veryLowEnableRdo);
+            this.configureVeryLowSpeedPanel.Controls.Add(this.configureVeryLowSpeedCancelBtn);
+            this.configureVeryLowSpeedPanel.Controls.Add(this.configureVeryLowSpeedAcceptBtn);
+            this.configureVeryLowSpeedPanel.Controls.Add(this.veryLowDisableRdo);
+            this.configureVeryLowSpeedPanel.Controls.Add(this.label7);
+            this.configureVeryLowSpeedPanel.Location = new System.Drawing.Point(28, 296);
+            this.configureVeryLowSpeedPanel.Name = "configureVeryLowSpeedPanel";
+            this.configureVeryLowSpeedPanel.Size = new System.Drawing.Size(504, 360);
+            this.configureVeryLowSpeedPanel.TabIndex = 0;
+            // 
+            // veryLowEnableRdo
+            // 
+            this.veryLowEnableRdo.AutoSize = true;
+            this.veryLowEnableRdo.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.veryLowEnableRdo.Location = new System.Drawing.Point(269, 94);
+            this.veryLowEnableRdo.Name = "veryLowEnableRdo";
+            this.veryLowEnableRdo.Size = new System.Drawing.Size(73, 23);
+            this.veryLowEnableRdo.TabIndex = 4;
+            this.veryLowEnableRdo.Text = "Enable";
+            this.veryLowEnableRdo.UseVisualStyleBackColor = true;
+            this.veryLowEnableRdo.CheckedChanged += new System.EventHandler(this.veryLowEnableRdo_CheckedChanged);
+            // 
+            // configureVeryLowSpeedCancelBtn
+            // 
+            this.configureVeryLowSpeedCancelBtn.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.configureVeryLowSpeedCancelBtn.Location = new System.Drawing.Point(372, 317);
+            this.configureVeryLowSpeedCancelBtn.Name = "configureVeryLowSpeedCancelBtn";
+            this.configureVeryLowSpeedCancelBtn.Size = new System.Drawing.Size(120, 32);
+            this.configureVeryLowSpeedCancelBtn.TabIndex = 2;
+            this.configureVeryLowSpeedCancelBtn.Text = "Cancel";
+            this.configureVeryLowSpeedCancelBtn.UseVisualStyleBackColor = true;
+            this.configureVeryLowSpeedCancelBtn.Click += new System.EventHandler(this.configureVeryLowSpeedCancelBtn_Click);
+            // 
+            // configureVeryLowSpeedAcceptBtn
+            // 
+            this.configureVeryLowSpeedAcceptBtn.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.configureVeryLowSpeedAcceptBtn.Location = new System.Drawing.Point(246, 317);
+            this.configureVeryLowSpeedAcceptBtn.Name = "configureVeryLowSpeedAcceptBtn";
+            this.configureVeryLowSpeedAcceptBtn.Size = new System.Drawing.Size(120, 32);
+            this.configureVeryLowSpeedAcceptBtn.TabIndex = 1;
+            this.configureVeryLowSpeedAcceptBtn.Text = "Accept";
+            this.configureVeryLowSpeedAcceptBtn.UseVisualStyleBackColor = true;
+            this.configureVeryLowSpeedAcceptBtn.Click += new System.EventHandler(this.configureVeryLowSpeedAcceptBtn_Click);
+            // 
+            // veryLowDisableRdo
+            // 
+            this.veryLowDisableRdo.AutoSize = true;
+            this.veryLowDisableRdo.Checked = true;
+            this.veryLowDisableRdo.Font = new System.Drawing.Font("微軟正黑體", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.veryLowDisableRdo.Location = new System.Drawing.Point(163, 94);
+            this.veryLowDisableRdo.Name = "veryLowDisableRdo";
+            this.veryLowDisableRdo.Size = new System.Drawing.Size(78, 23);
+            this.veryLowDisableRdo.TabIndex = 4;
+            this.veryLowDisableRdo.TabStop = true;
+            this.veryLowDisableRdo.Text = "Disable";
+            this.veryLowDisableRdo.UseVisualStyleBackColor = true;
+            this.veryLowDisableRdo.CheckedChanged += new System.EventHandler(this.veryLowDisableRdo_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Blue;
+            this.label7.Location = new System.Drawing.Point(97, 31);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(311, 25);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "SConfigure Very Low Speed Filter";
+            // 
             // CommonCammondForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 681);
+            this.Controls.Add(this.configureVeryLowSpeedPanel);
+            this.Controls.Add(this.configureSerialPortPanel);
             this.Controls.Add(this.setFactoryDefaultPanel);
             this.Controls.Add(this.configurePositionUpdateRatePanel);
-            this.Controls.Add(this.configureSerialPortPanel);
             this.Controls.Add(this.queryRtkModePanel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -618,6 +697,8 @@
             this.rtkBasePanel.PerformLayout();
             this.configurePositionUpdateRatePanel.ResumeLayout(false);
             this.configurePositionUpdateRatePanel.PerformLayout();
+            this.configureVeryLowSpeedPanel.ResumeLayout(false);
+            this.configureVeryLowSpeedPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -668,5 +749,11 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Panel rtkBasePanel;
         private System.Windows.Forms.Button setFactoryDefaultCancelBtn;
+        private System.Windows.Forms.Panel configureVeryLowSpeedPanel;
+        private System.Windows.Forms.RadioButton veryLowEnableRdo;
+        private System.Windows.Forms.Button configureVeryLowSpeedCancelBtn;
+        private System.Windows.Forms.Button configureVeryLowSpeedAcceptBtn;
+        private System.Windows.Forms.RadioButton veryLowDisableRdo;
+        private System.Windows.Forms.Label label7;
     }
 }

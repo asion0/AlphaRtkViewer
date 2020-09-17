@@ -100,7 +100,7 @@ namespace RtkViewer
             rev = deviceInfo.GetRevision(false);
 
 #if DEBUG
-            sVer[1] = 10;
+            //sVer[1] = 10;
 #endif
             w.ReportProgress(-1, "Master K.ver.: " + deviceInfo.GetFormatKernelVersion(false));
             w.ReportProgress(-1, "Master S.Ver.: " + deviceInfo.GetFormatSoftwareVersion(false));

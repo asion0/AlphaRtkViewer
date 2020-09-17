@@ -135,6 +135,21 @@ namespace RtkViewer
             return rep;
         }
 
+        private byte veryLowSpeedFilter;
+        public byte GetVeryLowSpeedFilter() { return veryLowSpeedFilter; }
+        public GpsSerial.GPS_RESPONSE QueryVeryLowSpeedFilter()
+        {
+            GpsSerial.GPS_RESPONSE rep = gps.QueryVeryLowSpeedFilter(DefaultCmdTimeout(), ref veryLowSpeedFilter);
+#if DEBUG
+            if(rep != GpsSerial.GPS_RESPONSE.ACK)
+            {
+                updateRate = 1;
+                rep = GpsSerial.GPS_RESPONSE.ACK;
+            }
+#endif
+            return rep;
+        }
+
         private bool bootFailed = false;
         private bool bootRom = false;
         public bool GetBootFailedFlag() { return bootFailed; }

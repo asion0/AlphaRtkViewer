@@ -254,6 +254,19 @@ namespace RtkViewer
             return retval;
         }
 
+        public GPS_RESPONSE ConfigureVeryLowSpeedFilter(int timeout, byte enable, Attributes att)
+        {
+            GPS_RESPONSE retval = GPS_RESPONSE.NONE;
+            byte[] cmdData = new byte[4];
+            cmdData[0] = 0x64;
+            cmdData[1] = 0x37;
+            cmdData[2] = (byte)enable;
+            cmdData[3] = (byte)att;
+            BinaryCommand cmd = new BinaryCommand(cmdData);
+            retval = SendCmdAck(cmd.GetBuffer(), cmd.Size(), timeout);
+            return retval;
+        }
+
         public GPS_RESPONSE ConfigureUpdateRate(int timeout, int updateRate, Attributes att)
         {
             GPS_RESPONSE retval = GPS_RESPONSE.NONE;
@@ -463,6 +476,31 @@ namespace RtkViewer
             }
 
             updateRate = retCmd[5];
+            return retval;
+        }
+
+        public GPS_RESPONSE QueryVeryLowSpeedFilter(int timeout, ref byte enable)
+        {
+            GPS_RESPONSE retval = GPS_RESPONSE.NONE;
+            byte[] cmdData = new byte[2];
+            cmdData[0] = 0x64;
+            cmdData[1] = 0x38;
+
+            BinaryCommand cmd = new BinaryCommand(cmdData);
+            retval = SendCmdAck(cmd.GetBuffer(), cmd.Size(), timeout);
+            if (retval != GPS_RESPONSE.ACK)
+            {
+                return retval;
+            }
+
+            byte[] retCmd = new byte[128];
+            retval = WaitReturnCommand(0x64, retCmd, timeout);
+            if (retval != GPS_RESPONSE.ACK)
+            {
+                return retval;
+            }
+
+            enable = retCmd[6];
             return retval;
         }
 

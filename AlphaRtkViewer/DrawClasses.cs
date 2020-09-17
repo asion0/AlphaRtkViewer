@@ -86,15 +86,22 @@ namespace RtkViewer
 
         public void Draw(Graphics g, List<ParsingStatus.SateInfo> s, List<int> sigList, int w, int h)
         {
-            DrawBg(g, w, h);
-            //return;
-            if (sigList.Count == 1)
+            try
             {
-                DrawSingle(g, s, w, h);
+                DrawBg(g, w, h);
+
+                if (sigList.Count == 1)
+                {
+                    DrawSingle(g, s, w, h);
+                }
+                else
+                {
+                    DrawDual(g, s, sigList, w, h);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                DrawDual(g, s, sigList, w, h);
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -324,35 +331,42 @@ namespace RtkViewer
 
         public void Draw(Graphics g, List<ParsingStatus.SateInfo>[] l, ParsingStatus.SateType[] t)
         {
-            DrawBg(g);
-            for (int i = 0; i < l.Length; i++)
+            try
+            { 
+                DrawBg(g);
+                for (int i = 0; i < l.Length; i++)
+                {
+                    if (l[i].Count == 0)
+                    {
+                        continue;
+                    }
+
+                    foreach(ParsingStatus.SateInfo s in l[i])
+                    {
+                        //2018/11/05 Alex modify ele scale as u center
+                        //double ele = radius * Math.Cos(s.ele * Math.PI / 180.0);
+                        double ele = radius * ((90 - s.ele) / 90.0);
+                        double x = (ele * Math.Sin(s.azi * Math.PI / 180.0));
+                        double y = -(ele * Math.Cos(s.azi * Math.PI / 180.0));
+
+                        x += centerX + prnNumBgXOffset;
+                        y += centerY + prnNumBgYOffset;
+
+                        int index = (int)t[i] - 1;
+                        Image img = ((s.inUse) ? inUsePrnImage : nonUsePrnImage)[index];
+                        Brush br = ((s.inUse) ? inUsePrnBrush : nonUsePrnBrush)[index];
+
+                        g.DrawImage(img, (float)x, (float)y, prnNumBgW, prnNumBgH);
+                        g.DrawString(s.prn.ToString(), prnNumTxtFont, br,
+                        new RectangleF( (int)x + prnNumTxXOffset, (int)y + prnNumTxYOffset,
+                        prnNumBgW + prnNumTxXRightOffset, prnNumBgH), drawFormat);
+
+                    }
+                }
+            }
+            catch(Exception ex)
             {
-                if (l[i].Count == 0)
-                {
-                    continue;
-                }
-
-                foreach(ParsingStatus.SateInfo s in l[i])
-                {
-                    //2018/11/05 Alex modify ele scale as u center
-                    //double ele = radius * Math.Cos(s.ele * Math.PI / 180.0);
-                    double ele = radius * ((90 - s.ele) / 90.0);
-                    double x = (ele * Math.Sin(s.azi * Math.PI / 180.0));
-                    double y = -(ele * Math.Cos(s.azi * Math.PI / 180.0));
-
-                    x += centerX + prnNumBgXOffset;
-                    y += centerY + prnNumBgYOffset;
-
-                    int index = (int)t[i] - 1;
-                    Image img = ((s.inUse) ? inUsePrnImage : nonUsePrnImage)[index];
-                    Brush br = ((s.inUse) ? inUsePrnBrush : nonUsePrnBrush)[index];
-
-                    g.DrawImage(img, (float)x, (float)y, prnNumBgW, prnNumBgH);
-                    g.DrawString(s.prn.ToString(), prnNumTxtFont, br,
-                    new RectangleF( (int)x + prnNumTxXOffset, (int)y + prnNumTxYOffset,
-                    prnNumBgW + prnNumTxXRightOffset, prnNumBgH), drawFormat);
-
-                }
+                Console.WriteLine(ex.ToString());
             }
         }
     }
@@ -746,34 +760,40 @@ namespace RtkViewer
         const int GBColorOfset = 5;
         public void Draw(Graphics g)
         {
-            DrawBg(g);
+            try
+            { 
+                DrawBg(g);
 
-            if (scatterData.pData.Count <= 0)
-                return;
-            float[] c = null;
+                if (scatterData.pData.Count <= 0)
+                    return;
+                float[] c = null;
 
-            Pen pen = new Pen(Color.Red);
-            Pen scatterPointBlue = new Pen(Color.Blue);
-            SolidBrush whiteBr = new SolidBrush(Color.White);
-            for (int i = 0; i < scatterData.pData.Count - 1; ++i)
-            {
-                c = CalcCoordinates(i);
+                Pen pen = new Pen(Color.Red);
+                Pen scatterPointBlue = new Pen(Color.Blue);
+                SolidBrush whiteBr = new SolidBrush(Color.White);
+                for (int i = 0; i < scatterData.pData.Count - 1; ++i)
+                {
+                    c = CalcCoordinates(i);
+                    if (c != null)
+                    {
+                        int gb = (int)(MaxGBColor - (double)(i + 2) * MaxGBColor / scatterData.pData.Count)+ GBColorOfset;
+                        pen.Color = Color.FromArgb(255, 255, gb, gb);
+                        g.FillEllipse(whiteBr, c[0] + pointOffsetX, c[1] + pointOffsetY, pointW, pointH);
+                        g.DrawEllipse(pen, c[0] + pointOffsetX, c[1] + pointOffsetY, pointW, pointH);
+                    }
+                }
+
+                c = CalcCoordinates(scatterData.pData.Count - 1);
                 if (c != null)
                 {
-                    int gb = (int)(MaxGBColor - (double)(i + 2) * MaxGBColor / scatterData.pData.Count)+ GBColorOfset;
-                    pen.Color = Color.FromArgb(255, 255, gb, gb);
                     g.FillEllipse(whiteBr, c[0] + pointOffsetX, c[1] + pointOffsetY, pointW, pointH);
-                    g.DrawEllipse(pen, c[0] + pointOffsetX, c[1] + pointOffsetY, pointW, pointH);
+                    g.DrawEllipse(scatterPointBlue, c[0] + pointOffsetX, c[1] + pointOffsetY, pointW, pointH);
                 }
             }
-
-            c = CalcCoordinates(scatterData.pData.Count - 1);
-            if (c != null)
+            catch (Exception ex)
             {
-                g.FillEllipse(whiteBr, c[0] + pointOffsetX, c[1] + pointOffsetY, pointW, pointH);
-                g.DrawEllipse(scatterPointBlue, c[0] + pointOffsetX, c[1] + pointOffsetY, pointW, pointH);
+                Console.WriteLine(ex.ToString());
             }
         }
     }
-
 }

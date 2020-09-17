@@ -166,6 +166,8 @@
             this.snr3Pbox = new System.Windows.Forms.PictureBox();
             this.snr1Pbox = new System.Windows.Forms.PictureBox();
             this.snr4Pbox = new System.Windows.Forms.PictureBox();
+            this.configureVeryLowSpeedFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.queryVeryLowSpeedFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.viewerPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1249,11 +1251,13 @@
             this.configureUpdateRateToolStripMenuItem,
             this.configureOperationModeToolStripMenuItem,
             this.configGlCpifMenuItem,
+            this.configureVeryLowSpeedFilterToolStripMenuItem,
             this.toolStripSeparator1,
             this.queryFirmwareInformationToolStripMenuItem,
             this.queryUpdateRateToolStripMenuItem,
             this.queryRTKModeToolStripMenuItem,
-            this.queryGlCpifMenuItem});
+            this.queryGlCpifMenuItem,
+            this.queryVeryLowSpeedFilterToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -1686,6 +1690,20 @@
             this.snr4Pbox.TabStop = false;
             this.snr4Pbox.Paint += new System.Windows.Forms.PaintEventHandler(this.snr4Pbox_Paint);
             // 
+            // configureVeryLowSpeedFilterToolStripMenuItem
+            // 
+            this.configureVeryLowSpeedFilterToolStripMenuItem.Name = "configureVeryLowSpeedFilterToolStripMenuItem";
+            this.configureVeryLowSpeedFilterToolStripMenuItem.Size = new System.Drawing.Size(384, 22);
+            this.configureVeryLowSpeedFilterToolStripMenuItem.Text = "Configure Very Low Speed Filter";
+            this.configureVeryLowSpeedFilterToolStripMenuItem.Click += new System.EventHandler(this.configureVeryLowSpeedFilterToolStripMenuItem_Click);
+            // 
+            // queryVeryLowSpeedFilterToolStripMenuItem
+            // 
+            this.queryVeryLowSpeedFilterToolStripMenuItem.Name = "queryVeryLowSpeedFilterToolStripMenuItem";
+            this.queryVeryLowSpeedFilterToolStripMenuItem.Size = new System.Drawing.Size(384, 22);
+            this.queryVeryLowSpeedFilterToolStripMenuItem.Text = "Query Very Low Speed Filter";
+            this.queryVeryLowSpeedFilterToolStripMenuItem.Click += new System.EventHandler(this.queryVeryLowSpeedFilterToolStripMenuItem_Click);
+            // 
             // AlphaView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1881,6 +1899,8 @@
         private System.Windows.Forms.Label latitudeLbl;
         private System.Windows.Forms.Label licPeriodLbl;
         private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ToolStripMenuItem configureVeryLowSpeedFilterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem queryVeryLowSpeedFilterToolStripMenuItem;
     }
 }
 
